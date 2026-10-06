@@ -1,0 +1,337 @@
+{
+  "id": "grc-v1",
+  "version": "1.0-draft",
+  "name": "GRC farkındalık",
+  "description": "Süreç, kalite, risk, uyum ve kontrolleri birlikte deneyimle.",
+  "roles": [
+    {
+      "id": "R1",
+      "name": "Park müdürü",
+      "shortName": "Park müdürü",
+      "icon": "compass",
+      "color": "forest",
+      "goal": "Güvenli ve kaliteli gündüz hizmetini sürdürürken yeni hizmet fırsatını kaynaklarla uyumlu değerlendirmek.",
+      "responsibility": "İşletme hedefleri, bütçe, öncelikler, hizmet açılışı ve yetki sınırınızdaki artık risk kararlarından sorumlusunuz. Süreç sahipleri işi ve riskleri yönetir; siz çelişen öncelikleri çözer ve gerekli kaynakları sağlarsınız.",
+      "briefing": "100 kredi bütçe var. Sponsor akşam hizmetiyle ilgileniyor; dışarıya kesin taahhüt verilmemiştir. Mevcut rehber tek akşam oturumu için görev devriyle kullanılabilir. Kritik güvenlik/refah koşulları atlanamaz. Güncel güvence kapsam kartı incelenebilir.",
+      "authority": "Bütçe içinde kaynak ayırabilir; 0/40/120 toplam akşam kapasitesi arasında, ön koşullarla uyumlu karar verebilirsiniz. En çok 20 ek kredi veya yüksek ticari risk için kurul rolündeki eğitmene gerekçeli talep iletirsiniz. Kayıt gerçeğini değiştiremezsiniz.",
+      "steps": "İlk beş dakikada her süreç sahibinden hedef, kritik bağımlılık ve ihtiyaçlarını sorun. Kararları kendinizde toplamak yerine yetki matrisini uygulayın. Her önemli karar için sahip, gerekçe ve yeniden bakılacak zamanı belirleyin.",
+      "partners": "R2 hizmet sonucu, R3 refah, R4 altyapı, R5 güvenlik, R6 tedarik; R7 danışmanlık sağlar. R8’in bağımsız incelemesini kolaylaştırın.",
+      "output": "Açılış kararı, kaynak planı, süreli risk kararları ve bölüm sonunda üç öncelikli iyileştirme."
+    },
+    {
+      "id": "R2",
+      "name": "Operasyon ve ziyaretçi hizmetleri",
+      "shortName": "Operasyon",
+      "icon": "users",
+      "color": "sage",
+      "goal": "Verilen sözün ziyaretçinin yaşadığı deneyime dönüşmesini sağlamak.",
+      "responsibility": "Rezervasyon, ziyaret planı, yönlendirme, ziyaretçi iletişimi ve hizmet sonucunun sahibisiniz. Bir kaydın kapanmasıyla hizmetin gerçekten yerine gelmesini birlikte izlersiniz.",
+      "briefing": "Bugünkü plan 480 ziyaretçi içeriyor. Okul rezervasyonunda 80 kişi kayıtlı. Geçerli portal talimatı v3 ve oturum kapasitesi 40 kişi. Eğitim merkezi ve kuş alanı sıra düzenlemek için kullanılabilir. Bir rehber gündüz görevini planlı devrederek tek akşam oturumunda çalışabilir.",
+      "authority": "Güncel kurallar içinde günlük ziyaret sırasını, iş dağıtımını ve rutin düşük riskli düzenlemeleri yapabilirsiniz. Kapasite sınırını yükseltemezsiniz. Yeni hizmetin açılışı müdür kararıdır. Ziyaretçi verilerinin paylaşımında amaç ve kapsamdan sorumlusunuz.",
+      "steps": "Rezervasyonun kim tarafından ve nasıl teyit edildiğini kontrol edin. Bakım, güvenlik ve müdürle kapasite/rota bilgisini eşitleyin. Ziyaretçiye tek ve gerçekçi açıklama verin; sonucu ilgili kişiye teyit ettirin.",
+      "partners": "R5 rota ve güvenlik; R3 bakım zamanı; R4 hizmet durumu; R1 kaynak ve açılış; R7 veri ve kalite kuralları.",
+      "output": "F1 iş/sapma kayıtları, ortak ziyaret planı, ziyaretçi teyitleri, sınırlı paylaşım kararı ve kalite göstergesi."
+    },
+    {
+      "id": "R3",
+      "name": "Hayvan bakım sorumluları",
+      "shortName": "Hayvan bakımı",
+      "icon": "paw",
+      "color": "amber",
+      "goal": "Bakım sürekliliğini, hayvan refahını ve doğru iş devrini korumak.",
+      "responsibility": "Hayvan bakım planı, görev devri, girdilerin teslim alınması ve olağan dışı durumun ilgili ekibe bildirilmesi sizdedir. Bu oyunda veterinerlik teşhisi yapmanız gerekmez; verilen normal/izlem durum kartlarını kullanırsınız.",
+      "briefing": "Temel bakım ekibi yetkindir. Bir vardiya devrinde değişen talimatın iletildiği teyit edilmemiştir. Sahada eski basılı ziyaret hazırlık formu görülebilir; portal geçerli kaynağı içerir. Mevcut onaylı yem stoğu geçici bakım için yeterlidir; yeni parti kabul edilmeden kullanılmamalıdır.",
+      "authority": "Uygun olmayan veya kabulü tamamlanmayan girdiyi kullanım dışı bekletebilir; refah açısından ilgili faaliyetin durdurulmasını isteyebilirsiniz. Teknik test veya tedarik belgesini incelemeden uygun kabul edilmiş gösteremezsiniz.",
+      "steps": "Görevleri ve vardiya devrini teyit edin. Hangi talimatla çalışıldığını kontrol edin. Teknik ekipten Su Yaşamı hizmetinin durumunu, satın almadan yeni partinin kabul durumunu öğrenin. Gerekirse S5 ile mevcut yetkin kişilerin görev devrini netleştirin.",
+      "partners": "R4 bakım bağımlılıkları; R6 parti kabul; R5 güvenli alan; R2 ziyaret programı; R7 kayıt ve kriter desteği.",
+      "output": "Görev/devir teyidi, parti teslim alma kaydı, gözlenen refah durumu ve ilgili kontrol kanıtları."
+    },
+    {
+      "id": "R4",
+      "name": "Teknik bakım ve tesis",
+      "shortName": "Teknik bakım",
+      "icon": "wrench",
+      "color": "blue",
+      "goal": "Altyapı bağımlılıklarını bilerek hizmeti ve bakım koşullarını sürdürebilmek.",
+      "responsibility": "Teknik A ve teknik B kaynaklarının iş sırası, test, bakım ve saha bilgisinin doğruluğu sizdedir. Aynı teknik kaynağı iki eşzamanlı işe atayamazsınız.",
+      "briefing": "Su Yaşamı Merkezi’nde P1 ve P2 pompaları var. Envanter P2 için bağımsız B2 panosunu gösteriyor; eski bir bakım notunda B1 ifadesi görülüyor. Son yedek testi formunda kapsam ayrıntısı yok. Bu çelişkiyi sahada doğrulatabilirsiniz. S1 teknik A ile 15 dakika ve ikinci rol teyidi gerektirir.",
+      "authority": "Günlük teknik iş sırasını belirler; güvenli durum teyidi verirsiniz. Hizmet açılışını tek başınıza onaylamazsınız. Bütçeli işi müdürle koordine edersiniz. Başlamamış veya tamamlanmamış işi yapılmış gösteremezsiniz.",
+      "steps": "Varlık ilişkilerini ve önceki testin hangi koşulu kapsadığını araştırın. Kritik bağımlılık varsa R1 ve R3’e etkisini açıklayın. Kontrol sonunda sadece sonucu değil varlık, yöntem, zaman ve doğrulamayı kaydedin.",
+      "partners": "R5 ikinci göz ve erişim; R3 refah/bakım ihtiyacı; R2 ziyaretçi etkisi; R1 kaynak; R7 kontrol amacı ve kanıt.",
+      "output": "Kaynak planı, gerçek test/düzeltme sonucu, F3 kanıtı, hizmet durumunun doğru ve zamanlı paylaşımı."
+    },
+    {
+      "id": "R5",
+      "name": "Güvenlik ve çalışan koordinasyonu",
+      "shortName": "Güvenlik",
+      "icon": "shield",
+      "color": "purple",
+      "goal": "Güvenli ziyaret, doğru rota ve net görev paylaşımı sağlamak.",
+      "responsibility": "Alan erişimi, rota teyidi, görev koordinasyonu ve kritik saha kontrollerine ikinci göz olmak sizin görevinizdir. İkinci göz kontrolü iç denetimin yerine geçmez.",
+      "briefing": "Eğitim merkezi ve Su Yaşamı oturumlarında üst sınır 40 kişidir. Güncel rota talimatı v3’tür; bazı çalışanların elinde eski baskı olabilir. Alternatif ziyaret rotası S4 ile hazırlanabilir. Oyun sırasında gerçek tahliye veya fiziksel hayvan müdahalesi yapılmaz.",
+      "authority": "Kritik güvenlik şartı karşılanmayan ilgili alanın erişimini sınırlandırabilirsiniz. Tek başınıza bütün işletmenin kapatılması veya yeni hizmetin açılması kararını vermezsiniz. Gördüğünüz test sonucunu teyit eder, görmediğiniz uygulamayı imzalamazsınız.",
+      "steps": "R2 ile rota/kapasiteyi karşılaştırın. İş devirlerinde kimin hangi görevi aldığını netleştirin. R4’ün kritik testinde doğru alan, yöntem ve sonuç olduğunu gözleyin. Çelişkiyi gerekçesiyle ilgili sahibine taşıyın.",
+      "partners": "R2 ziyaretçi akışı; R3 bakım; R4 saha testi; R1 kapsamlı kararlar; R7 kontrol ve istisna kuralları.",
+      "output": "Rota ve kapasite teyidi, ikinci göz kanıtı, gerektiğinde alan sınırı ve yeniden açma ölçütü."
+    },
+    {
+      "id": "R6",
+      "name": "Satın alma ve tedarik",
+      "shortName": "Tedarik",
+      "icon": "box",
+      "color": "clay",
+      "goal": "Uygun girdiyi, izlenebilir ve gerekçeli bir tedarik kararıyla sağlamak.",
+      "responsibility": "Teklif karşılaştırması, tedarikçi ilişkisi, parti kabul organizasyonu ve kayıtları sizdedir. Lojistik ekibi aynı anda bir aktif iş yapabilir.",
+      "briefing": "YP17 yeni yem partisi için kabul kaydı gereklidir. Genel tedarikçi belgesi parti kabulünün yerini tutmaz. Onaylı seçenek S3, alternatif S6’dır; toplam maliyet kaynak tablosunda görünür. Mevcut stok geçici bakım için yeterli olduğu için bütün kontrollerin atlanmasını gerektiren gerçek bir zorunluluk yoktur.",
+      "authority": "Uygun seçenekleri karşılaştırır ve bütçe sahibiyle kararlaştırırsınız. Kabulü tamamlanmayan ürünü ayrı bekletebilirsiniz. Kişisel ilişki veya sözlü baskıyı resmi onay sayamazsınız. Çıkar çatışması şüphesini şeffaf bildirirsiniz.",
+      "steps": "R3’ten ihtiyaç ve kabul ölçütünü öğrenin. Teklifin ek kontrol, teslim ve kullanım maliyetini birlikte düşünün. Kullanıma bırakmadan kaynak, parti ve kabul eden kişiyi kaydedin.",
+      "partners": "R3 ihtiyaç ve teslim alma; R1 bütçe/eskalasyon; R7 kriter ve etik; R2 dış taraflardan gelen talepler.",
+      "output": "Gerekçeli teklif seçimi, YP17 kabul ve kullanım izlenebilirliği, gerekli eskalasyon ve paylaşım kayıtları."
+    },
+    {
+      "id": "R7",
+      "name": "Risk, uyum ve kalite",
+      "shortName": "Risk ve kalite",
+      "icon": "leaf",
+      "color": "mint",
+      "goal": "Ekiplerin hedef, risk, kontrol ve kanıt arasında sağlıklı ilişki kurmasını desteklemek.",
+      "responsibility": "Geçerli kuralları erişilebilir kılar; risk sahipliğini netleştirmeye yardım eder; kontrol ve göstergeleri sorgularsınız. Operasyonel risklerin tümünü kendi üzerinize almaz, iç denetçi yerine geçmezsiniz.",
+      "briefing": "Geçerli talimat v3’tür. Risk yöntemi 3×3 öğretim ölçeğidir. Yeni hizmetin kapsamı ve dış beyanı incelenmelidir. Geçmiş günün performans raporu ile ham ziyaret verileri karşılaştırılabilir. Bir kayıt eksikliği, uygulamanın yokluğunu tek başına kanıtlamaz.",
+      "authority": "Eksik kriter veya kontrolü görünür kılar ve yetkili kişiye eskale edersiniz. Hizmet sahibi yerine açılış veya bütçe kararı vermezsiniz. Kontrolün amacını açıklayabilir, daha orantılı bir yöntem önerebilirsiniz.",
+      "steps": "İlgili rollere riskin ve kontrolün sahibini sorun. Kısa örneklerle neden–olay–etki dilini kullanın. Güncel dokümana yönlendirin. Göstergelerin gerçek hizmet sonucunu ve veri kapsamını yansıtıp yansıtmadığını kontrol edin.",
+      "partners": "Bütün süreç sahipleri; karar için R1; bağımsız inceleme için R8. Denetçinin bulgusunu operasyon adına kapatmayın.",
+      "output": "Risk/karar kartlarına destek, kontrol ilişkileri, kapsam inceleme, doğru kalite göstergesi ve aksiyon takibi."
+    },
+    {
+      "id": "R8",
+      "name": "İç denetçi",
+      "shortName": "İç denetim",
+      "icon": "clipboard",
+      "color": "slate",
+      "goal": "İşletmenin uygulamalarına ilişkin kanıta dayalı, bağımsız ve dengeli güvence sağlamak.",
+      "responsibility": "Kriteri, uygulamayı ve sonucu örneklemle karşılaştırırsınız. Uygun uygulamayı da kaydedersiniz. Operasyonel işi yürütmez, kontrolü işletmez ve açılış onayı vermezsiniz.",
+      "briefing": "İnceleme erişiminiz var; ilgili rollerden kriter ve kayıt isteyebilirsiniz. Başlangıçta eski test kaydını ve doküman sürüm bilgisini inceleyebilirsiniz. Ana denetim bölümünde üç örnek seçilecek: ziyaret planı, saha kontrolü ve tedarik kabulü.",
+      "authority": "Kayıt isteyebilir, gözlem yapabilir, görüşme gerçekleştirebilir ve gerekçeli bulgu yazabilirsiniz. Eksik kanıtı tamamlamak için geriye dönük imza talep edemezsiniz. Kendi katıldığınız operasyonel kararın incelemesini eğitmene devredersiniz.",
+      "steps": "B1’de kriterleri ve süreç ilişkisini öğrenin. B2’de örnekleme planınızı ve eski kayıt incelemesini hazırlayın. B3’te karar–sonuç bağlantısını gözleyin. Denetim bölümünde en fazla üç öncelikli bulgu ve bir uygun örneği paylaşın.",
+      "partners": "İlgili kayıt sahipleri; kriter açıklaması için R7; karar ve kaynak için R1. Görüş ayrılığında kanıt ve kapsam üzerinden ilerleyin.",
+      "output": "Örnekleme notu; kriter + kanıt + fark + etki içeren F4 kayıtları; uygun uygulama örneği; gerekli takip önerisi."
+    }
+  ],
+  "zones": [
+    {
+      "id": "savanna",
+      "name": "Savan ve aslan alanı",
+      "shortName": "Savan",
+      "kind": "Yaşam alanı",
+      "owner": "R3",
+      "icon": "paw",
+      "description": "Geniş otlaklar, gölgeli dinlenme alanları ve kontrollü ziyaret rotaları. Parkın büyük sakinleri burada yaşıyor.",
+      "assets": [
+        "Atlas ve Duru · aslanlar",
+        "Ada · zürafa",
+        "Efe · zebra",
+        "K1 · alan kapısı"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "water",
+      "name": "Su Yaşamı Merkezi",
+      "shortName": "Su Yaşamı",
+      "kind": "Yaşam alanı",
+      "owner": "R4",
+      "icon": "waves",
+      "description": "Su altı yaşamını keşfeden ziyaret rotası; havuzlar, bakım alanları ve onları destekleyen teknik altyapı.",
+      "assets": [
+        "H1 · ana havuz",
+        "P1 ve P2 · dolaşım pompaları",
+        "Poyraz ve Deniz · penguenler",
+        "Mira · deniz kaplumbağası"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "birds",
+      "name": "Kuş alanı",
+      "shortName": "Kuş alanı",
+      "kind": "Yaşam alanı",
+      "owner": "R3",
+      "icon": "feather",
+      "description": "Ağaçların arasından geçen sakin bir rota. Rehberli gözlem, bakım ve ziyaret planları birlikte yürütülür.",
+      "assets": ["Rüzgar · papağan", "Flamingo göleti", "Gözlem platformu"],
+      "initialStatus": "open"
+    },
+    {
+      "id": "clinic",
+      "name": "Klinik ve bakım",
+      "shortName": "Klinik",
+      "kind": "Destek hizmeti",
+      "owner": "R3",
+      "icon": "heart",
+      "description": "Hayvan bakım ekibinin çalışma alanı. Bakım planları, görev devirleri ve refah gözlemleri burada koordine edilir.",
+      "assets": ["Bakım odaları", "Vardiya teslim noktası", "Gözlem alanı"],
+      "initialStatus": "open"
+    },
+    {
+      "id": "education",
+      "name": "Eğitim merkezi",
+      "shortName": "Eğitim merkezi",
+      "kind": "Ziyaretçi hizmeti",
+      "owner": "R2",
+      "icon": "book",
+      "description": "Okul grupları ve atölyeler için buluşma noktası. Her oturumda en fazla 40 ziyaretçi ağırlanır.",
+      "assets": [
+        "40 kişilik etkinlik salonu",
+        "Rehber buluşma noktası",
+        "Erişilebilir ziyaret rotası"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "depot",
+      "name": "Depo ve tedarik kabul",
+      "shortName": "Depo",
+      "kind": "Destek hizmeti",
+      "owner": "R6",
+      "icon": "box",
+      "description": "Girdilerin kontrol edildiği ve ilgili ekiplere teslim edildiği alan. Parti bilgisi ve kabul sonucu birlikte izlenir.",
+      "assets": [
+        "Parti kabul alanı",
+        "Kullanım dışı bekletme alanı",
+        "Lojistik ekibi"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "utilities",
+      "name": "Enerji ve su altyapısı",
+      "shortName": "Altyapı",
+      "kind": "Teknik altyapı",
+      "owner": "R4",
+      "icon": "bolt",
+      "description": "Parkın görünmeyen desteği. Enerji ve su bağlantıları, yaşam alanlarını ve ziyaretçi hizmetlerini besler.",
+      "assets": [
+        "B1 ve B2 · enerji panoları",
+        "Su dağıtım hattı",
+        "Teknik A ve B ekipleri"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "entrance",
+      "name": "Giriş ve ziyaretçi merkezi",
+      "shortName": "Ziyaretçi merkezi",
+      "kind": "Ziyaretçi hizmeti",
+      "owner": "R2",
+      "icon": "ticket",
+      "description": "Mavi Vadi’ye ilk adım. Rezervasyonlar, ziyaretçi karşılaması ve güncel park bilgileri burada buluşur.",
+      "assets": [
+        "Danışma noktası",
+        "Rezervasyon listesi",
+        "Ana giriş ve yönlendirme"
+      ],
+      "initialStatus": "open"
+    }
+  ],
+  "phases": [
+    {
+      "id": "welcome",
+      "name": "İşletmeyi devralma",
+      "minutes": 20,
+      "description": "Rolünü tanı, ekibinle buluş ve parkı keşfet."
+    },
+    {
+      "id": "quality",
+      "name": "Süreç ve kalite",
+      "minutes": 35,
+      "description": "Girdiyi, çıktıyı ve ziyaretçinin yaşadığı deneyimi birlikte değerlendir."
+    },
+    {
+      "id": "risk",
+      "name": "Risk ve açılış kararı",
+      "minutes": 40,
+      "description": "Yeni hizmet için seçenekleri, kaynakları ve koşulları değerlendir."
+    },
+    {
+      "id": "break",
+      "name": "Ara",
+      "minutes": 15,
+      "description": "Kısa bir mola. Eğitmen oyun saatini duraklatabilir."
+    },
+    {
+      "id": "controls",
+      "name": "Kontrollerin etkisi",
+      "minutes": 35,
+      "description": "Uygulanan kontrollerin sahadaki sonuçlarını gözle."
+    },
+    {
+      "id": "audit",
+      "name": "Denetim ve güvence",
+      "minutes": 35,
+      "description": "Beklentiyi, uygulamayı ve kanıtı karşılaştır."
+    },
+    {
+      "id": "improve",
+      "name": "Yönetimin gözden geçirmesi",
+      "minutes": 20,
+      "description": "Öncelikli iyileştirmeleri ve sahiplerini belirle."
+    },
+    {
+      "id": "debrief",
+      "name": "Birlikte değerlendirme",
+      "minutes": 40,
+      "description": "Kararlarından öğrendiklerini kendi işine taşı."
+    }
+  ],
+  "guides": [
+    {
+      "id": "welcome",
+      "title": "Mavi Vadi’ye hoş geldin",
+      "icon": "leaf",
+      "tag": "Başlangıç",
+      "summary": "Bir işletme, farklı roller, ortak hedefler.",
+      "paragraphs": [
+        "Bugün güvenli ve kaliteli bir ziyaret günü yöneteceksiniz. Günlük işletme sürerken yeni Su Yaşamı Akşam Deneyimi için bir fırsat var.",
+        "Bilgi farklı rollere dağılmış durumda. İhtiyaç duyduğun bilgiyi sor, ilgili ekiple paylaş ve çelişen bilgileri doğrula.",
+        "Bu bir öğrenme ortamı. Yardım istemek, durup düşünmek ve yeni kanıtla karar değiştirmek çalışmanın parçası."
+      ]
+    },
+    {
+      "id": "working",
+      "title": "Birlikte çalışma ilkeleri",
+      "icon": "users",
+      "tag": "Rehber",
+      "summary": "Kısa kayıtlar, açık sorumluluklar, anlaşılır iletişim.",
+      "paragraphs": [
+        "Önemli kararın sahibini, gerekçesini ve yeniden bakılacak zamanı netleştir. Bir işi devrederken karşı tarafın kabulünü teyit et.",
+        "Yapılmamış işi tamamlanmış veya görmediğin sonucu doğrulanmış gösterme. Geç kayıt gerçek kayıt zamanını taşır.",
+        "Bir işin bitmesi, kabul ölçütünün karşılanmasıyla anlaşılır. Yalnız kayıt güncellenmesi her zaman yeterli değildir."
+      ]
+    },
+    {
+      "id": "boundaries",
+      "title": "Güvenli işletme sınırları",
+      "icon": "shield",
+      "tag": "Ortak kurallar",
+      "summary": "Güvenlik, hayvan refahı ve doğru hizmet taahhüdü.",
+      "paragraphs": [
+        "Kritik güvenlik veya hayvan refahı ön koşulu eksikse ilgili faaliyeti başlatma. Güvenli alternatif, sınırlı hizmet veya erteleme geliştir.",
+        "Bir ziyaret veya eğitim oturumunda en çok 40 kişi bulunabilir. Üç oturumda toplam 120 kişi, aynı anda 120 kişi anlamına gelmez.",
+        "Eğitim boyunca yalnız kurgusal bilgiler kullanılır. Gerçek dış alıcılara mesaj gönderilmez. Eğitmen bütün dış paydaş rollerini canlandırır."
+      ]
+    },
+    {
+      "id": "risk",
+      "title": "Risk ve kontrolü birlikte düşün",
+      "icon": "compass",
+      "tag": "GRC",
+      "summary": "Hedef, belirsizlik, kontrol ve kanıt arasındaki ilişki.",
+      "paragraphs": [
+        "Hangi hedefi koruyoruz? Hangi koşul, hangi olaya ve sonuca yol açabilir? Riskin sahibi kim?",
+        "Kontrolün amacı, sahibi ve ne zaman uygulanacağı açık olmalı. Tasarlanmış, uygulanmış ve sonucu doğrulanmış bir kontrol farklı durumlardır.",
+        "Kalan riski ilgili yetkili değerlendirir. Risk, uyum ve kalite rolü yol gösterir; operasyonel sahipliğin yerini almaz."
+      ]
+    }
+  ],
+  "events": []
+}
