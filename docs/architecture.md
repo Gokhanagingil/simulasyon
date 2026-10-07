@@ -6,6 +6,10 @@
 
 Harita özgün SVG çizimidir. Bölge kimlikleri içerik dosyasına karşılık gelir; seçili alan ve durumlar veriden üretilir. Mouse, dokunma, Enter ve Space ile seçim; dar ekranda yatay kaydırma ve liste alternatifi vardır.
 
+Liste görünümünden haritaya geçildiğinde ve yakınlaştırma değiştiğinde seçili bölge görünür alana getirilir. Mobil menü, zaten açık olan sayfa yeniden seçildiğinde de kapanır; Escape odağı menü düğmesine döndürür.
+
+Yazma isteği başladığında önceki durum sorguları geçersiz sayılır; geciken bir sorgu yeni kaydı ekranda geri alamaz. Rol değişikliği açık kartı hemen yeniler, aynı kullanıcı ve atölyeye ait not taslağını ve imleç konumunu korur. Not gönderilirken yazılan yeni metin ayrıca kaydedilmeyi bekler. Bağlantı göstergesi formu yeniden oluşturmadan güncellenir.
+
 ## API
 
 Tüm yazma istekleri JSON gövdesi kullanır. Giriş dışında API kimlik doğrulaması ister. Hatalar `{ "error": "Türkçe açıklama" }` biçimindedir.

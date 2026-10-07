@@ -11,7 +11,7 @@ function files(path) {
 }
 for (const file of ["server", "public", "test", "scripts"]
   .flatMap(files)
-  .filter((f) => f.endsWith(".js"))) {
+  .filter((f) => /\.m?js$/.test(f))) {
   const result = spawnSync(process.execPath, ["--check", file], {
     stdio: "inherit",
   });

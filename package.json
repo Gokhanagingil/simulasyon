@@ -10,6 +10,10 @@
     "start": "node --env-file-if-exists=.env server/index.js",
     "dev": "node --env-file-if-exists=.env --watch server/index.js",
     "test": "node --test test/*.test.js",
+    "test:browser": "node --test test/browser.test.mjs",
     "check": "node scripts/check.js"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
   }
 }

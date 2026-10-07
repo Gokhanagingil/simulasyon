@@ -1,5 +1,26 @@
 # İlk sürüm doğrulaması
 
+## 7 Ekim 2026 — devam çalışması
+
+GitHub PR #1 kaynakları `9927a74` üzerinden yeniden alındı. `npm run check`, dokuz HTTP/SQLite testi ve beş otomatik Chromium testi başarılı. Tarayıcı ortamı: Node.js 24.19.0, Playwright 1.62.1, Chromium 153.0.8010.0.
+
+Yeni tarayıcı testleri `test/browser.test.mjs` içinde tekrar çalıştırılabilir. Şu sorunlar giderildi ve bu akışlarda doğrulandı:
+
+- Rol değişirken kişisel not taslağının silinmesi ve yazı alanı odaktayken önceki rol kartının ekranda kalması.
+- Kaydetme isteği sürerken yazılan yeni metnin kaybolması.
+- Kaydetmeden önce başlayan bir durum sorgusunun yeni notu eski değerle değiştirmesi.
+- Kullanıcı yazı yazarken bağlantı kaybı/geri gelmesi bilgisinin görünmemesi.
+- Mobil menüde zaten açık sayfa seçildiğinde menünün kapanmaması; Escape sonrası klavye odağı.
+- Liste görünümünde seçilen bölgenin telefonda haritanın görünür kısmının dışında kalması.
+
+Ayrı eğitmen ve katılımcı oturumlarında formdan kullanıcı oluşturma, hatalı/doğru giriş, not kaydetme ve yenileme, klavyeyle harita seçimi, bölge durumu paylaşımı, saati başlatma/duraklatma doğrulandı. Altı eğitmen sayfası 1440, 768, 390 ve 360 px genişliklerde kontrol edildi; yatay sayfa taşması ve yakalanmamış JavaScript hatası görülmedi. Bu ölçüler tarayıcı viewport kontrolüdür; fiziksel Android/iOS cihaz testi değildir.
+
+Güncel ekran görüntüleri `docs/verified-desktop.png` ve `docs/verified-mobile.png` içindedir. İlk kurulumun boş ekibini gösterirler. Önceki `preview-*` görselleri kurgusal dolu atölye örneklerini korur.
+
+Dağıtım sınırı değişmedi: internete açık bir sunucu kurulmadı, Docker çalıştırılmadı. GRC olay dağıtımı/puanlama ve ITIL paketi henüz bu sürümün parçası değildir.
+
+## Önceki doğrulama
+
 6 Ekim 2026 · Node.js 24.19.0 · Chromium 153 / Playwright 1.62.1
 
 ## Otomatik API kontrolleri

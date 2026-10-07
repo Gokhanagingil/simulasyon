@@ -6,6 +6,10 @@ Bu sürüm **oynanabilir uygulama altyapısıdır**. Olayların dallanması, ris
 
 ![Mavi Vadi park görünümü](docs/preview-desktop.png)
 
+[Giriş ekranı](docs/preview-login.png) · [Rol kartları](docs/preview-roles.png) · [Telefon görünümü](docs/preview-mobile.png)
+
+![Mavi Vadi park görünümü](docs/preview-desktop.png)
+
 [Giriş ekranı](docs/preview-login.png) · [Rol kartları](docs/preview-roles.png) · [Mobil görünüm](docs/preview-mobile.png)
 
 Ekran görüntüleri kurgusal örnek atölye verileriyle alınmıştır. Yeni kurulum katılımcı ve duyuru içermeyen bir atölyeyle başlar.
@@ -101,5 +105,17 @@ npm test
 ```
 
 `check` JavaScript sözdizimini ve senaryo yapısını kontrol eder. Entegrasyon testleri giriş/çıkış, yetki sınırları, özel rol bilgileri, atölye ve not ayrımı, role özel duyuru, yeniden başlatma sonrası kalıcılık, süre yönetimi, parola değişikliği ve hatalı girdileri kapsar. GitHub Actions aynı kontrolleri çalıştırır.
+
+Tarayıcı testleri için geliştirme bağımlılıklarını kurun:
+
+```bash
+npm ci
+npx playwright install chromium
+npm run test:browser
+```
+
+Beş tarayıcı testi ayrı eğitmen/katılımcı oturumlarını, rol değişiminde açık kartın ve notun korunmasını, yavaş kaydetme sırasında yeni metin yazılmasını, eski ağ yanıtlarının yeni kaydı geri almamasını, bağlantı uyarılarını ve 1440/768/390/360 px düzenlerini kapsar. Geçici veritabanı ve rastgele test parolaları kullanılır. Playwright yalnız geliştirme bağımlılığıdır; uygulamayı çalıştırmak için `npm ci` gerekmez. GitHub Actions bu testleri de çalıştırır.
+
+`SCREENSHOT_DIR=test-results npm run test:browser` ile masaüstü ve telefon ekran görüntüleri alınabilir. Hazır bir Chromium kurulumu kullanılacaksa `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` ile yolu belirtilebilir.
 
 `docs/architecture.md` API ve genişletme noktalarını özetler.

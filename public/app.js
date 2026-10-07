@@ -62,6 +62,8 @@ const endpoint = (resource) =>
   `/api/workshops/${ctx.state.workshop.id}/${resource}`;
 
 async function api(path, { method = "GET", data, quiet = false } = {}) {
+  // A response from a poll started before a write must not undo that write.
+  const requestEpoch = method === "GET" ? epoch : ++epoch;
   let response;
   try {
     response = await fetch(path, {
@@ -77,7 +79,8 @@ async function api(path, { method = "GET", data, quiet = false } = {}) {
   }
   const result = await response.json();
   if (!response.ok) {
-    if (response.status === 401 && !quiet && ctx.user) resetSession();
+    if (response.status === 401 && !quiet && ctx.user && requestEpoch === epoch)
+      resetSession();
     throw new Error(result.error || "İşlem tamamlanamadı.");
   }
   return result;
@@ -102,6 +105,9 @@ function signature(s) {
 }
 function render() {
   const focused = document.activeElement;
+  const selection = focused?.id === "personal-note"
+    ? [focused.selectionStart, focused.selectionEnd, focused.selectionDirection]
+    : null;
   const focusSelector = focusTarget(focused);
   const focusZone = focused?.dataset.zone;
   const scroll = document.querySelector("#map-scroll");
@@ -123,7 +129,32 @@ function render() {
     document
       .querySelector(`[data-zone="${CSS.escape(focusZone)}"]`)
       ?.focus({ preventScroll: true });
+  if (selection)
+    document.querySelector("#personal-note")?.setSelectionRange(...selection);
   updateClock();
+}
+function setConnected(connected) {
+  ctx.connected = connected;
+  const indicator = document.querySelector(".connection");
+  if (indicator) {
+    indicator.classList.toggle("offline", !connected);
+    indicator.title = connected
+      ? "Değişiklikler düzenli olarak güncelleniyor"
+      : "Bağlantı yeniden deneniyor";
+    indicator.innerHTML = `<span></span>${connected ? "Bağlı" : "Yeniden bağlanıyor"}`;
+  }
+  const banner = document.querySelector(".connection-banner");
+  if (banner) banner.hidden = connected;
+}
+function revealSelectedZone() {
+  const container = document.querySelector("#map-scroll");
+  const zone = container?.querySelector(`[data-zone="${CSS.escape(ctx.selectedZone)}"]`);
+  if (!zone) return;
+  const area = container.getBoundingClientRect(), target = zone.getBoundingClientRect();
+  if (target.left < area.left || target.right > area.right)
+    container.scrollLeft += target.left + target.width / 2 - area.left - area.width / 2;
+  if (target.top < area.top || target.bottom > area.bottom)
+    container.scrollTop += target.top + target.height / 2 - area.top - area.height / 2;
 }
 function resetSession() {
   epoch++;
@@ -177,9 +208,8 @@ async function refresh() {
     ctx.user = s.user;
     snapshotAt = Date.now();
     const reconnected = !ctx.connected;
-    ctx.connected = true;
+    setConnected(true);
     if (roleChanged) {
-      ctx.noteDraft = null;
       if (dialog.open) dialog.close();
       toast("Rolün güncellendi. Yeni rol kartını inceleyebilirsin.");
     }
@@ -188,20 +218,12 @@ async function refresh() {
     );
     if (
       !dialog.open &&
-      !editing &&
-      (signature(s) !== lastSignature || reconnected)
+      (roleChanged || (!editing && (signature(s) !== lastSignature || reconnected)))
     )
       render();
   } catch (error) {
     if (ctx.user && requestEpoch === epoch) {
-      const was = ctx.connected;
-      ctx.connected = false;
-      if (
-        was &&
-        !dialog.open &&
-        !document.activeElement?.closest("input, textarea, select")
-      )
-        render();
+      setConnected(false);
     }
   } finally {
     polling = false;
@@ -340,18 +362,22 @@ async function action(name, target) {
     case "map-mode":
       ctx.mapMode = target.dataset.mode;
       render();
+      revealSelectedZone();
       return;
     case "zoom-in":
       ctx.zoom = Math.min(1.75, ctx.zoom + 0.25);
       render();
+      revealSelectedZone();
       return;
     case "zoom-out":
       ctx.zoom = Math.max(1, ctx.zoom - 0.25);
       render();
+      revealSelectedZone();
       return;
     case "zoom-reset":
       ctx.zoom = 1;
       render();
+      revealSelectedZone();
       return;
     case "print-role":
       document.body.classList.add("print-role");
@@ -485,6 +511,12 @@ async function action(name, target) {
   }
 }
 document.addEventListener("click", async (event) => {
+  const navigation = event.target.closest('.sidebar a[href^="#"]');
+  if (navigation && ctx.user) {
+    event.preventDefault();
+    navigate(navigation.getAttribute("href").slice(1));
+    return;
+  }
   const zone = event.target.closest("[data-zone]");
   if (zone) {
     ctx.selectedZone = zone.dataset.zone;
@@ -523,9 +555,11 @@ document.addEventListener("keydown", (event) => {
     !dialog.open &&
     (ctx.navOpen || ctx.profileOpen)
   ) {
+    const wasNavOpen = ctx.navOpen;
     ctx.navOpen = false;
     ctx.profileOpen = false;
     render();
+    document.querySelector(wasNavOpen ? ".mobile-menu" : "#profile-toggle")?.focus();
   }
   if (event.key === "Tab" && ctx.navOpen && !dialog.open) {
     const items = [
@@ -553,6 +587,10 @@ document.addEventListener("input", (event) => {
 });
 document.addEventListener("change", async (event) => {
   if (event.target.id !== "workshop-select") return;
+  if (busy) {
+    event.target.value = ctx.state.workshop.id;
+    return;
+  }
   if (ctx.noteDraft !== null) {
     toast("Atölye değiştirmeden önce kişisel notunu kaydet.");
     event.target.value = ctx.state.workshop.id;
@@ -616,13 +654,17 @@ document.addEventListener("submit", async (event) => {
         dialog.close();
         toast("Bölüm değişti. Saat duraklatıldı.");
         break;
-      case "note":
+      case "note": {
         await api(endpoint("note"), { method: "PUT", data });
         ctx.state.note = data.text;
-        ctx.noteDraft = null;
+        // Keep edits made while the submitted version was on its way to the server.
+        if (ctx.noteDraft === data.text) ctx.noteDraft = null;
         render();
-        toast("Kişisel notun kaydedildi.");
+        toast(ctx.noteDraft === null
+          ? "Kişisel notun kaydedildi."
+          : "Gönderdiğin not kaydedildi. Son eklediklerini de kaydetmeyi unutma.");
         break;
+      }
       case "workshop": {
         const { workshop } = await api("/api/workshops", {
           method: "POST",
