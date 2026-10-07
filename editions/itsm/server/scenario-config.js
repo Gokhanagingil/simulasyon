@@ -24,6 +24,7 @@ export function validateScenario(input) {
   const services = unique(pack.services, 'Hizmetler', 100), cis = unique(pack.cis, 'Varlıklar', 200);
   const events = unique(pack.events, 'Olaylar', 100); unique(pack.slaPolicies, 'SLA politikaları', 10);
   for (const role of pack.roles) for (const field of ['name','shortName','goal','responsibility','partners','briefing','authority','steps','output']) string(role[field] || '', `Rol ${role.id} / ${field}`, 4000, true);
+  for (const guide of pack.guides) for (const field of ['title','category','content']) string(guide[field], `Rehber ${guide.id} / ${field}`, 4000);
   for (const phase of pack.phases) { string(phase.name, 'Bölüm adı', 120); if (!Number.isInteger(phase.minutes) || phase.minutes < 1 || phase.minutes > 480) fail(400, 'Bölüm süresi 1–480 dakika olmalı.'); }
   if (durationSeconds(pack) > 86400) fail(400, 'Toplam eğitim süresi 24 saati aşamaz.');
   for (const zone of pack.zones) { string(zone.name, 'Bölge adı', 120); if (!roles.has(zone.owner)) fail(400, `${zone.id}: bölge sahibi bulunamadı.`); }
@@ -63,6 +64,15 @@ export function validateScenario(input) {
   const visiting = new Set(), done = new Set();
   function visit(id) { if (visiting.has(id)) fail(400, 'Olay ön koşulları döngü oluşturuyor.'); if (done.has(id)) return; visiting.add(id); pack.events.find(e => e.id === id).prerequisites.forEach(visit); visiting.delete(id); done.add(id); }
   pack.events.forEach(e => visit(e.id));
+  // At least one closing choice per event must be reachable. A release-only
+  // dependency is not a closure dependency (a problem can precede its change).
+  const closable = new Set();
+  let progress = true;
+  while (progress) {
+    progress = false;
+    for (const event of pack.events) if (!closable.has(event.id) && event.choices.some(c => c.resolve && c.requiresResolved.every(id => closable.has(id)))) { closable.add(event.id); progress = true; }
+  }
+  if (closable.size !== pack.events.length) fail(400, 'Tamamlanma koşulları çözülemeyen bir döngü oluşturuyor. En az bir bağımsız kapanış yolu bırakın.');
   pack.engine = 'itsm';
   return pack;
 }

@@ -18,16 +18,17 @@ export async function readITSM(store,scenario,wid,isTrainer) {
   const now=Date.now(),enriched=records.map(r=>({...r,sla:slaStatus(r,now)}));
   const activeEvents=scenario.events.filter(e=>runs.some(r=>r.event_id===e.id)&&!records.find(r=>r.event_id===e.id)?.resolved_at);
   return {serverNow:now,mode:'workshop',niles:{status:'not_connected',label:'Niles bağlantısı doğrulanmadı',message:'Buradaki SLA atölye kaydına aittir. Niles referansı eklemek canlı senkronizasyon veya Niles SLA kanıtı sağlamaz.'},
-    events:scenario.events.filter(e=>isTrainer||runs.some(r=>r.event_id===e.id)).map(e=>({...Object.fromEntries(['id','minute','title','process','recordType','priority','zone','serviceId','ciId','message','information','prerequisites'].map(k=>[k,e[k]])),run:runs.find(r=>r.event_id===e.id)||null,...(isTrainer?{expected:e.expected,choices:e.choices,debrief:e.debrief}:{})})),
+    events:scenario.events.filter(e=>isTrainer||runs.some(r=>r.event_id===e.id)).map(e=>({...Object.fromEntries(['id','minute','title','process','recordType','priority','zone','serviceId','ciId','message','information','prerequisites'].map(k=>[k,e[k]])),run:runs.find(r=>r.event_id===e.id)||null,...(isTrainer?{expected:e.expected,choices:e.choices,debrief:e.debrief}:records.find(r=>r.event_id===e.id)?.resolved_at?{debrief:e.debrief}:{})})),
     records:enriched,decisions:decisions.map(d=>({...d,...(!isTrainer?{choice_id:undefined}: {})})),services:scenario.services,cis:scenario.cis,slaPolicies:scenario.slaPolicies,
     effects:[...new Set(activeEvents.map(e=>e.effect))],
     metrics:{released:runs.length,total:scenario.events.length,open:records.filter(r=>!r.resolved_at).length,breached:enriched.filter(r=>r.sla.breached).length,responded:records.filter(r=>r.ack_at).length,resolved:records.filter(r=>r.resolved_at).length,score:runs.reduce((n,r)=>n+r.score,0),maximum:scenario.events.reduce((n,e)=>n+Math.max(...e.choices.map(c=>c.score)),0)},
-    finale:runs.some(r=>scenario.events.find(e=>e.id===r.event_id)?.finale&&records.find(t=>t.event_id===r.event_id)?.resolved_at),
+    finale:records.length===scenario.events.length&&records.every(r=>r.resolved_at)&&runs.some(r=>scenario.events.find(e=>e.id===r.event_id)?.finale&&records.find(t=>t.event_id===r.event_id)?.resolved_at),
   };
 }
 export async function mutateITSM({store,scenario,wid,user,input,revision}) {
   if(!isITSM(scenario))fail(404,'ITSM paketi etkin değil.');
   const now=Date.now();
+  if(input.requestId!==undefined&&(typeof input.requestId!=='string'||!/^[A-Za-z0-9_-]{8,80}$/.test(input.requestId)))fail(400,'İşlem kimliği geçersiz.');
   if(['release','evaluate'].includes(input.action)&&!user.trainer)fail(403,'Olay akışını eğitmen yönetir.');
   if(input.action==='release') {
     const e=scenario.events.find(e=>e.id===input.eventId);if(!e)fail(404,'Olay bulunamadı.');
@@ -44,17 +45,26 @@ export async function mutateITSM({store,scenario,wid,user,input,revision}) {
   }
   const record=await store.one('SELECT * FROM simulation_records WHERE workshop_id=? AND id=?',wid,input.recordId);
   if(!record)fail(404,'Kayıt bulunamadı.');
+  const decisionId=input.requestId||crypto.randomUUID();
+  if(['note','propose','evaluate'].includes(input.action)) {
+    const previous=await store.one('SELECT * FROM simulation_decisions WHERE id=?',decisionId);
+    if(previous) {
+      if(previous.workshop_id!==wid||previous.event_id!==record.event_id||previous.actor_id!==user.id||previous.kind!==input.action)fail(409,'Bu işlem kimliği başka bir kayda ait.');
+      return;
+    }
+  }
   if(input.action==='ack') {
     if(record.resolved_at)fail(409,'Kapanmış kayıtta ilk müdahale değiştirilemez.');
-    await store.run("UPDATE simulation_records SET ack_at=COALESCE(ack_at,?),assignee=COALESCE(assignee,?),status=CASE WHEN status='new' THEN 'working' ELSE status END WHERE id=? AND workshop_id=?",now,user.name,record.id,wid);
+    await store.run("UPDATE simulation_records SET ack_at=COALESCE(ack_at,?),assignee=COALESCE(assignee,?),status=CASE WHEN status='new' THEN 'working' ELSE status END WHERE id=? AND workshop_id=? AND resolved_at IS NULL",now,user.name,record.id,wid);
   } else if(input.action==='note'||input.action==='propose') {
     if(record.resolved_at)fail(409,'Bu kayıt kapanmış.');
     const note=text(input.note,input.action==='propose'?20:5);
-    const id=crypto.randomUUID();
+    const id=decisionId;
     await store.batch([
-      ['INSERT INTO simulation_decisions(id,workshop_id,event_id,actor_id,kind,note,created_at) VALUES(?,?,?,?,?,?,?)',[id,wid,record.event_id,user.id,input.action,note,now]],
-      ["UPDATE simulation_records SET status=CASE WHEN ?='propose' THEN 'review' ELSE status END WHERE id=? AND workshop_id=?",[input.action,record.id,wid]],
+      ['INSERT OR IGNORE INTO simulation_decisions(id,workshop_id,event_id,actor_id,kind,note,created_at) SELECT ?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM simulation_records WHERE id=? AND workshop_id=? AND resolved_at IS NULL)',[id,wid,record.event_id,user.id,input.action,note,now,record.id,wid]],
+      ["UPDATE simulation_records SET status=CASE WHEN ?='propose' THEN 'review' ELSE status END WHERE id=? AND workshop_id=? AND resolved_at IS NULL AND EXISTS(SELECT 1 FROM simulation_decisions WHERE id=?)",[input.action,record.id,wid,id]],
     ]);
+    if(!await store.one('SELECT id FROM simulation_decisions WHERE id=?',id))fail(409,'Bu kayıt başka bir oturumda kapandı. Güncel durumu yenileyin.');
   } else if(input.action==='evaluate') {
     const e=scenario.events.find(e=>e.id===record.event_id),choice=e.choices.find(c=>c.id===input.choiceId);
     if(!choice)fail(400,'Bir sonuç dalı seç.');
@@ -64,10 +74,11 @@ export async function mutateITSM({store,scenario,wid,user,input,revision}) {
     if(choice.resolve&&e.requireBreach&&now<=record.due_at)fail(409,'Bu kartta gerçek SLA aşımı gözlenecek. Çözüm hedefi henüz dolmadı.');
     if(choice.resolve&&!record.ack_at)fail(409,'Önce ilk müdahaleyi kaydet.');
     await store.batch([
-      ['INSERT INTO simulation_decisions(id,workshop_id,event_id,actor_id,kind,note,choice_id,created_at) VALUES(?,?,?,?,?,?,?,?)',[crypto.randomUUID(),wid,e.id,user.id,'evaluate',`${note}\nSonuç: ${choice.result}`,choice.id,now]],
-      ['UPDATE event_runs SET score=? WHERE workshop_id=? AND event_id=?',[choice.score,wid,e.id]],
-      ["UPDATE simulation_records SET status=?,resolved_at=? WHERE id=? AND workshop_id=?",[choice.resolve?'resolved':'working',choice.resolve?now:null,record.id,wid]],
+      ['INSERT OR IGNORE INTO simulation_decisions(id,workshop_id,event_id,actor_id,kind,note,choice_id,created_at) SELECT ?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM simulation_records WHERE id=? AND workshop_id=? AND resolved_at IS NULL)',[decisionId,wid,e.id,user.id,'evaluate',`${note}\nSonuç: ${choice.result}`,choice.id,now,record.id,wid]],
+      ['UPDATE event_runs SET score=? WHERE workshop_id=? AND event_id=? AND EXISTS(SELECT 1 FROM simulation_decisions WHERE id=?)',[choice.score,wid,e.id,decisionId]],
+      ["UPDATE simulation_records SET status=?,resolved_at=? WHERE id=? AND workshop_id=? AND resolved_at IS NULL AND EXISTS(SELECT 1 FROM simulation_decisions WHERE id=?)",[choice.resolve?'resolved':'working',choice.resolve?now:null,record.id,wid,decisionId]],
     ]);
+    if(!await store.one('SELECT id FROM simulation_decisions WHERE id=?',decisionId))fail(409,'Bu kayıt başka bir oturumda kapandı. Güncel durumu yenileyin.');
   } else if(input.action==='niles') {
     const value=text(input.url,10,350);let u;try{u=new URL(value);}catch{fail(400,'Geçerli Niles kayıt adresi gir.');}
     if(u.origin!=='https://niles-grc.com'||u.username||u.password||u.search||u.hash||u.pathname==='/')fail(400,'Niles staging kayıt adresini, sorgu veya erişim anahtarı olmadan gir.');

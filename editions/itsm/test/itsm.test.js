@@ -120,3 +120,40 @@ test('full scenario can be played and final status does not depend on a fixed ev
   }
   assert.equal(state.itsm.metrics.resolved,12);assert.equal(state.itsm.metrics.maximum,60);assert.equal(state.itsm.metrics.score,60);assert.equal(state.itsm.finale,true);assert.deepEqual(state.itsm.effects,[]);
 });
+
+test('retry keys deduplicate notes and accepted results without extra score or history',async t=>{
+  const f=await fixture(t),released=await f.action({action:'release',eventId:'E01'}),record=released.body.itsm.records[0];
+  await f.action({action:'ack',recordId:record.id});
+  const note={action:'note',recordId:record.id,note:'Yerel prova: turnike testi yapıldı.',requestId:'note-retry-0001'};
+  assert.equal((await f.action(note,f.member)).status,200);
+  assert.equal((await f.action(note,f.member)).body.itsm.decisions.filter(d=>d.id===note.requestId).length,1);
+  const input={action:'evaluate',recordId:record.id,choiceId:'E01-1',note:'Kuyruk açıldı ve ziyaretçi teyidi alındı.',requestId:'accept-retry-0001'};
+  assert.equal((await f.action(input)).status,200);
+  const again=await f.action(input);assert.equal(again.status,200);
+  assert.equal(again.body.itsm.decisions.filter(d=>d.id===input.requestId).length,1);
+  assert.equal(again.body.itsm.metrics.score,5);
+  assert.equal((await f.action({...note,requestId:'new-closed-note'})).status,409);
+});
+
+test('unreachable closure dependencies and malformed guide content are rejected',()=>{
+  const p=loadScenario();
+  const cycle=structuredClone(p);
+  for(const c of cycle.events[0].choices)if(c.resolve)c.requiresResolved=['E02'];
+  for(const c of cycle.events[1].choices)if(c.resolve)c.requiresResolved=['E01'];
+  assert.throws(()=>validateScenario(cycle),/döngü/);
+  const malformed=structuredClone(p);malformed.guides[0].content={unexpected:true};
+  assert.throws(()=>validateScenario(malformed),/metni kontrol/);
+});
+
+test('finale does not celebrate while the other required events remain unplayed',async t=>{
+  const f=await fixture(t),config=(await f.trainer(f.path+'/scenario')).body;
+  const final=config.pack.events.find(e=>e.finale);final.prerequisites=[];
+  assert.equal((await f.trainer(f.path+'/scenario','PUT',config)).status,200);
+  const released=await f.action({action:'release',eventId:final.id}),r=released.body.itsm.records[0];
+  await f.action({action:'ack',recordId:r.id});
+  const choice=final.choices.find(c=>c.resolve&&!c.requiresResolved.length);
+  const accepted=await f.action({action:'evaluate',recordId:r.id,choiceId:choice.id,note:'Final kartının kanıtı doğrulandı; diğer işler henüz oynanmadı.'});
+  assert.equal(accepted.status,200);assert.equal(accepted.body.itsm.finale,false);
+  const participant=(await f.member(f.path+'/state')).body.itsm.events.find(e=>e.id===final.id);
+  assert.equal(participant.debrief,final.debrief);assert.equal(participant.choices,undefined);
+});

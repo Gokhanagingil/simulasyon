@@ -9,7 +9,7 @@ Ayrı bir hayvanat bahçesi hizmet yönetimi atölyesi. Bu klasör GRC uygulamas
 3. **Senaryo stüdyosu** içinde olaylar, karar sonuçları, animasyonlar, SLA hedefleri ve bölüm süreleri düzenlenir. Değişiklikler kaydedilir.
 4. **Olay akışı → Ekibe gönder** ile kart yayımlanır. Önerilen dakika otomatik tetikleyici değildir.
 5. Katılımcı kaydı üstlenir, çalışmasını ve kanıtını yazar, eğitmene sunar. Eğitmen gözlenen sonucu kabul eder.
-6. **Gün sonu** ekranı çalışma geçmişini gösterir; Excel ile açılabilen CSV raporu indirilebilir.
+6. **Gün sonu** ekranı ekibin gerçek kararlarından park hikâyesi oluşturur; kayıt CSV’si ve hikâye/kanıt JSON’u indirilebilir. Niles kabulü her iki çıktıda da ayrı tutulur.
 
 ### Senaryo paketleri
 
@@ -46,4 +46,4 @@ Sites sürümü Vinext/Cloudflare Worker + D1 kullanır. `.openai/hosting.json` 
 
 Bu turda tarayıcı ile görsel kontrol çalıştırılmadı. Başarılı derleme ve otomatik sunucu testleri görsel kabulün yerine geçmez.
 
-Devam noktası ve yayın kanıtı: `docs/CONTINUE-ITSM.md`.
+Güncel doğrulama kapsamı: `docs/validation.md`. Ana depodaki `docs/ITSM_CONTINUE.md` devam noktasıdır; bu klasördeki `docs/CONTINUE-ITSM.md` tarihsel kurtarma notudur.
