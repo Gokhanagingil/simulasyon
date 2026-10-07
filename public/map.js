@@ -1,168 +1,204 @@
 import { escape } from "./ui.js";
 
+// A schematic operational plan. These eight stable keys are shared by both
+// scenario packs; changing the drawing must not change zone interactions.
 const regions = {
   savanna: {
-    d: "M76 117Q72 76 132 77L343 88Q402 88 423 148L408 269Q397 316 337 326L141 312Q77 300 65 245Z",
-    label: [240, 336],
+    d: "M60 79H343L373 109V236L342 281H92L60 251Z",
+    label: [74, 94, 160],
+    ground: "#dbe0d3",
+    name: "Savan",
   },
   birds: {
-    d: "M489 105Q543 64 628 78Q699 84 718 140L704 221Q674 264 609 254L515 250Q470 226 474 177Z",
-    label: [596, 281],
+    d: "M403 79H593V264L574 281H420L403 264Z",
+    label: [416, 94, 164],
+    ground: "#d6dfd5",
+    name: "Kuş alanı",
   },
   water: {
-    d: "M803 98Q906 59 1004 112Q1054 137 1054 206L1030 289Q991 334 908 321L829 302Q773 280 778 208Z",
-    label: [919, 344],
+    d: "M621 79H878L918 119V252L889 281H650L621 252Z",
+    label: [635, 94, 169],
+    ground: "#dfe5e1",
+    name: "Su Yaşamı",
   },
   clinic: {
-    d: "M85 423Q122 399 202 409L246 425Q269 449 259 501L239 545Q174 557 112 537L79 512Z",
-    label: [172, 564],
+    d: "M60 363H228V494H60Z",
+    label: [72, 375, 143],
+    ground: "#e4e4dc",
+    name: "Klinik",
   },
   education: {
-    d: "M344 450Q358 420 410 420L546 432Q584 444 588 483L575 556Q543 588 474 581L372 567Q329 549 332 496Z",
-    label: [462, 600],
+    d: "M252 363H454V494H252Z",
+    label: [264, 375, 177],
+    ground: "#e2e4db",
+    name: "Eğitim merkezi",
   },
   depot: {
-    d: "M665 459Q704 433 769 450Q820 466 819 510L803 554Q755 579 697 563L663 534Z",
-    label: [738, 592],
+    d: "M659 363H794V494H659Z",
+    label: [670, 375, 113],
+    ground: "#e7e3d9",
+    name: "Depo",
   },
   utilities: {
-    d: "M872 402Q913 372 984 388L1034 420Q1057 455 1028 496L987 522Q922 530 881 495Z",
-    label: [959, 549],
+    d: "M818 363H918V494H818Z",
+    label: [825, 375, 86],
+    ground: "#e1e5df",
+    name: "Altyapı",
   },
   entrance: {
-    d: "M481 635Q520 604 587 609Q655 605 699 641L694 687Q594 716 482 688Z",
-    label: [589, 697],
+    d: "M478 394H635V514H478Z",
+    label: [486, 406, 141],
+    ground: "#e5e3d9",
+    name: "Ziyaretçi merkezi",
   },
 };
-function trees() {
+
+const landscape = {
+  savanna: `
+    <path d="M62 139C118 111 141 149 205 133S314 125 372 157M61 156C115 125 153 169 207 151S311 145 373 177M63 174C123 147 151 189 217 171S315 168 373 198M66 193C127 173 157 211 220 191S324 187 371 219" fill="none" stroke="#b8c3ae" stroke-width=".8"/>
+    <path d="M89 175C113 153 151 167 161 191S153 237 125 244L90 232Z" fill="#c7d2bd" stroke="#aab9a0" stroke-width=".8"/>
+    <path d="M100 184C122 168 144 176 149 197S140 226 117 232M110 189C126 181 139 188 139 203S132 222 119 223" fill="none" stroke="#acbba2" stroke-width=".7"/>
+    <path d="M263 208C287 190 322 195 337 214L329 239C311 251 280 242 267 232Z" fill="#a9bdbe" stroke="#809b9e" stroke-width="1"/>
+    <path d="M277 214C293 204 316 208 325 218M278 223C293 215 309 220 318 226" fill="none" stroke="#c6d5d4" stroke-width="1"/>
+    <path d="M191 129V257M181 248H259" fill="none" stroke="#919d8b" stroke-dasharray="3 4" stroke-width=".9"/>
+    <g fill="#d2d5c8" stroke="#7b8978" stroke-width=".9"><path d="M281 129H340V151H281Z"/><path d="M281 139H340M310 129V151" fill="none"/></g>
+    <path d="M83 268H143M83 265V271M103 265V271M123 265V271M143 265V271" stroke="#8d9a85" stroke-width="1"/>
+    <path d="M348 201V230M343 205H353M343 215H353M343 225H353" fill="none" stroke="#8d9a85" stroke-width="1"/>
+  `,
+  birds: `
+    <path d="M422 131H574V252H422Z" fill="url(#park-hatch)" stroke="#9ba997" stroke-width=".8"/>
+    <path d="M435 145H561V238H435Z" fill="#c8d5c6" stroke="#829781" stroke-width="1.2"/>
+    <path d="M435 145 561 238M561 145 435 238M477 145V238M519 145V238M435 176H561M435 207H561" stroke="#9bad98" stroke-width=".7"/>
+    <path d="M457 170C479 157 510 164 517 184S496 218 472 213S446 186 457 170Z" fill="#b7c8b5" stroke="#8fa38f" stroke-width=".8"/>
+    <path d="M475 185C481 176 498 176 503 185S495 203 485 200S470 194 475 185Z" fill="#9bb7b6" stroke="#819e9e" stroke-width=".8"/>
+    <path d="M450 257H546M449 252V263M473 252V263M497 252V263M521 252V263M545 252V263" fill="none" stroke="#8b9b87" stroke-width=".9"/>
+  `,
+  water: `
+    <path d="M651 146 692 131H847L879 162V233L852 257H690L651 229Z" fill="#cbd6d2" stroke="#a4b4ae" stroke-width="1"/>
+    <path d="M670 164C693 136 731 147 755 157S808 141 840 154S874 203 849 228S806 229 777 234S731 252 701 233S650 191 670 164Z" fill="#a8bdc0" stroke="#7d9c9f" stroke-width="1.1"/>
+    <path d="M683 172C705 148 731 160 755 170S808 156 833 167S859 201 840 216S808 216 778 222S734 238 710 220S664 192 683 172Z" fill="none" stroke="#bfd0d0" stroke-width="1"/>
+    <path d="M699 181C716 165 733 175 757 184S806 172 825 181S843 202 829 204S804 203 776 210S738 221 719 208S686 193 699 181Z" fill="none" stroke="#c6d4d4" stroke-width="1"/>
+    <path d="M689 219 713 212 730 223 723 241 702 240Z" fill="#e1e3d5" stroke="#9aa998" stroke-width=".8"/>
+    <path d="M871 148H891V226H871Z" fill="url(#park-deck)" stroke="#8f9c97" stroke-width=".8"/>
+    <path d="M644 145H661V207H644Z" fill="#e9e7dd" stroke="#98aaa0" stroke-width=".8"/>
+  `,
+  clinic: `
+    <path d="M77 417H150V434H199V477H77Z" fill="#c5ceca" stroke="#697e79" stroke-width="1.2"/>
+    <path d="M88 428H140V466H88ZM153 444H186V466H153Z" fill="#d6ded8" stroke="#8a9b91" stroke-width=".8"/>
+    <path d="M114 428V466M88 447H140M153 453H186" fill="none" stroke="#9aaba0" stroke-width=".6"/>
+    <path d="M159 417H201V429H159Z" fill="#f0eee6" stroke="#a5aca0" stroke-width=".8"/>
+    <path d="M173 415V422M169.5 418.5H176.5" stroke="#637f79" stroke-width="1.7"/>
+    <path d="M210 416V480M205 424H215M205 443H215M205 462H215" fill="none" stroke="#a5ada1" stroke-width=".8"/>
+  `,
+  education: `
+    <path d="M275 418H428V477H275Z" fill="#cbd2c8" stroke="#6f8072" stroke-width="1.2"/>
+    <path d="M290 431H361V463H290Z" fill="#e3e7da" stroke="#94a28f" stroke-width=".8"/>
+    <path d="M370 426H416V470H370ZM377 432H409V464H377Z" fill="#bdcbb9" stroke="#849a80" stroke-width=".8"/>
+    <path d="M300 432V462M310 432V462M320 432V462M330 432V462M340 432V462M350 432V462" stroke="#b0bdaa" stroke-width=".6"/>
+    <path d="M272 483H431M289 480V487M308 480V487M327 480V487M346 480V487M365 480V487M384 480V487M403 480V487M422 480V487" stroke="#9da999" stroke-width=".8"/>
+  `,
+  depot: `
+    <path d="M678 416H775V463H678Z" fill="#ced0c6" stroke="#79847a" stroke-width="1.2"/>
+    <path d="M684 424H769M684 431H769M684 438H769M684 445H769M684 452H769M727 416V463" stroke="#a0a99c" stroke-width=".8"/>
+    <path d="M678 469H693V482H678ZM700 469H715V482H700ZM722 469H737V482H722Z" fill="#e3ded0" stroke="#9ca390" stroke-width=".8"/>
+    <path d="M748 471H776M748 476H776M748 481H776" stroke="#a7ac9d" stroke-width=".8"/>
+  `,
+  utilities: `
+    <path d="M831 416H905V452H831Z" fill="#b8c7c2" stroke="#6b8078" stroke-width="1.1"/>
+    <path d="M838 423H898V445H838Z" fill="#849d99" stroke="#65837e" stroke-width=".8"/>
+    <path d="M853 423V445M868 423V445M883 423V445M838 434H898" fill="none" stroke="#bed0c8" stroke-width=".7"/>
+    <circle cx="843" cy="474" r="11" fill="#d1d8d0" stroke="#81958a" stroke-width="1"/>
+    <circle cx="843" cy="474" r="6" fill="none" stroke="#a3b5a7" stroke-width=".7"/>
+    <circle cx="874" cy="474" r="11" fill="#d1d8d0" stroke="#81958a" stroke-width="1"/>
+    <circle cx="874" cy="474" r="6" fill="none" stroke="#a3b5a7" stroke-width=".7"/>
+    <path d="M898 462V486M894 466H902M894 474H902M894 482H902" stroke="#8d9e8f" stroke-width=".8"/>
+  `,
+  entrance: `
+    <path d="M492 448H621V481H580V495H534V481H492Z" fill="#cbd0c5" stroke="#758273" stroke-width="1.2"/>
+    <path d="M502 458H526V472H502ZM588 458H612V472H588Z" fill="#e3e5d9" stroke="#9aaa96" stroke-width=".8"/>
+    <path d="M537 450V482M550 450V482M563 450V482M576 450V482" stroke="#9daa94" stroke-width=".8"/>
+    <path d="M504 504H610M515 500V508M529 500V508M584 500V508M598 500V508" stroke="#9ba58f" stroke-width=".9"/>
+  `,
+};
+
+function perimeterPlanting() {
+  // Plan symbols: fine concentric canopy outlines, never illustrated trees.
   const points = [
-    [56, 75],
-    [96, 55],
-    [386, 57],
-    [445, 79],
-    [736, 77],
-    [1050, 94],
-    [1080, 144],
-    [49, 295],
-    [94, 343],
-    [356, 356],
-    [439, 310],
-    [468, 347],
-    [716, 307],
-    [772, 332],
-    [1068, 326],
-    [38, 423],
-    [63, 570],
-    [116, 599],
-    [239, 610],
-    [300, 594],
-    [650, 587],
-    [816, 613],
-    [862, 551],
-    [1048, 568],
-    [1030, 625],
-    [902, 661],
-    [768, 674],
-    [417, 646],
-    [350, 690],
-    [210, 674],
-    [143, 650],
-    [67, 644],
-    [545, 49],
-    [680, 50],
-    [938, 50],
-    [1065, 250],
-    [563, 351],
-    [643, 349],
-    [709, 394],
-    [270, 371],
+    [46, 140, 9], [45, 176, 8], [45, 213, 10], [43, 250, 8],
+    [123, 64, 8], [160, 64, 9], [198, 64, 8], [234, 64, 7],
+    [386, 135, 8], [385, 170, 7], [386, 208, 8], [386, 244, 7],
+    [605, 131, 7], [605, 167, 6], [605, 206, 7], [605, 244, 6],
+    [933, 160, 7], [934, 196, 8], [933, 233, 7], [932, 271, 8],
+    [86, 343, 7], [119, 343, 8], [151, 343, 7], [185, 343, 7],
+    [278, 343, 7], [312, 343, 7], [345, 343, 8], [379, 343, 7],
+    [689, 343, 7], [727, 343, 8], [765, 343, 7], [843, 343, 7],
+    [96, 514, 7], [132, 514, 8], [171, 514, 7], [208, 514, 7],
+    [283, 514, 7], [317, 514, 7], [351, 514, 8], [388, 514, 7],
+    [686, 514, 8], [723, 514, 7], [758, 514, 8], [843, 514, 8], [881, 514, 7],
   ];
-  return points
-    .map(
-      ([x, y], i) =>
-        `<g transform="translate(${x} ${y}) scale(${0.65 + (i % 4) * 0.11})"><ellipse cy="14" rx="17" ry="8" fill="#557752" opacity=".12"/><path d="M0 9v12" stroke="#977d58" stroke-width="5"/><circle cx="-7" cy="0" r="15" fill="${i % 2 ? "#688766" : "#819767"}"/><circle cx="8" cy="-3" r="16" fill="${i % 2 ? "#86a07e" : "#9db28a"}"/><circle cy="-11" r="15" fill="${i % 2 ? "#96ad87" : "#adc198"}"/></g>`,
-    )
-    .join("");
+  return points.map(([x, y, r]) => `<g transform="translate(${x} ${y})"><circle r="${r}" fill="#dce1d4" stroke="#aab6a1" stroke-width=".6"/><circle r="${r - 3}" fill="none" stroke="#bac5b0" stroke-width=".6"/><path d="M-2 0H2M0-2V2" stroke="#99a88f" stroke-width=".7"/></g>`).join("");
 }
-const animalDefs = `
- <g id="lion"><ellipse cy="16" rx="27" ry="9" fill="#947044" opacity=".15"/><path d="M-19 3q-21 0-18-16" fill="none" stroke="#bb8952" stroke-width="4"/><circle cx="-36" cy="-15" r="4" fill="#8c643d"/><ellipse rx="25" ry="13" fill="#d3a462"/><path d="M-12 8v11M9 8v11" stroke="#bd8d53" stroke-width="7" stroke-linecap="round"/><circle cx="22" cy="-4" r="18" fill="#ad7850"/><circle cx="22" cy="-5" r="12" fill="#e2b776"/><circle cx="15" cy="-16" r="4" fill="#cb9d62"/><circle cx="28" cy="-16" r="4" fill="#cb9d62"/><circle cx="18" cy="-7" r="1.5" fill="#594b3a"/><circle cx="26" cy="-7" r="1.5" fill="#594b3a"/><path d="m19-1 3 3 3-3" fill="#6a523d"/></g>
- <g id="giraffe"><ellipse cy="32" rx="28" ry="9" fill="#947044" opacity=".13"/><path d="M-14 8v25M10 8v25" stroke="#c29859" stroke-width="6" stroke-linecap="round"/><ellipse cy="4" rx="25" ry="13" fill="#e3c17b"/><path d="M15 6 22-39" stroke="#e3c17b" stroke-width="12"/><ellipse cx="25" cy="-39" rx="13" ry="8" fill="#e3c17b"/><path d="m21-45-2-10m9 11 2-10" stroke="#ab834d" stroke-width="3"/><circle cx="31" cy="-41" r="1.7" fill="#524533"/><g fill="#b68a50"><circle cx="-10" cy="2" r="4"/><circle cx="1" cy="8" r="4"/><circle cx="9" cy="-1" r="4"/><circle cx="19" cy="-16" r="3"/><circle cx="21" cy="-29" r="3"/></g><path d="m-24 4-9-9" stroke="#af854c" stroke-width="3"/></g>
- <g id="zebra"><ellipse cy="19" rx="25" ry="7" fill="#6d7058" opacity=".13"/><path d="M-12 7v14M9 7v14" stroke="#697063" stroke-width="5" stroke-linecap="round"/><ellipse rx="24" ry="12" fill="#f7f4df"/><path d="m15 0 6-20" stroke="#f3efdc" stroke-width="11"/><ellipse cx="26" cy="-19" rx="11" ry="7" fill="#f4efdd"/><path d="m23-25-2-7m8 8 1-7M-16-8l4 18M-6-12l5 23M5-12l5 22M17-9l7 4M19-16l8 3" stroke="#647266" stroke-width="3.5"/><circle cx="30" cy="-21" r="1.5" fill="#495346"/><path d="m-23 2-8-6" stroke="#6e7463" stroke-width="3"/></g>
- <g id="penguin"><ellipse cy="17" rx="13" ry="6" fill="#4c7070" opacity=".14"/><path d="m-7 14-7 5m18-5 8 5" stroke="#d7a568" stroke-width="5" stroke-linecap="round"/><ellipse ry="22" rx="13" fill="#466564"/><ellipse cy="5" rx="9" ry="14" fill="#f6f2dc"/><circle cx="2" cy="-14" r="10" fill="#466564"/><path d="m10-16 10 5-11 2" fill="#dfa56e"/><circle cx="5" cy="-17" r="1.6" fill="#f6f5e9"/><path d="m-11-3-8 10" stroke="#466564" stroke-width="5" stroke-linecap="round"/></g>
- <g id="flamingo"><path d="m-2 8-4 24m10-16 10 9-8 8" stroke="#b98375" stroke-width="2.5" fill="none"/><ellipse rx="15" ry="9" fill="#dba28d"/><path d="M10 0c15-13-6-15 5-25" stroke="#dba28d" stroke-width="5" fill="none"/><circle cx="18" cy="-24" r="5" fill="#e6b09a"/><path d="m22-24 7 3-2 5" stroke="#836f60" stroke-width="3" fill="none"/></g>
- <g id="building"><path d="m-39 13 40 10 40-10v-44l-80 1Z" fill="#6c795f" opacity=".12"/><rect x="-40" y="-28" width="80" height="49" rx="4" fill="#f7f1d9"/><path d="m-47-20 47-25 47 25-47 16Z" fill="#b68a68"/><path d="m0-45 47 25-47 16Z" fill="#a97d5f"/><rect x="-9" y="2" width="18" height="19" rx="2" fill="#6d8e83"/><path d="M-31 0h13v12h-13Zm49 0h13v12H18Z" fill="#91b6a5"/></g>`;
 
 export function parkMap(zones = [], selected = "savanna", interactive = true) {
   const info = Object.fromEntries(zones.map((z) => [z.id, z]));
-  const ground = {
-    savanna: "#e6d4a5",
-    birds: "#bdcf9f",
-    water: "#bdd4c3",
-    clinic: "#ced8ba",
-    education: "#d5d8b6",
-    depot: "#d9c9a8",
-    utilities: "#c6d1bd",
-    entrance: "#d7d7b4",
-  };
-  const areas = Object.entries(regions)
-    .map(([id, r], i) => {
-      const z = info[id] || {
-        shortName: {
-          savanna: "Savan",
-          birds: "Kuş alanı",
-          water: "Su Yaşamı",
-          clinic: "Klinik",
-          education: "Eğitim merkezi",
-          depot: "Depo",
-          utilities: "Altyapı",
-          entrance: "Ziyaretçi merkezi",
-        }[id],
-        status: "open",
-      };
-      const [x, y] = r.label;
-      const width = z.shortName.length * 8 + 51;
-      const statusColor =
-        { open: "#4b8162", monitor: "#b28035", closed: "#b66858" }[z.status] ||
-        "#4b8162";
-      return `<g class="map-region ${id === selected && interactive ? "selected" : ""} ${z.status || "open"}" ${interactive ? `role="button" tabindex="0" data-zone="${id}" aria-label="${escape(z.name || z.shortName)}" aria-pressed="${id === selected}"` : ""}>
-   <path class="zone-ground" d="${r.d}" fill="${ground[id]}" stroke="${id === selected && interactive ? "#476e54" : "#b5c4a0"}" stroke-width="${id === selected && interactive ? 3 : 1.5}"/>
-   <path d="${r.d}" fill="url(#grain)" opacity=".2" pointer-events="none"/>
-   <g class="zone-label" transform="translate(${x} ${y})"><rect x="${-width / 2}" y="-17" width="${width}" height="34" rx="17" fill="#faf9ef" stroke="#d2dac5" stroke-width="1"/><circle cx="${-width / 2 + 18}" r="4" fill="${statusColor}"/><text x="9" y="5" text-anchor="middle" fill="#344d3d" font-size="15" font-weight="600">${escape(z.shortName)}</text></g>
-  </g>`;
-    })
-    .join("");
-  return `<svg class="park-svg" viewBox="0 0 1110 750" xmlns="http://www.w3.org/2000/svg" ${interactive ? 'role="group" aria-label="Etkileşimli Mavi Vadi park haritası. Bir bölge seçin."' : 'role="img" aria-label="Mavi Vadi hayvanat bahçesinin çizimi"'}>
- <defs>${animalDefs}<pattern id="grain" width="19" height="19" patternUnits="userSpaceOnUse"><circle cx="3" cy="4" r="1" fill="#8a9a66"/><circle cx="15" cy="14" r=".6" fill="#ffffff"/></pattern><pattern id="water-lines" width="38" height="25" patternUnits="userSpaceOnUse"><path d="M3 12q8-4 16 0" stroke="#c1ded3" stroke-width="2" fill="none"/></pattern></defs>
- <rect width="1110" height="750" fill="#e7edda"/>
- <path d="M-30 20Q275-55 472 11T1130 5V40Q852 83 664 54T261 55Q70 54-30 89Z" fill="#d6e2c5"/>
- <path d="M-20 665Q225 611 370 682T818 713Q1030 682 1130 641V770H-20Z" fill="#d9e5c7"/>
- <path d="M-30 374Q141 342 272 375T579 378Q793 354 1140 374M566 365Q530 451 598 648M281 370Q280 457 289 566M837 372Q831 445 842 563M591 368Q603 316 609 264" fill="none" stroke="#cdd2b6" stroke-width="28" stroke-linecap="round"/>
- <path d="M-30 374Q141 342 272 375T579 378Q793 354 1140 374M566 365Q530 451 598 648M281 370Q280 457 289 566M837 372Q831 445 842 563M591 368Q603 316 609 264" fill="none" stroke="#fbf4df" stroke-width="20" stroke-linecap="round"/>
- ${areas}
- <g class="map-art" pointer-events="none">
- <path d="M86 183Q209 154 386 186M128 270q71-29 132 7" stroke="#d2bd8b" stroke-width="2" stroke-dasharray="3 7" fill="none"/>
- <ellipse cx="348" cy="232" rx="35" ry="22" fill="#a9c3a3"/><ellipse cx="348" cy="229" rx="30" ry="17" fill="#87b7b0"/>
- <path d="M100 106v40m0-21h22M387 273v25m-12-15h25" stroke="#ba9a6a" stroke-width="4" stroke-linecap="round"/>
- <use href="#lion" transform="translate(178 235) scale(1.15)"/><use href="#lion" transform="translate(277 264) scale(.85)"/>
- <use href="#giraffe" transform="translate(304 153) scale(1.25)"/><use href="#zebra" transform="translate(166 142) scale(1.05)"/>
- <path d="M838 159Q914 113 993 157Q1031 189 992 244Q936 287 858 258Q805 226 838 159Z" fill="#87b9b2" stroke="#d0dec1" stroke-width="10"/>
- <path d="M838 159Q914 113 993 157Q1031 189 992 244Q936 287 858 258Q805 226 838 159Z" fill="url(#water-lines)"/>
- <ellipse cx="851" cy="137" rx="39" ry="22" fill="#e6e5d2"/><use href="#penguin" transform="translate(835 127) scale(.8)"/><use href="#penguin" transform="translate(868 136) scale(.65)"/>
- <g transform="translate(934 216) rotate(-20)"><ellipse rx="24" ry="17" fill="#6c9875"/><ellipse rx="17" ry="13" fill="#82a07c" stroke="#5f8c6e" stroke-width="2"/><circle cx="29" r="6" fill="#769b78"/><path d="m-13-11-15-10m39 10 12-9m-36 29-15 9m39-9 12 9" stroke="#769b78" stroke-width="7" stroke-linecap="round"/><path d="m0-12-8 7v9l8 8 8-8v-9Z" stroke="#648d6d" fill="none"/></g>
- <path d="M796 274q33 14 60 7" stroke="#d4c9a2" stroke-width="10" stroke-linecap="round"/>
- <ellipse cx="596" cy="189" rx="67" ry="39" fill="#92b8a0"/><ellipse cx="595" cy="184" rx="60" ry="34" fill="#a7cbc0"/>
- <use href="#flamingo" transform="translate(566 171) scale(.83)"/><use href="#flamingo" transform="translate(624 184) scale(.95)"/>
- <path d="M524 125q5-10 13 0 7-10 14 0M657 112q5-10 13 0 7-10 14 0" fill="none" stroke="#58755c" stroke-width="3" stroke-linecap="round"/>
- <use href="#building" transform="translate(163 474) scale(1.4)"/><rect x="152" y="449" width="23" height="7" rx="2" fill="#eff4e5"/><rect x="160" y="441" width="7" height="23" rx="2" fill="#eff4e5"/>
- <use href="#building" transform="translate(458 507) scale(1.8)"/>
- <path d="M368 539h41m-35 8v10m29-10v10M510 553h40m-34 7v8m28-8v8" stroke="#aa8e66" stroke-width="4" stroke-linecap="round"/>
- <use href="#building" transform="translate(739 509) scale(1.25)"/><g fill="#b29c72"><rect x="682" y="520" width="15" height="17" rx="2"/><rect x="700" y="526" width="14" height="17" rx="2"/></g>
- <g transform="translate(952 452)"><rect x="-45" y="-31" width="90" height="66" rx="7" fill="#b2beae"/><path d="M-49-29h99l-10-13h-78Z" fill="#8fa894"/><rect x="-33" y="-20" width="23" height="37" rx="3" fill="#e0e4cf"/><rect x="9" y="-20" width="23" height="37" rx="3" fill="#e0e4cf"/><path d="m-20-10-5 10h8l-6 11m44-21-5 10h8l-6 11" stroke="#d1ad62" stroke-width="3" fill="none"/></g>
- <g transform="translate(590 646)"><rect x="-63" y="-22" width="126" height="30" rx="4" fill="#f0e5c7"/><path d="m-73-23 73-20 73 20-12 9h-122Z" fill="#6e9175"/><path d="M-42 7v-14m42 14v-14m42 14v-14" stroke="#a69574" stroke-width="8"/><text x="0" y="-23" text-anchor="middle" fill="#f7f5df" font-size="10" letter-spacing="3">MAVİ VADİ</text></g>
- ${trees()}
- <g fill="#8b9d73" opacity=".5"><path d="m448 187 4-8 4 8m-10-15 3-7 3 7M335 621l4-8 4 8m-8-17 3-7 3 7M775 620l4-8 4 8m-10-16 3-7 3 7"/></g>
- <g transform="translate(1000 678)"><circle r="24" fill="#eff2e5" stroke="#cbd7bd"/><path d="m0-15 6 22-6-4-6 4Z" fill="#55755e"/><text y="-31" text-anchor="middle" fill="#55755e" font-size="10" letter-spacing="2">KUZEY</text></g>
- <g fill="#9b896f"><circle cx="324" cy="381" r="3"/><circle cx="332" cy="385" r="3"/><circle cx="741" cy="370" r="3"/><circle cx="751" cy="367" r="3"/><circle cx="597" cy="414" r="3"/></g>
- </g>
- </svg>`;
+  const areas = Object.entries(regions).map(([id, r], i) => {
+    const z = info[id] || { shortName: r.name, status: "open" };
+    const status = ["open", "monitor", "closed"].includes(z.status) ? z.status : "open";
+    const statusColor = { open: "#638477", monitor: "#aa8248", closed: "#a96a59" }[status];
+    const statusName = { open: "Açık", monitor: "İzleniyor", closed: "Kapalı" }[status];
+    const active = id === selected && interactive;
+    const [x, y, width] = r.label;
+    const name = z.shortName || r.name;
+    const fontSize = id === "entrance" ? 11 : 12;
+    return `<g class="map-region ${active ? "selected" : ""} ${status}" ${interactive ? `role="button" tabindex="0" data-zone="${id}" aria-label="${escape(z.name || name)}" aria-description="${statusName}" aria-pressed="${active}"` : ""}>
+      <path class="zone-ground" d="${r.d}" fill="${r.ground}" stroke="${active ? "#3e645c" : "#a6b0a1"}" stroke-width="${active ? 2.6 : 1}"/>
+      <g class="map-art" pointer-events="none">${landscape[id]}</g>
+      <g class="zone-label" transform="translate(${x} ${y})" pointer-events="none">
+        <rect x="0" y="0" width="${width}" height="29" rx="2" fill="#f5f5ed" fill-opacity=".95" stroke="${active ? "#6f8b79" : "#bfc7b7"}" stroke-width=".7"/>
+        <text x="10" y="18.5" fill="#667760" font-family="ui-monospace, SFMono-Regular, monospace" font-size="9" font-weight="500">${String(i + 1).padStart(2, "0")}</text>
+        <text x="30" y="18.5" fill="#35453d" font-size="${fontSize}" font-weight="600">${escape(name)}</text>
+      </g>
+      <circle cx="${x + 5}" cy="${y + 37}" r="3" fill="${statusColor}" stroke="#f1f2e9" stroke-width="1" pointer-events="none"/>
+    </g>`;
+  }).join("");
+
+  return `<svg class="park-svg" viewBox="0 0 980 600" xmlns="http://www.w3.org/2000/svg" ${interactive ? 'role="group" aria-label="Mavi Vadi operasyon yerleşim planı. Bölge seçmek için haritayı veya klavyeyi kullanın."' : 'role="img" aria-label="Mavi Vadi operasyon yerleşim planı"'}>
+    <defs>
+      <pattern id="park-hatch" width="7" height="7" patternUnits="userSpaceOnUse"><path d="M-2 7 7-2M5 9 9 5" stroke="#a6b2a0" stroke-width=".55" opacity=".45"/></pattern>
+      <pattern id="park-deck" width="5" height="5" patternUnits="userSpaceOnUse"><path d="M0 0H5" stroke="#a6b0a5" stroke-width="1"/></pattern>
+      <pattern id="park-grid" width="24" height="24" patternUnits="userSpaceOnUse"><path d="M24 0H0V24" fill="none" stroke="#d9ddcf" stroke-width=".4"/></pattern>
+    </defs>
+    <rect width="980" height="600" fill="#f1f1e9"/>
+    <rect x="29" y="49" width="922" height="495" fill="url(#park-grid)" opacity=".6"/>
+    <g fill="none" stroke="#d7ddce" stroke-width=".9" pointer-events="none">
+      <path d="M31 70C103 49 159 62 220 52S316 42 365 59M32 83C105 61 163 75 223 65S316 55 354 68M27 460C46 414 20 377 42 344M945 373C923 324 966 325 948 285M646 531C716 523 752 536 800 526S911 529 946 507"/>
+    </g>
+    <g pointer-events="none" fill="none">
+      <path d="M48 302H932V535H49V302M388 70V295M607 70V295" stroke="#c7ccc0" stroke-width="1" stroke-dasharray="4 4"/>
+      <path d="M42 318H938M242 318V534M466 318V534M647 318V534M807 318V534M557 318V394M557 514V551" stroke="#d6d7cd" stroke-width="20" stroke-linejoin="miter"/>
+      <path d="M42 318H938M242 318V534M466 318V534M647 318V534M807 318V534M557 318V394M557 514V551" stroke="#faf9f3" stroke-width="16" stroke-linejoin="miter"/>
+      <path d="M242 339V534M466 339V534M647 339V534M807 339V534" stroke="#c8cdc0" stroke-width=".6" stroke-dasharray="5 8"/>
+      <path d="M149 281V309M497 281V309M771 281V309M145 328V363M354 328V363M727 328V363M868 328V363" stroke="#c4cbbd" stroke-width="1"/>
+    </g>
+    <g class="map-art" pointer-events="none">${perimeterPlanting()}</g>
+    ${areas}
+    <g class="map-art" pointer-events="none">
+      <g fill="#768375" font-family="ui-monospace, SFMono-Regular, monospace" font-size="8" letter-spacing="1">
+        <text x="184" y="42">A</text><text x="387" y="42">B</text><text x="605" y="42">C</text><text x="824" y="42">D</text>
+        <text x="18" y="177">01</text><text x="18" y="324">02</text><text x="18" y="446">03</text>
+        <text x="75" y="321" font-size="7" letter-spacing="1.8">ANA GEÇİŞ</text>
+        <text x="488" y="361" font-size="7" letter-spacing="1.2">GİRİŞ AKSI</text>
+      </g>
+      <g stroke="#aab5a2" stroke-width=".7" fill="none"><path d="M37 55V46H46M934 46H943V55M37 533V542H46M934 542H943V533"/><path d="M185 47V51M389 47V51M607 47V51M825 47V51"/></g>
+      <g transform="translate(904 31)" stroke="#546958" fill="none" stroke-width="1"><path d="M0 10V-11M-4-4 0-12 4-4"/><text x="11" y="0" stroke="none" fill="#526955" font-size="8" font-weight="600">K</text></g>
+      <g transform="translate(61 565)" fill="#637562" font-family="ui-monospace, SFMono-Regular, monospace" font-size="8">
+        <path d="M0 0H80M0-3V3M40-3V3M80-3V3" fill="none" stroke="#697963" stroke-width="1"/><path d="M0-1H40" stroke="#697963" stroke-width="2"/>
+        <text x="0" y="15">0</text><text x="36" y="15">25</text><text x="73" y="15">50 m</text>
+        <text x="105" y="3" font-size="7" letter-spacing="1">REFERANS ÖLÇEK</text>
+      </g>
+      <path d="M538 540H576M538 535V545M576 535V545" stroke="#839478" stroke-width="1" fill="none"/>
+      <text x="557" y="567" text-anchor="middle" fill="#74826a" font-size="8" letter-spacing="1.5">ANA GİRİŞ</text>
+      <text x="920" y="568" text-anchor="end" fill="#7c8973" font-family="ui-monospace, SFMono-Regular, monospace" font-size="7.5" letter-spacing="1">MAVİ VADİ / ŞEMATİK YERLEŞİM</text>
+    </g>
+  </svg>`;
 }

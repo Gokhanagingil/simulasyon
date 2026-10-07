@@ -7,10 +7,11 @@ import { resolve } from "node:path";
 import { chromium } from "playwright";
 import { createApp } from "../server/app.js";
 
-async function fixture(t) {
+async function fixture(t, options = {}) {
   const password = randomBytes(16).toString("base64url");
   const app = createApp({
     databasePath: ":memory:",
+    platformOwnerEmail: options.platformOwnerEmail,
     admin: { username: "trainer", password, name: "Deniz Yılmaz" },
   });
   app.server.listen(0, "127.0.0.1");
@@ -64,7 +65,7 @@ test("trainer and participant complete the foundation workflow in separate sessi
   const f = await fixture(t);
   const page = await f.trainer.newPage();
   await page.goto(f.base);
-  await page.getByRole("heading", { name: "Parkta yeni bir gün." }).waitFor();
+  await page.getByRole("heading", { name: "Atölye çalışma alanı." }).waitFor();
   await page.locator("#nav-team").click();
   await page.getByRole("button", { name: "Katılımcı ekle", exact: true }).click();
   await page.getByLabel("Ad soyad", { exact: true }).fill("Ece Demir");
@@ -79,11 +80,11 @@ test("trainer and participant complete the foundation workflow in separate sessi
   await person.goto(f.base);
   await person.getByLabel("Kullanıcı adı", { exact: true }).fill("ece");
   await person.getByLabel("Parola", { exact: true }).fill("wrong-password");
-  await person.getByRole("button", { name: "Parka giriş yap" }).click();
+  await person.getByRole("button", { name: "Atölyeye giriş yap" }).click();
   await person.getByText("Kullanıcı adı veya parola doğru değil.", { exact: true }).waitFor();
   await person.getByLabel("Parola", { exact: true }).fill(f.password);
-  await person.getByRole("button", { name: "Parka giriş yap" }).click();
-  await person.getByRole("heading", { name: "Parkta yeni bir gün." }).waitFor();
+  await person.getByRole("button", { name: "Atölyeye giriş yap" }).click();
+  await person.getByRole("heading", { name: "Atölye çalışma alanı." }).waitFor();
   assert.equal(await person.locator("#nav-manage").count(), 0);
   await person.locator("#nav-roles").click();
   await person.getByRole("heading", { name: "Hayvan bakım sorumluları", exact: true }).waitFor();
@@ -186,7 +187,7 @@ test("desktop, tablet and phone layouts preserve navigation and map access", asy
   const screenshotDir = process.env.SCREENSHOT_DIR;
   if (screenshotDir) await mkdir(screenshotDir, { recursive: true });
   await page.goto(f.base);
-  await page.getByRole("heading", { name: "Parkta yeni bir gün." }).waitFor();
+  await page.getByRole("heading", { name: "Atölye çalışma alanı." }).waitFor();
   if (screenshotDir) await page.screenshot({ path: resolve(screenshotDir, "qa-desktop.png"), fullPage: true });
   for (const width of [1440, 768, 390, 360]) {
     await page.setViewportSize({ width, height: 900 });
@@ -219,5 +220,30 @@ test("desktop, tablet and phone layouts preserve navigation and map access", asy
     if (screenshotDir && width === 390)
       await page.screenshot({ path: resolve(screenshotDir, "qa-mobile.png"), fullPage: true });
   }
+  assert.deepEqual(f.errors, []);
+});
+
+
+test("professional login supports platform sign-in and fits phone screens", async (t) => {
+  const f = await fixture(t, { platformOwnerEmail: "owner@example.test" });
+  const context = await f.newContext({ viewport: { width: 1440, height: 1000 } });
+  const page = await context.newPage();
+  await page.goto(f.base);
+  const link = page.getByRole("link", { name: "ChatGPT ile eğitmen girişi" });
+  await link.waitFor();
+  assert.equal(await link.getAttribute("target"), "_top");
+  assert.equal(await link.getAttribute("href"), "/signin-with-chatgpt?return_to=%2F%3Fplatform%3D1");
+  const directory = process.env.SCREENSHOT_DIR;
+  if (directory) {
+    await mkdir(directory, { recursive: true });
+    await page.screenshot({ path: resolve(directory, "qa-login.png"), fullPage: true });
+  }
+  for (const width of [768, 390, 360]) {
+    await page.setViewportSize({ width, height: 900 });
+    assert.ok(await link.isVisible());
+    const fits = await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1);
+    assert.ok(fits, `Login overflows at ${width}px`);
+  }
+  if (directory) await page.screenshot({ path: resolve(directory, "qa-login-mobile.png"), fullPage: true });
   assert.deepEqual(f.errors, []);
 });
