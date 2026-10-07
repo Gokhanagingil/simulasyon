@@ -110,3 +110,27 @@ test('Worker password hashes reject incorrect passwords and malformed hashes', a
   assert.equal(await passwords.verifyPassword('incorrect', hash), false);
   assert.equal(await passwords.verifyPassword('incorrect', 'invalid'), false);
 });
+
+test('example accounts cover all roles, require a trainer and preserve work when reopened', async t => {
+  const f = await fixture(t), trainer = f.client(), guest = f.client();
+  assert.equal((await guest.request('/api/demo-accounts', 'POST', {})).status, 401);
+  await trainer.login('egitmen', 'initial-test-password-938');
+  const created = await trainer.request('/api/demo-accounts', 'POST', {});
+  assert.equal(created.status, 200);
+  assert.equal(created.body.accounts.length, 8);
+  assert.equal(new Set(created.body.accounts.map(a => a.role_id)).size, 8);
+  const first = created.body.accounts[0], account = f.client();
+  assert.equal((await account.login(first.username, created.body.initialPassword)).status, 200);
+  assert.equal((await account.request('/api/demo-accounts')).status, 403);
+  const path = `/api/workshops/${created.body.workshop.id}`;
+  await account.request(path + '/note', 'PUT', { text: 'Örnek kullanıcının kalıcı notu' });
+  await trainer.request(path + '/members/' + first.id, 'PATCH', { roleId: 'R4' });
+  await account.request('/api/password', 'POST', { current: created.body.initialPassword, password: 'changed-demo-password-83' });
+  const reopened = await trainer.request('/api/demo-accounts', 'POST', {});
+  assert.equal(reopened.body.workshop.id, created.body.workshop.id);
+  assert.equal(reopened.body.accounts[0].role_id, 'R4');
+  assert.equal((await account.login(first.username, created.body.initialPassword)).status, 401);
+  assert.equal((await account.login(first.username, 'changed-demo-password-83')).status, 200);
+  assert.equal((await account.request(path + '/state')).body.note, 'Örnek kullanıcının kalıcı notu');
+  assert.equal((await trainer.request('/api/me')).body.workshops.length, 2);
+});

@@ -1,4 +1,5 @@
 import { publicRole, elapsedSeconds, currentPhase } from './domain.js';
+import { createDemo, demoAccounts } from './demo.js';
 
 class HttpError extends Error {
   constructor(status, message) { super(message); this.status=status; }
@@ -125,6 +126,10 @@ export function createHandler({store,scenario,passwords,secureCookies=false,plat
         const password=secret(input.password,'Yeni parola');if(password.length<8)throw new HttpError(400,'Yeni parola en az 8 karakter olmalı.');
         await run('UPDATE users SET password=? WHERE id=?',await passwords.hashPassword(password),user.id);
         await run('DELETE FROM logins WHERE user_id=?',user.id);headers.set('Set-Cookie',expiredCookie);return send(200,{ok:true});
+      }
+      if(path==='/api/demo-accounts'&&['GET','POST'].includes(method)){
+        trainer(user);
+        return send(200,method==='POST'?await createDemo(store,scenario,passwords):await demoAccounts(store,scenario));
       }
       if(path==='/api/workshops'&&method==='POST'){
         trainer(user);const input=await body(request),workshop=await store.createWorkshop(required(input.name,'Atölye adı',100));await store.log(workshop.id,user.id,'Atölye oluşturuldu.');return send(201,{workshop});

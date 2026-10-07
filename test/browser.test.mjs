@@ -247,3 +247,19 @@ test("professional login supports platform sign-in and fits phone screens", asyn
   if (directory) await page.screenshot({ path: resolve(directory, "qa-login-mobile.png"), fullPage: true });
   assert.deepEqual(f.errors, []);
 });
+
+test("trainer can open example accounts and role partners use clear names", async (t) => {
+  const f = await fixture(t), page = await f.trainer.newPage();
+  await page.goto(f.base + '/#manage');
+  await page.getByRole('button', { name: 'Örnek kullanıcılar', exact: true }).click();
+  await page.getByRole('heading', { name: 'Örnek kullanıcılar', exact: true }).waitFor();
+  assert.equal(await page.locator('.demo-accounts li').count(), 8);
+  await page.getByRole('button', { name: 'Örnek atölyeyi aç', exact: true }).click();
+  await page.locator('#nav-roles').click();
+  await page.locator('[data-action="role"][data-id="R6"]').click();
+  const partners = await page.locator('dialog .partner-list').innerText();
+  assert.match(partners, /Hayvan bakım sorumluları/);
+  assert.match(partners, /Park müdürü/);
+  assert.doesNotMatch(partners, /\bR[1-8]\b/);
+  assert.deepEqual(f.errors, []);
+});

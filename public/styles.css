@@ -3732,6 +3732,20 @@
 }
 
 /* Operational visual system: restrained surfaces, type and plan geometry. */
+@layer components {
+  .partner-list { padding-left: 18px; list-style: disc; }
+  .partner-list li { padding-left: 3px; margin: 9px 0; line-height: 1.65; }
+  .demo-password { margin-bottom: 12px; }
+  .demo-password code { font-weight: 650; background: #eef2ee; padding: 4px 7px; border-radius: 4px; }
+  .demo-accounts { margin: 18px 0; }
+  .demo-accounts li { display: grid; gap: 3px; border-bottom: 1px solid var(--line); padding: 12px 0; }
+  .demo-accounts li span { color: var(--muted); font-size: 12px; }
+  .demo-accounts code { color: var(--forest); font-size: 13px; }
+}
+@layer pages {
+  .role-readiness { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+  .role-readiness > span { width: auto; height: auto; min-height: 42px; padding: 8px; font-size: 10px; line-height: 1.35; white-space: normal; justify-content: flex-start; }
+}
 @layer base {
   ::selection { background: #d6e2e2; color: #21383d; }
   input:focus-visible, textarea:focus-visible, select:focus-visible { outline-color: #537779; }

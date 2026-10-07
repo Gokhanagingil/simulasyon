@@ -460,6 +460,23 @@ async function action(name, target) {
         ),
       );
       return;
+    case "demo-accounts": {
+      const demo = await api("/api/demo-accounts", { method: "POST", data: {} });
+      if (!ctx.workshops.some(workshop => workshop.id === demo.workshop.id)) ctx.workshops.unshift(demo.workshop);
+      openModal("Örnek kullanıcılar",
+        `<p class="dialog-intro">Her rol için bir örnek katılımcı hazır. Hesaplar <strong>${e(demo.workshop.name)}</strong> içinde çalışır.</p>
+        <p class="demo-password">Ortak başlangıç parolası: <code>${e(demo.initialPassword)}</code></p>
+        <p class="helper">Parola bir kullanıcı tarafından değiştirildiyse yeni parolası geçerlidir. Bu ekran mevcut parolaları, rol değişikliklerini veya notları sıfırlamaz.</p>
+        <ul class="demo-accounts">${demo.accounts.map(account => `<li><strong>${e(account.roleName)}</strong><span>${e(account.name)}</span><code>${e(account.username)}</code></li>`).join("")}</ul>
+        <p class="helper">Katılımcı görünümünü denemek için çıkış yapıp örnek kullanıcıyla giriş yap. Site erişimi ayrıca gerekli; bu hesaplar site paylaşım iznini değiştirmez.</p>
+        <div class="dialog-actions">${button("Örnek atölyeyi aç", "open-demo", "arrow", "primary", `data-id="${demo.workshop.id}"`)}</div>`);
+      return;
+    }
+    case "open-demo":
+      if (ctx.noteDraft !== null) { toast("Atölyeyi değiştirmeden önce kişisel notunu kaydet."); return; }
+      await loadWorkshop(target.dataset.id);
+      dialog.close(); navigate("park");
+      return;
     case "new-workshop":
       openModal(
         "Yeni bir atölye başlat",
