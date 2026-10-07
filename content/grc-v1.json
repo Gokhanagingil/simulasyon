@@ -15,7 +15,7 @@
       "briefing": "100 kredi bütçe var. Sponsor akşam hizmetiyle ilgileniyor; dışarıya kesin taahhüt verilmemiştir. Mevcut rehber tek akşam oturumu için görev devriyle kullanılabilir. Kritik güvenlik/refah koşulları atlanamaz. Güncel güvence kapsam kartı incelenebilir.",
       "authority": "Bütçe içinde kaynak ayırabilir; 0/40/120 toplam akşam kapasitesi arasında, ön koşullarla uyumlu karar verebilirsiniz. En çok 20 ek kredi veya yüksek ticari risk için kurul rolündeki eğitmene gerekçeli talep iletirsiniz. Kayıt gerçeğini değiştiremezsiniz.",
       "steps": "İlk beş dakikada her süreç sahibinden hedef, kritik bağımlılık ve ihtiyaçlarını sorun. Kararları kendinizde toplamak yerine yetki matrisini uygulayın. Her önemli karar için sahip, gerekçe ve yeniden bakılacak zamanı belirleyin.",
-      "partners": "R2 hizmet sonucu, R3 refah, R4 altyapı, R5 güvenlik, R6 tedarik; R7 danışmanlık sağlar. R8’in bağımsız incelemesini kolaylaştırın.",
+      "partners": "Operasyon ve ziyaretçi hizmetleri: ziyaretçi deneyimini ve günlük hizmet planını netleştirin.\nHayvan bakım sorumluları: hayvan refahını ve bakım ihtiyaçlarını değerlendirin.\nTeknik bakım ve tesis: altyapının çalıştığını ve kritik kontrolleri doğrulayın.\nGüvenlik ve çalışan koordinasyonu: güvenli erişimi ve görev paylaşımını planlayın.\nSatın alma ve tedarik: malzeme ihtiyaçlarını ve tedarik seçeneklerini değerlendirin.\nRisk, uyum ve kalite: riskler, kurallar ve karar ölçütleri için destek alın.\nİç denetçi: bağımsız inceleme için gerekli kayıtları ve bilgileri sağlayın.",
       "output": "Açılış kararı, kaynak planı, süreli risk kararları ve bölüm sonunda üç öncelikli iyileştirme."
     },
     {
@@ -29,8 +29,8 @@
       "briefing": "Bugünkü plan 480 ziyaretçi içeriyor. Okul rezervasyonunda 80 kişi kayıtlı. Geçerli portal talimatı v3 ve oturum kapasitesi 40 kişi. Eğitim merkezi ve kuş alanı sıra düzenlemek için kullanılabilir. Bir rehber gündüz görevini planlı devrederek tek akşam oturumunda çalışabilir.",
       "authority": "Güncel kurallar içinde günlük ziyaret sırasını, iş dağıtımını ve rutin düşük riskli düzenlemeleri yapabilirsiniz. Kapasite sınırını yükseltemezsiniz. Yeni hizmetin açılışı müdür kararıdır. Ziyaretçi verilerinin paylaşımında amaç ve kapsamdan sorumlusunuz.",
       "steps": "Rezervasyonun kim tarafından ve nasıl teyit edildiğini kontrol edin. Bakım, güvenlik ve müdürle kapasite/rota bilgisini eşitleyin. Ziyaretçiye tek ve gerçekçi açıklama verin; sonucu ilgili kişiye teyit ettirin.",
-      "partners": "R5 rota ve güvenlik; R3 bakım zamanı; R4 hizmet durumu; R1 kaynak ve açılış; R7 veri ve kalite kuralları.",
-      "output": "F1 iş/sapma kayıtları, ortak ziyaret planı, ziyaretçi teyitleri, sınırlı paylaşım kararı ve kalite göstergesi."
+      "partners": "Güvenlik ve çalışan koordinasyonu: ziyaretçi rotasını ve kapasite sınırlarını teyit edin.\nHayvan bakım sorumluları: ziyaret programını bakım saatleriyle uyumlu planlayın.\nTeknik bakım ve tesis: hangi alanların hizmete hazır olduğunu öğrenin.\nPark müdürü: kaynak ihtiyacını ve yeni hizmetin açılış kararını görüşün.\nRisk, uyum ve kalite: ziyaretçi verilerinin paylaşımı ve hizmet kalitesi için ölçütleri netleştirin.",
+      "output": "İş ve sapma kayıtları, ortak ziyaret planı, ziyaretçi teyitleri, sınırlı paylaşım kararı ve kalite göstergesi."
     },
     {
       "id": "R3",
@@ -42,8 +42,8 @@
       "responsibility": "Hayvan bakım planı, görev devri, girdilerin teslim alınması ve olağan dışı durumun ilgili ekibe bildirilmesi sizdedir. Bu oyunda veterinerlik teşhisi yapmanız gerekmez; verilen normal/izlem durum kartlarını kullanırsınız.",
       "briefing": "Temel bakım ekibi yetkindir. Bir vardiya devrinde değişen talimatın iletildiği teyit edilmemiştir. Sahada eski basılı ziyaret hazırlık formu görülebilir; portal geçerli kaynağı içerir. Mevcut onaylı yem stoğu geçici bakım için yeterlidir; yeni parti kabul edilmeden kullanılmamalıdır.",
       "authority": "Uygun olmayan veya kabulü tamamlanmayan girdiyi kullanım dışı bekletebilir; refah açısından ilgili faaliyetin durdurulmasını isteyebilirsiniz. Teknik test veya tedarik belgesini incelemeden uygun kabul edilmiş gösteremezsiniz.",
-      "steps": "Görevleri ve vardiya devrini teyit edin. Hangi talimatla çalışıldığını kontrol edin. Teknik ekipten Su Yaşamı hizmetinin durumunu, satın almadan yeni partinin kabul durumunu öğrenin. Gerekirse S5 ile mevcut yetkin kişilerin görev devrini netleştirin.",
-      "partners": "R4 bakım bağımlılıkları; R6 parti kabul; R5 güvenli alan; R2 ziyaret programı; R7 kayıt ve kriter desteği.",
+      "steps": "Görevleri ve vardiya devrini teyit edin. Hangi talimatla çalışıldığını kontrol edin. Teknik ekipten Su Yaşamı hizmetinin durumunu, satın almadan yeni partinin kabul durumunu öğrenin. Gerekirse kısa bir görev ve vardiya yetkinlik teyidi yaparak mevcut yetkin kişilerin görev devrini netleştirin.",
+      "partners": "Teknik bakım ve tesis: bakım faaliyetlerinin altyapı ihtiyaçlarını paylaşın.\nSatın alma ve tedarik: yem ve malzemelerin uygunluğunu birlikte kontrol edip teslim alın.\nGüvenlik ve çalışan koordinasyonu: çalışma alanını ve görev devrini güvenceye alın.\nOperasyon ve ziyaretçi hizmetleri: bakım saatleriyle ziyaret programını eşleştirin.\nRisk, uyum ve kalite: kabul ölçütleri ve kayıt düzeni için destek alın.",
       "output": "Görev/devir teyidi, parti teslim alma kaydı, gözlenen refah durumu ve ilgili kontrol kanıtları."
     },
     {
@@ -54,11 +54,11 @@
       "color": "blue",
       "goal": "Altyapı bağımlılıklarını bilerek hizmeti ve bakım koşullarını sürdürebilmek.",
       "responsibility": "Teknik A ve teknik B kaynaklarının iş sırası, test, bakım ve saha bilgisinin doğruluğu sizdedir. Aynı teknik kaynağı iki eşzamanlı işe atayamazsınız.",
-      "briefing": "Su Yaşamı Merkezi’nde P1 ve P2 pompaları var. Envanter P2 için bağımsız B2 panosunu gösteriyor; eski bir bakım notunda B1 ifadesi görülüyor. Son yedek testi formunda kapsam ayrıntısı yok. Bu çelişkiyi sahada doğrulatabilirsiniz. S1 teknik A ile 15 dakika ve ikinci rol teyidi gerektirir.",
+      "briefing": "Su Yaşamı Merkezi’nde P1 ve P2 pompaları var. Envanter P2 için bağımsız B2 panosunu gösteriyor; eski bir bakım notunda B1 ifadesi görülüyor. Son yedek testi formunda kapsam ayrıntısı yok. Bu çelişkiyi sahada doğrulatabilirsiniz. Yedek pompanın gerçek devrede testi ve bağlantı düzeltmesi için teknik A ekibiyle 15 dakika gerekir; ardından güvenlik ekibi sonucu iki dakikada doğrular.",
       "authority": "Günlük teknik iş sırasını belirler; güvenli durum teyidi verirsiniz. Hizmet açılışını tek başınıza onaylamazsınız. Bütçeli işi müdürle koordine edersiniz. Başlamamış veya tamamlanmamış işi yapılmış gösteremezsiniz.",
-      "steps": "Varlık ilişkilerini ve önceki testin hangi koşulu kapsadığını araştırın. Kritik bağımlılık varsa R1 ve R3’e etkisini açıklayın. Kontrol sonunda sadece sonucu değil varlık, yöntem, zaman ve doğrulamayı kaydedin.",
-      "partners": "R5 ikinci göz ve erişim; R3 refah/bakım ihtiyacı; R2 ziyaretçi etkisi; R1 kaynak; R7 kontrol amacı ve kanıt.",
-      "output": "Kaynak planı, gerçek test/düzeltme sonucu, F3 kanıtı, hizmet durumunun doğru ve zamanlı paylaşımı."
+      "steps": "Varlık ilişkilerini ve önceki testin hangi koşulu kapsadığını araştırın. Kritik bağımlılık varsa park müdürüne ve hayvan bakım sorumlularına etkisini açıklayın. Kontrol sonunda sadece sonucu değil varlık, yöntem, zaman ve doğrulamayı kaydedin.",
+      "partners": "Güvenlik ve çalışan koordinasyonu: kritik saha testlerine ikinci bir göz olarak katılmasını isteyin.\nHayvan bakım sorumluları: teknik işlerin hayvan refahına ve bakım planına etkisini değerlendirin.\nOperasyon ve ziyaretçi hizmetleri: ziyaretçilerin etkileneceği alanları ve süreleri paylaşın.\nPark müdürü: bütçe ve kaynak önceliklerini kararlaştırın.\nRisk, uyum ve kalite: kontrolün neyi doğrulayacağını ve gerekli kanıtı netleştirin.",
+      "output": "Kaynak planı, gerçek test/düzeltme sonucu, kontrolün uygulandığını gösteren kanıt, hizmet durumunun doğru ve zamanlı paylaşımı."
     },
     {
       "id": "R5",
@@ -68,10 +68,10 @@
       "color": "purple",
       "goal": "Güvenli ziyaret, doğru rota ve net görev paylaşımı sağlamak.",
       "responsibility": "Alan erişimi, rota teyidi, görev koordinasyonu ve kritik saha kontrollerine ikinci göz olmak sizin görevinizdir. İkinci göz kontrolü iç denetimin yerine geçmez.",
-      "briefing": "Eğitim merkezi ve Su Yaşamı oturumlarında üst sınır 40 kişidir. Güncel rota talimatı v3’tür; bazı çalışanların elinde eski baskı olabilir. Alternatif ziyaret rotası S4 ile hazırlanabilir. Oyun sırasında gerçek tahliye veya fiziksel hayvan müdahalesi yapılmaz.",
+      "briefing": "Eğitim merkezi ve Su Yaşamı oturumlarında üst sınır 40 kişidir. Güncel rota talimatı v3’tür; bazı çalışanların elinde eski baskı olabilir. Alternatif ziyaret rotası, ziyaretçi ekibinin çalışması ve güvenlik teyidiyle hazırlanabilir. Oyun sırasında gerçek tahliye veya fiziksel hayvan müdahalesi yapılmaz.",
       "authority": "Kritik güvenlik şartı karşılanmayan ilgili alanın erişimini sınırlandırabilirsiniz. Tek başınıza bütün işletmenin kapatılması veya yeni hizmetin açılması kararını vermezsiniz. Gördüğünüz test sonucunu teyit eder, görmediğiniz uygulamayı imzalamazsınız.",
-      "steps": "R2 ile rota/kapasiteyi karşılaştırın. İş devirlerinde kimin hangi görevi aldığını netleştirin. R4’ün kritik testinde doğru alan, yöntem ve sonuç olduğunu gözleyin. Çelişkiyi gerekçesiyle ilgili sahibine taşıyın.",
-      "partners": "R2 ziyaretçi akışı; R3 bakım; R4 saha testi; R1 kapsamlı kararlar; R7 kontrol ve istisna kuralları.",
+      "steps": "Operasyon ve ziyaretçi hizmetleri ekibiyle rota/kapasiteyi karşılaştırın. İş devirlerinde kimin hangi görevi aldığını netleştirin. Teknik bakım ve tesis ekibinin kritik testinde doğru alan, yöntem ve sonuç olduğunu gözleyin. Çelişkiyi gerekçesiyle ilgili sahibine taşıyın.",
+      "partners": "Operasyon ve ziyaretçi hizmetleri: ziyaretçi akışını ve güvenli rotayı birlikte planlayın.\nHayvan bakım sorumluları: bakım alanlarının güvenliğini ve görev devrini teyit edin.\nTeknik bakım ve tesis: kritik saha testlerinin sonucunu ikinci göz olarak doğrulayın.\nPark müdürü: birden fazla alanı veya kaynağı etkileyen kararları görüşün.\nRisk, uyum ve kalite: kontroller ve kurallardan sapma talepleri için destek alın.",
       "output": "Rota ve kapasite teyidi, ikinci göz kanıtı, gerektiğinde alan sınırı ve yeniden açma ölçütü."
     },
     {
@@ -82,10 +82,10 @@
       "color": "clay",
       "goal": "Uygun girdiyi, izlenebilir ve gerekçeli bir tedarik kararıyla sağlamak.",
       "responsibility": "Teklif karşılaştırması, tedarikçi ilişkisi, parti kabul organizasyonu ve kayıtları sizdedir. Lojistik ekibi aynı anda bir aktif iş yapabilir.",
-      "briefing": "YP17 yeni yem partisi için kabul kaydı gereklidir. Genel tedarikçi belgesi parti kabulünün yerini tutmaz. Onaylı seçenek S3, alternatif S6’dır; toplam maliyet kaynak tablosunda görünür. Mevcut stok geçici bakım için yeterli olduğu için bütün kontrollerin atlanmasını gerektiren gerçek bir zorunluluk yoktur.",
+      "briefing": "YP17 yeni yem partisi için kabul kaydı gereklidir. Genel tedarikçi belgesi parti kabulünün yerini tutmaz. Onaylı yem tedariki veya ek kabul kontrolü gerektiren alternatif teklif değerlendirilebilir; toplam maliyet kaynak tablosunda görünür. Mevcut stok geçici bakım için yeterli olduğu için bütün kontrollerin atlanmasını gerektiren gerçek bir zorunluluk yoktur.",
       "authority": "Uygun seçenekleri karşılaştırır ve bütçe sahibiyle kararlaştırırsınız. Kabulü tamamlanmayan ürünü ayrı bekletebilirsiniz. Kişisel ilişki veya sözlü baskıyı resmi onay sayamazsınız. Çıkar çatışması şüphesini şeffaf bildirirsiniz.",
-      "steps": "R3’ten ihtiyaç ve kabul ölçütünü öğrenin. Teklifin ek kontrol, teslim ve kullanım maliyetini birlikte düşünün. Kullanıma bırakmadan kaynak, parti ve kabul eden kişiyi kaydedin.",
-      "partners": "R3 ihtiyaç ve teslim alma; R1 bütçe/eskalasyon; R7 kriter ve etik; R2 dış taraflardan gelen talepler.",
+      "steps": "Hayvan bakım sorumlularından ihtiyaç ve kabul ölçütünü öğrenin. Teklifin ek kontrol, teslim ve kullanım maliyetini birlikte düşünün. Kullanıma bırakmadan kaynak, parti ve kabul eden kişiyi kaydedin.",
+      "partners": "Hayvan bakım sorumluları: ihtiyaçları ve kabul ölçütlerini öğrenin; teslim alma sonucunu teyit ettirin.\nPark müdürü: bütçe kararlarını ve yetkinizi aşan talepleri görüşün.\nRisk, uyum ve kalite: tedarik ölçütleri, çıkar çatışmaları ve etik konularda destek alın.\nOperasyon ve ziyaretçi hizmetleri: sponsorların ve diğer dış tarafların taleplerini birlikte değerlendirin.",
       "output": "Gerekçeli teklif seçimi, YP17 kabul ve kullanım izlenebilirliği, gerekli eskalasyon ve paylaşım kayıtları."
     },
     {
@@ -99,7 +99,7 @@
       "briefing": "Geçerli talimat v3’tür. Risk yöntemi 3×3 öğretim ölçeğidir. Yeni hizmetin kapsamı ve dış beyanı incelenmelidir. Geçmiş günün performans raporu ile ham ziyaret verileri karşılaştırılabilir. Bir kayıt eksikliği, uygulamanın yokluğunu tek başına kanıtlamaz.",
       "authority": "Eksik kriter veya kontrolü görünür kılar ve yetkili kişiye eskale edersiniz. Hizmet sahibi yerine açılış veya bütçe kararı vermezsiniz. Kontrolün amacını açıklayabilir, daha orantılı bir yöntem önerebilirsiniz.",
       "steps": "İlgili rollere riskin ve kontrolün sahibini sorun. Kısa örneklerle neden–olay–etki dilini kullanın. Güncel dokümana yönlendirin. Göstergelerin gerçek hizmet sonucunu ve veri kapsamını yansıtıp yansıtmadığını kontrol edin.",
-      "partners": "Bütün süreç sahipleri; karar için R1; bağımsız inceleme için R8. Denetçinin bulgusunu operasyon adına kapatmayın.",
+      "partners": "Süreç sahipleri: park müdürü, operasyon ve ziyaretçi hizmetleri, hayvan bakım sorumluları, teknik bakım ve tesis, güvenlik ve çalışan koordinasyonu ile satın alma ve tedarik ekiplerine kendi risklerini yönetmeleri için destek verin.\nPark müdürü: yetki ve kaynak gerektiren kararları görüşün.\nİç denetçi: kriterleri ve mevcut kayıtları paylaşın; bağımsız değerlendirmesini koruyun. Denetim bulgusunu operasyon adına kapatmayın.",
       "output": "Risk/karar kartlarına destek, kontrol ilişkileri, kapsam inceleme, doğru kalite göstergesi ve aksiyon takibi."
     },
     {
@@ -113,8 +113,8 @@
       "briefing": "İnceleme erişiminiz var; ilgili rollerden kriter ve kayıt isteyebilirsiniz. Başlangıçta eski test kaydını ve doküman sürüm bilgisini inceleyebilirsiniz. Ana denetim bölümünde üç örnek seçilecek: ziyaret planı, saha kontrolü ve tedarik kabulü.",
       "authority": "Kayıt isteyebilir, gözlem yapabilir, görüşme gerçekleştirebilir ve gerekçeli bulgu yazabilirsiniz. Eksik kanıtı tamamlamak için geriye dönük imza talep edemezsiniz. Kendi katıldığınız operasyonel kararın incelemesini eğitmene devredersiniz.",
       "steps": "B1’de kriterleri ve süreç ilişkisini öğrenin. B2’de örnekleme planınızı ve eski kayıt incelemesini hazırlayın. B3’te karar–sonuç bağlantısını gözleyin. Denetim bölümünde en fazla üç öncelikli bulgu ve bir uygun örneği paylaşın.",
-      "partners": "İlgili kayıt sahipleri; kriter açıklaması için R7; karar ve kaynak için R1. Görüş ayrılığında kanıt ve kapsam üzerinden ilerleyin.",
-      "output": "Örnekleme notu; kriter + kanıt + fark + etki içeren F4 kayıtları; uygun uygulama örneği; gerekli takip önerisi."
+      "partners": "İlgili kayıt ve süreç sahipleri: ziyaret, bakım, teknik iş, güvenlik ve tedarik uygulamalarının kanıtlarını inceleyin.\nRisk, uyum ve kalite: geçerli gereklilikleri ve değerlendirme ölçütlerini açıklığa kavuşturun.\nPark müdürü: bulguların etkisini, karar ihtiyacını ve gerekli kaynakları paylaşın. Görüş ayrılığında kanıt ve kapsam üzerinden ilerleyin.",
+      "output": "Örnekleme notu; kriter + kanıt + fark + etki içeren denetim bulgusu kayıtları; uygun uygulama örneği; gerekli takip önerisi."
     }
   ],
   "zones": [
@@ -158,7 +158,11 @@
       "owner": "R3",
       "icon": "feather",
       "description": "Ağaçların arasından geçen sakin bir rota. Rehberli gözlem, bakım ve ziyaret planları birlikte yürütülür.",
-      "assets": ["Rüzgar · papağan", "Flamingo göleti", "Gözlem platformu"],
+      "assets": [
+        "Rüzgar · papağan",
+        "Flamingo göleti",
+        "Gözlem platformu"
+      ],
       "initialStatus": "open"
     },
     {
@@ -169,7 +173,11 @@
       "owner": "R3",
       "icon": "heart",
       "description": "Hayvan bakım ekibinin çalışma alanı. Bakım planları, görev devirleri ve refah gözlemleri burada koordine edilir.",
-      "assets": ["Bakım odaları", "Vardiya teslim noktası", "Gözlem alanı"],
+      "assets": [
+        "Bakım odaları",
+        "Vardiya teslim noktası",
+        "Gözlem alanı"
+      ],
       "initialStatus": "open"
     },
     {
