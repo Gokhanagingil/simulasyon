@@ -37,6 +37,7 @@ export function createStore(path, scenario, admin = {}) {
     CREATE TABLE IF NOT EXISTS zone_states(workshop_id TEXT NOT NULL REFERENCES workshops(id), zone_id TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'open', note TEXT NOT NULL DEFAULT '', PRIMARY KEY(workshop_id,zone_id));
     CREATE TABLE IF NOT EXISTS announcements(id TEXT PRIMARY KEY, workshop_id TEXT NOT NULL REFERENCES workshops(id), title TEXT NOT NULL, message TEXT NOT NULL, role_id TEXT, created_at INTEGER NOT NULL);
     CREATE TABLE IF NOT EXISTS notes(workshop_id TEXT NOT NULL REFERENCES workshops(id), user_id TEXT NOT NULL REFERENCES users(id), text TEXT NOT NULL DEFAULT '', PRIMARY KEY(workshop_id,user_id));
+    CREATE TABLE IF NOT EXISTS platform_users(id TEXT PRIMARY KEY, user_id TEXT UNIQUE NOT NULL REFERENCES users(id));
     CREATE TABLE IF NOT EXISTS activity(id TEXT PRIMARY KEY, workshop_id TEXT NOT NULL REFERENCES workshops(id), actor_id TEXT NOT NULL REFERENCES users(id), message TEXT NOT NULL, created_at INTEGER NOT NULL);
   `);
   const one = (sql, ...args) => db.prepare(sql).get(...args);
@@ -92,6 +93,11 @@ export function createStore(path, scenario, admin = {}) {
     run,
     createWorkshop,
     bootstrap,
+    batch(statements) {
+      db.exec('BEGIN');
+      try { for (const [sql,args] of statements) run(sql,...args); db.exec('COMMIT'); }
+      catch (error) { db.exec('ROLLBACK'); throw error; }
+    },
     log(workshop, actor, message) {
       run(
         "INSERT INTO activity VALUES(?,?,?,?,?)",

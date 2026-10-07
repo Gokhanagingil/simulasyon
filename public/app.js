@@ -15,6 +15,7 @@ const app = document.querySelector("#app"),
   dialog = document.querySelector("#dialog");
 const ctx = {
   user: null,
+  authOptions: { platform: false },
   workshops: [],
   state: null,
   view: "park",
@@ -114,7 +115,7 @@ function render() {
   const mapPosition = scroll
     ? { left: scroll.scrollLeft, top: scroll.scrollTop }
     : null;
-  app.innerHTML = ctx.user ? shell(ctx) : loginPage();
+  app.innerHTML = ctx.user ? shell(ctx) : loginPage(ctx);
   if (ctx.state) lastSignature = signature(ctx.state);
   if (mapPosition) {
     const next = document.querySelector("#map-scroll");
@@ -730,7 +731,22 @@ setInterval(() => {
 }, 4000);
 setInterval(updateClock, 1000);
 try {
-  await loadAccount(await api("/api/me", { quiet: true }));
-} catch {
-  render();
+  ctx.authOptions = await api("/api/auth/options", { quiet: true });
+} catch { /* Password sign-in remains available if this optional request fails. */ }
+const platformReturn = new URL(location.href);
+if (platformReturn.searchParams.get("platform") === "1") {
+  platformReturn.searchParams.delete("platform");
+  history.replaceState(null, "", platformReturn.pathname + platformReturn.search + platformReturn.hash);
+  try {
+    await loadAccount(await api("/api/auth/platform", { method: "POST", data: {}, quiet: true }));
+  } catch (error) {
+    render();
+    toast(error.message);
+  }
+} else {
+  try {
+    await loadAccount(await api("/api/me", { quiet: true }));
+  } catch {
+    render();
+  }
 }

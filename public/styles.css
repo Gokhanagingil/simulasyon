@@ -54,17 +54,17 @@
 }
 @layer base {
   :root {
-    --forest: #214c3d;
-    --deep: #163e32;
-    --ink: #293e35;
-    --muted: #768077;
-    --line: #e3e7dc;
-    --paper: #fbfbf7;
-    --cream: #f4f5ed;
-    --sage: #e8edde;
-    --amber: #f1e4c5;
-    --radius: 17px;
-    --shadow: 0 10px 40px #203e3010;
+    --forest: #344d50;
+    --deep: #23383e;
+    --ink: #26383d;
+    --muted: #6b787c;
+    --line: #dde2e0;
+    --paper: #f4f5f3;
+    --cream: #eef1ee;
+    --sage: #e5eae5;
+    --amber: #ece5d6;
+    --radius: 8px;
+    --shadow: 0 4px 18px #1d333308;
     font-family: Inter, "Aptos", "Segoe UI", Arial, sans-serif;
     color: var(--ink);
     background: var(--paper);
@@ -109,10 +109,10 @@
     line-height: 1.25;
   }
   h1 {
-    font-family: Georgia, "Times New Roman", serif;
-    font-weight: 400;
-    letter-spacing: -1.4px;
-    font-size: 43px;
+    font-family: inherit;
+    font-weight: 600;
+    letter-spacing: -1.1px;
+    font-size: 34px;
   }
   h2 {
     font-size: 18px;
@@ -3729,4 +3729,60 @@
       font-size: 28px;
     }
   }
+}
+
+/* Operational visual system: restrained surfaces, type and plan geometry. */
+@layer base {
+  ::selection { background: #d6e2e2; color: #21383d; }
+  input:focus-visible, textarea:focus-visible, select:focus-visible { outline-color: #537779; }
+}
+@layer layout {
+  .sidebar { background: #20343b; }
+  .brand { font-family: inherit; font-weight: 600; letter-spacing: -.7px; }
+  .brand small { font-size: 7px; letter-spacing: 1.3px; color: #b6c6c8; }
+  .nav-item { color: #c3d0d1; }
+  .nav-item.active { background: #e1e9e6; color: #233e42; }
+  .sidebar-note { border-radius: 6px; background: #ffffff05; }
+  .sidebar-note p { font-family: inherit; font-size: 15px; }
+  .sidebar-note .icon { color: #aabfba; }
+  .topbar { background: #fcfdfb; }
+  .profile-button small { color: #b6c6c8; }
+}
+@layer components {
+  .btn.primary:hover:not(:disabled) { background: #243e43; box-shadow: none; }
+  .btn.secondary { color: #3e575b; background: #fafcfb; border-color: #d7e0dd; }
+  .btn.secondary:hover:not(:disabled) { background: #e9efec; }
+  .role-symbol, .zone-symbol, .empty > .icon { border-radius: 8px; }
+  .dialog-heading h2, .role-sheet-heading h2 { font-family: inherit; font-weight: 600; }
+  .platform-login { width: 100%; margin-top: 26px; white-space: normal; }
+  .platform-login > .icon:last-child { margin-left: auto; }
+  .login-divider { display: flex; gap: 12px; align-items: center; color: var(--muted); font-size: 10px; margin-top: 25px; }
+  .login-divider::before, .login-divider::after { content: ''; height: 1px; background: var(--line); flex: 1; }
+  #toast { background: #263f45; }
+}
+@layer pages {
+  .login-page { background: #fafbf8; }
+  .login-content { max-width: 390px; padding: 35px 0; }
+  .login-content h1 { font-size: clamp(38px, 3.5vw, 52px); line-height: 1.09; letter-spacing: -2px; color: #233d44; }
+  .login-intro { color: #67767a; line-height: 1.8; max-width: 350px; }
+  .login-content .form { margin-top: 20px; }
+  .login-brand small, .login-help, .login-footer { color: #65797b; }
+  .login-art { background: #e6ebe7; border-radius: 8px; border: 1px solid #d9e1dd; }
+  .pill { border-radius: 4px; color: #3f5e60; background: #f8faf6; border-color: #cbd7d2; }
+  .art-top > span:last-child, .login-art-title > .eyebrow { color: #5e7475; }
+  .login-art-title h2 { font-family: inherit; font-size: 32px; font-weight: 500; color: #2b454a; letter-spacing: -1.1px; }
+  .login-map { margin: 20px 0; transform: none; min-height: 260px; mask-image: none; -webkit-mask-image: none; }
+  .login-map svg { filter: none; }
+  .login-map .zone-label { display: block; }
+  .art-bottom { margin-top: 0; padding-top: 10px; gap: 22px; }
+  .art-bottom strong { font: 500 32px/1.2 'Aptos', 'Segoe UI', Arial, sans-serif; color: #344d50; }
+  .art-bottom span { color: #637a78; }
+  .art-bottom p { font: 11px/1.7 'Aptos', 'Segoe UI', Arial, sans-serif; color: #637a78; }
+  .art-bottom > div + div { border-color: #bfcfca; padding-left: 22px; }
+  .map-panel { background: #f1f2ed; }
+  .map-scroll { scrollbar-color: #adbeb8 #e9ede7; }
+  .map-region:hover .zone-ground { stroke: #537779; filter: none; }
+  .map-region.selected .zone-label rect { fill: #f9fbf7; stroke: #344d50; }
+  .map-region.selected .zone-label text { fill: #213f45; }
+  .map-region:focus-visible .zone-ground, .map-region:focus-visible .zone-label rect { stroke: #a67940; }
 }

@@ -1,6 +1,7 @@
 name: Application checks
 on:
   push:
+    branches: [main]
   pull_request:
 permissions:
   contents: read
@@ -12,10 +13,18 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
-      - run: npm run check
-      - run: npm test
-      - run: npm ci
-      - run: npx playwright install --with-deps chromium
-      - run: npm run test:browser
+      - uses: pnpm/action-setup@v4
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm test
+      - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:browser
         env:
           SCREENSHOT_DIR: test-results
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: interface-previews
+          path: test-results/*.png
+          if-no-files-found: ignore
