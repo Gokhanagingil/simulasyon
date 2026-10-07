@@ -1,0 +1,189 @@
+{
+  "status": "not_provisioned",
+  "target": "Niles staging only",
+  "domain": "MAVI-VADI-ITSM",
+  "domainName": "Mavi Vadi ITSM Eğitim",
+  "users": [
+    {
+      "username": "mv.hizmet",
+      "role": "Hizmet sahibi / Park müdürü",
+      "roleId": "R1"
+    },
+    {
+      "username": "mv.masa",
+      "role": "Hizmet masası / Ziyaretçi merkezi",
+      "roleId": "R2"
+    },
+    {
+      "username": "mv.saha",
+      "role": "Saha operasyonu / Hayvan bakımı",
+      "roleId": "R3"
+    },
+    {
+      "username": "mv.teknik",
+      "role": "Teknik bakım / Çözüm ekibi",
+      "roleId": "R4"
+    },
+    {
+      "username": "mv.problem",
+      "role": "Problem ve bilgi yöneticisi",
+      "roleId": "R5"
+    },
+    {
+      "username": "mv.degisiklik",
+      "role": "Değişiklik yetkilisi / Yayın koordinasyonu",
+      "roleId": "R6"
+    },
+    {
+      "username": "mv.tedarik",
+      "role": "Tedarikçi ve süreklilik koordinasyonu",
+      "roleId": "R7"
+    },
+    {
+      "username": "mv.sla",
+      "role": "Hizmet seviyesi ve iyileştirme analisti",
+      "roleId": "R8"
+    }
+  ],
+  "services": [
+    {
+      "id": "SVC-VISIT",
+      "name": "Ziyaretçi kabul ve gezi",
+      "owner": "R1",
+      "cis": [
+        "CI-TURN",
+        "CI-PORTAL",
+        "CI-NET"
+      ],
+      "promise": "Güvenli giriş, tek doğru bilgi ve doğrulanmış hizmet sonucu."
+    },
+    {
+      "id": "SVC-SAFE",
+      "name": "Güvenli savan ziyareti",
+      "owner": "R3",
+      "cis": [
+        "CI-FENCE",
+        "CI-SENSOR"
+      ],
+      "promise": "Güvenli alan; koşullar sağlanmadan yeniden açılmaz."
+    },
+    {
+      "id": "SVC-WATER",
+      "name": "Su yaşamı ve bakım sürekliliği",
+      "owner": "R3",
+      "cis": [
+        "CI-P1",
+        "CI-P2",
+        "CI-B1",
+        "CI-HIPPO"
+      ],
+      "promise": "Bakım koşulları ve doğrulanmış altyapı bağımlılıkları."
+    },
+    {
+      "id": "SVC-EDU",
+      "name": "Rehberli eğitim turu",
+      "owner": "R2",
+      "cis": [
+        "CI-GUIDE",
+        "CI-PORTAL"
+      ],
+      "promise": "Onaylı kapasitede, erişilebilir ve zamanında tur."
+    }
+  ],
+  "cis": [
+    {
+      "id": "CI-TURN",
+      "name": "Giriş turnikesi",
+      "zone": "entrance",
+      "dependsOn": "CI-NET"
+    },
+    {
+      "id": "CI-PORTAL",
+      "name": "Rezervasyon portalı",
+      "zone": "entrance",
+      "dependsOn": "CI-NET"
+    },
+    {
+      "id": "CI-NET",
+      "name": "Park ağı",
+      "zone": "utilities",
+      "dependsOn": "CI-B1"
+    },
+    {
+      "id": "CI-FENCE",
+      "name": "Atlas savan çiti",
+      "zone": "savanna",
+      "dependsOn": "CI-SENSOR"
+    },
+    {
+      "id": "CI-SENSOR",
+      "name": "Çit sensörü",
+      "zone": "savanna",
+      "dependsOn": "CI-NET"
+    },
+    {
+      "id": "CI-P1",
+      "name": "Ana pompa P1",
+      "zone": "water",
+      "dependsOn": "CI-B1"
+    },
+    {
+      "id": "CI-P2",
+      "name": "Yedek pompa P2",
+      "zone": "water",
+      "dependsOn": "CI-B1"
+    },
+    {
+      "id": "CI-B1",
+      "name": "Ortak elektrik panosu B1",
+      "zone": "utilities",
+      "dependsOn": null
+    },
+    {
+      "id": "CI-HIPPO",
+      "name": "Mümtaz — canlı varlık kaydı",
+      "zone": "water",
+      "dependsOn": "CI-P1"
+    },
+    {
+      "id": "CI-GUIDE",
+      "name": "Yetkin rehber ekibi",
+      "zone": "education",
+      "dependsOn": null
+    }
+  ],
+  "slaPolicies": [
+    {
+      "id": "MV-P1",
+      "priority": "P1",
+      "responseMinutes": 2,
+      "resolutionMinutes": 8,
+      "calendar": "24x7",
+      "pause": "Yok"
+    },
+    {
+      "id": "MV-P2",
+      "priority": "P2",
+      "responseMinutes": 4,
+      "resolutionMinutes": 12,
+      "calendar": "24x7",
+      "pause": "Yok"
+    },
+    {
+      "id": "MV-P3",
+      "priority": "P3",
+      "responseMinutes": 6,
+      "resolutionMinutes": 18,
+      "calendar": "24x7",
+      "pause": "Yok"
+    }
+  ],
+  "acceptance": [
+    "Yeni domain/tenant kimliği ve izolasyon doğrulanır.",
+    "Kullanıcılar yalnız eğitim alanına atanır.",
+    "E04 kaydında doğru P2 SLA bağlandığı görülür.",
+    "4 dk ilk müdahale ve 12 dk çözüm hedefi 24x7 çalışır.",
+    "Çözüm yapılmadan 12 gerçek dakika geçer; Niles hasBreached veya eşdeğer resmi alan kanıtı alınır.",
+    "Çözüm sonrasında geçmiş SLA aşımı korunur."
+  ]
+}

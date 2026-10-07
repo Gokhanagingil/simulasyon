@@ -1,0 +1,948 @@
+{
+  "id": "itsm-v1",
+  "version": "1.0.0",
+  "name": "ITSM · Operasyon Günü",
+  "description": "Bir hayvanat bahçesi. Sekiz ekip. Birbirine bağlı hizmetler. Önce hizmeti geri getir, sonra tekrarını önle.",
+  "roles": [
+    {
+      "id": "R1",
+      "name": "Hizmet sahibi / Park müdürü",
+      "shortName": "Hizmet sahibi",
+      "icon": "compass",
+      "color": "forest",
+      "goal": "İş değeri, öncelik, kaynak ve ziyaretçi deneyimini birlikte gözet.",
+      "responsibility": "Hizmet hedeflerini belirler, ekipler arası önceliği uzlaştırır ve iyileştirme bütçesine karar verirsin.",
+      "briefing": "100 oyun kredisi; Teknik A ve Teknik B aynı anda yalnız birer iş yapabilir. Güvenlik koşulları pazarlık konusu değildir.",
+      "authority": "Bütçe ve hizmet önceliği kararı; değişiklik onayı görevini R6 yürütür.",
+      "steps": "Hizmet hedeflerini ve tek eskalasyon yolunu açıklayın.",
+      "partners": "R2 ziyaretçi etkisini; R3 saha durumunu; R6 değişiklik riskini; R8 ölçümü getirir.",
+      "output": "Hizmet hedefi, kaynak kararı, üç öncelikli iyileştirme."
+    },
+    {
+      "id": "R2",
+      "name": "Hizmet masası / Ziyaretçi merkezi",
+      "shortName": "Hizmet masası",
+      "icon": "users",
+      "color": "sage",
+      "goal": "Tek temas noktası ol; doğru kaydı, doğru ekibe, doğru bağlamla aktar.",
+      "responsibility": "Olay ve talebi ayırır, etki/aciliyet ile önceliklendirir, ziyaretçiye anlaşılır durum mesajı verirsin.",
+      "briefing": "Okul grubu 120 kişi. Bilet turnikesi arızası ile özel tur talebi aynı kayıt türü değildir. Nermin Hoca tek ve doğru açıklama bekler.",
+      "authority": "Kayıt açma, öncelik önerisi, yönlendirme, iletişim ve kullanıcı teyidi.",
+      "steps": "Etki, kapsam, başlangıç zamanı, hizmet ve CI bilgisini toplayın.",
+      "partners": "R3/R4 çözüm ekipleri; R1 hizmet sahibi; R5 tekrarları araştırır.",
+      "output": "Olay ve talep kayıtları, zamanlı durum mesajı ve ziyaretçi teyidi."
+    },
+    {
+      "id": "R3",
+      "name": "Saha operasyonu / Hayvan bakımı",
+      "shortName": "Saha operasyonu",
+      "icon": "paw",
+      "color": "amber",
+      "goal": "Ziyaretçiyi ve hayvan refahını gözeterek hizmeti güvenli biçimde sürdür.",
+      "responsibility": "Gözlemi yorumdan ayırır, erişimi kontrol eder, alternatif rotayı ve gerçek hizmet sonucunu doğrularsın.",
+      "briefing": "Aslan Atlas kapıdaki boşluğu fark etti. Mümtaz havuzun sakin köşesinde; bu gözlem veterinerlik tanısı değildir.",
+      "authority": "Etkilenen alanı sınırlandırma ve verilen oyun prosedürüne göre güvenli geçici çözüm uygulama.",
+      "steps": "Olayı bildirirken gözlenen etkiyi ve mevcut güvenli durumu söyleyin.",
+      "partners": "R2 ziyaretçiye bilgi verir; R4 teknik müdahaleyi; R7 dış desteği yönetir.",
+      "output": "Saha teyidi, geçici çözüm sonucu ve kontrollü yeniden açılış."
+    },
+    {
+      "id": "R4",
+      "name": "Teknik bakım / Çözüm ekibi",
+      "shortName": "Teknik bakım",
+      "icon": "wrench",
+      "color": "blue",
+      "goal": "Teknik parçayı ve uçtan uca hizmeti birlikte doğrula.",
+      "responsibility": "CI ilişkilerini inceler, olay müdahalesini ve onaylı değişikliği uygularsın.",
+      "briefing": "P1 ve P2 pompaları iki ayrı cihazdır ama B1 panosuna bağlıdır. Son test yalnız pompa arızasını denemiştir; pano arızasını değil.",
+      "authority": "Onaylı standart işler; normal ve acil değişiklikler R6 yetkisine tabidir.",
+      "steps": "Kapsamı teyit edin, geçici çözümü belgeleyin; kalıcı düzeltmeyi değişiklik akışına verin.",
+      "partners": "R3 saha doğrulaması; R5 kök neden; R6 değişiklik; R7 parça/tedarik.",
+      "output": "Teknik kanıt, CMDB düzeltmesi, test ve geri dönüş planı."
+    },
+    {
+      "id": "R5",
+      "name": "Problem ve bilgi yöneticisi",
+      "shortName": "Problem / Bilgi",
+      "icon": "shield",
+      "color": "purple",
+      "goal": "Tekrar eden olayları azalt; işe yarayan bilgiyi sonraki ekibe aktar.",
+      "responsibility": "Olayları ilişkilendirir, kanıta dayalı neden analizi ve bilinen hata/geçici çözüm kaydı oluşturursun.",
+      "briefing": "Bir haftada üç pompa kesintisi var. “Yeniden başlatıldı” çözüm notu bir kök neden değildir. Korsan papağan her şeye “Onaylandı!” der.",
+      "authority": "Problem ve bilgi kaydı oluşturma; doğrulanmamış nedeni kesin bilgi gibi yayımlamama.",
+      "steps": "Olay zamanlarını ve CI ilişkilerini karşılaştırın, hipotezleri kanıtla sınayın.",
+      "partners": "R4 teknik kanıt; R2 tekrar eden olay; R6 kalıcı düzeltme; R8 etki ölçümü.",
+      "output": "Problem, bilinen hata, doğrulanmış bilgi makalesi ve tekrar ölçümü."
+    },
+    {
+      "id": "R6",
+      "name": "Değişiklik yetkilisi / Yayın koordinasyonu",
+      "shortName": "Değişiklik",
+      "icon": "box",
+      "color": "clay",
+      "goal": "Hız ile kontrollü uygulamayı birlikte sağla.",
+      "responsibility": "Değişiklik türünü ve yetkisini belirler; etki, test, geri dönüş, pencere ve uygulama sonucunu değerlendirirsin.",
+      "briefing": "Korsan yetkili onaycı değildir. Acil değişiklik de yetkili karar, kayıt ve uygulama sonrası inceleme gerektirir.",
+      "authority": "Düşük riskli önceden tanımlı standart akışı kullanma; normal/acil değişiklik kararı.",
+      "steps": "Etkilenen hizmet ve CI, uygulayan, test eden ve geri dönüş koşulunu netleştirin.",
+      "partners": "R4 uygular; R3 sonucu teyit eder; R1 öncelik; R7 tedarik bağımlılığı.",
+      "output": "Gerekçeli karar, uygulama/test kanıtı, geri dönüş veya başarılı kapanış."
+    },
+    {
+      "id": "R7",
+      "name": "Tedarikçi ve süreklilik koordinasyonu",
+      "shortName": "Tedarik / Süreklilik",
+      "icon": "leaf",
+      "color": "mint",
+      "goal": "Müşteriye verilen sözü ekip ve tedarikçi taahhütleriyle destekle.",
+      "responsibility": "Parça, yetkinlik, iç ekip hedefi (OLA) ve tedarikçi hedefini (UC) takip edersin.",
+      "briefing": "Tedarikçi 30 dakikada dönüş diyor; ziyaretçi hizmeti 12 dakikada geri gelmeli. Tedarikçinin geç kalması müşteri SLA saatini kendiliğinden durdurmaz.",
+      "authority": "Yedek parça seçimi ve eskalasyon; bütçeli alternatifler R1 kararıyla.",
+      "steps": "SLA → OLA → UC zaman zincirini ve alternatif kaynağı doğrulayın.",
+      "partners": "R4 parça uyumu; R3 güvenli çalışma; R1 bütçe; R8 hedef ölçümü.",
+      "output": "Tedarik kaydı, iç/dış taahhüt, eskalasyon ve süreklilik seçeneği."
+    },
+    {
+      "id": "R8",
+      "name": "Hizmet seviyesi ve iyileştirme analisti",
+      "shortName": "SLA / İyileştirme",
+      "icon": "clipboard",
+      "color": "slate",
+      "goal": "Yeşil panonun arkasındaki gerçek deneyimi görünür kıl.",
+      "responsibility": "SLA, hizmetin kullanılabilirliği, bekleme ve tekrarları ölçer; düzeltme etkisini izlersin.",
+      "briefing": "Atölye saati duraklatılabilir. Kayıt SLA saati gerçek zamanla ilerler. Niles kullanılıyorsa Niles kaydı esas alınır.",
+      "authority": "Ölçüm tanımını açıklama ve kanıt inceleme; zamanı veya sonucu geriye dönük değiştirmeme.",
+      "steps": "Hedef, başlangıç/duruş koşulu, takvim ve ölçüm kaynağını herkesle netleştirin.",
+      "partners": "R2 kullanıcı teyidi; R1 hizmet kararı; R5 tekrar; R7 OLA/UC uyumu.",
+      "output": "Dürüst hizmet raporu, SLA kanıtı ve sahibi/tarihi/ölçütü olan iyileştirme."
+    }
+  ],
+  "zones": [
+    {
+      "id": "savanna",
+      "name": "Savan ve aslan alanı",
+      "shortName": "Savan",
+      "kind": "Yaşam alanı",
+      "owner": "R3",
+      "icon": "paw",
+      "description": "Geniş otlaklar, gölgeli dinlenme alanları ve kontrollü ziyaret rotaları. Parkın büyük sakinleri burada yaşıyor.",
+      "assets": [
+        "Atlas ve Duru · aslanlar",
+        "Ada · zürafa",
+        "Efe · zebra",
+        "K1 · alan kapısı"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "water",
+      "name": "Su Yaşamı Merkezi",
+      "shortName": "Su Yaşamı",
+      "kind": "Yaşam alanı",
+      "owner": "R4",
+      "icon": "waves",
+      "description": "Su altı yaşamını keşfeden ziyaret rotası; havuzlar, bakım alanları ve onları destekleyen teknik altyapı.",
+      "assets": [
+        "H1 · ana havuz",
+        "P1 ve P2 · dolaşım pompaları",
+        "Poyraz ve Deniz · penguenler",
+        "Mira · deniz kaplumbağası"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "birds",
+      "name": "Kuş alanı",
+      "shortName": "Kuş alanı",
+      "kind": "Yaşam alanı",
+      "owner": "R3",
+      "icon": "feather",
+      "description": "Ağaçların arasından geçen sakin bir rota. Rehberli gözlem, bakım ve ziyaret planları birlikte yürütülür.",
+      "assets": [
+        "Rüzgar · papağan",
+        "Flamingo göleti",
+        "Gözlem platformu"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "clinic",
+      "name": "Klinik ve bakım",
+      "shortName": "Klinik",
+      "kind": "Destek hizmeti",
+      "owner": "R3",
+      "icon": "heart",
+      "description": "Hayvan bakım ekibinin çalışma alanı. Bakım planları, görev devirleri ve refah gözlemleri burada koordine edilir.",
+      "assets": [
+        "Bakım odaları",
+        "Vardiya teslim noktası",
+        "Gözlem alanı"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "education",
+      "name": "Eğitim merkezi",
+      "shortName": "Eğitim merkezi",
+      "kind": "Ziyaretçi hizmeti",
+      "owner": "R2",
+      "icon": "book",
+      "description": "Okul grupları ve atölyeler için buluşma noktası. Her oturumda en fazla 40 ziyaretçi ağırlanır.",
+      "assets": [
+        "40 kişilik etkinlik salonu",
+        "Rehber buluşma noktası",
+        "Erişilebilir ziyaret rotası"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "depot",
+      "name": "Depo ve tedarik kabul",
+      "shortName": "Depo",
+      "kind": "Destek hizmeti",
+      "owner": "R6",
+      "icon": "box",
+      "description": "Girdilerin kontrol edildiği ve ilgili ekiplere teslim edildiği alan. Parti bilgisi ve kabul sonucu birlikte izlenir.",
+      "assets": [
+        "Parti kabul alanı",
+        "Kullanım dışı bekletme alanı",
+        "Lojistik ekibi"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "utilities",
+      "name": "Enerji ve su altyapısı",
+      "shortName": "Altyapı",
+      "kind": "Teknik altyapı",
+      "owner": "R4",
+      "icon": "bolt",
+      "description": "Parkın görünmeyen desteği. Enerji ve su bağlantıları, yaşam alanlarını ve ziyaretçi hizmetlerini besler.",
+      "assets": [
+        "B1 ve B2 · enerji panoları",
+        "Su dağıtım hattı",
+        "Teknik A ve B ekipleri"
+      ],
+      "initialStatus": "open"
+    },
+    {
+      "id": "entrance",
+      "name": "Giriş ve ziyaretçi merkezi",
+      "shortName": "Ziyaretçi merkezi",
+      "kind": "Ziyaretçi hizmeti",
+      "owner": "R2",
+      "icon": "ticket",
+      "description": "Mavi Vadi’ye ilk adım. Rezervasyonlar, ziyaretçi karşılaması ve güncel park bilgileri burada buluşur.",
+      "assets": [
+        "Danışma noktası",
+        "Rezervasyon listesi",
+        "Ana giriş ve yönlendirme"
+      ],
+      "initialStatus": "open"
+    }
+  ],
+  "phases": [
+    {
+      "id": "P1",
+      "name": "Vardiyayı devral",
+      "minutes": 20,
+      "description": "Rol, hizmet kataloğu ve kayıt hedefleri."
+    },
+    {
+      "id": "P2",
+      "name": "Kapılar açılıyor",
+      "minutes": 45,
+      "description": "Hizmet masası, olay, talep ve büyük olay."
+    },
+    {
+      "id": "P3",
+      "name": "Aynı arıza, yeni soru",
+      "minutes": 40,
+      "description": "Problem, CI bağımlılığı ve kontrollü değişiklik."
+    },
+    {
+      "id": "P4",
+      "name": "Ara",
+      "minutes": 15,
+      "description": "Yeni olay gönderilmez. Açık SLA saatleri işlemeye devam eder."
+    },
+    {
+      "id": "P5",
+      "name": "Kontrollü dönüş",
+      "minutes": 55,
+      "description": "Bilgi, kapasite, tedarik, izleme ve süreklilik."
+    },
+    {
+      "id": "P6",
+      "name": "Hizmeti teslim et",
+      "minutes": 25,
+      "description": "Kullanıcı teyidi, rapor ve iyileştirme."
+    },
+    {
+      "id": "P7",
+      "name": "İşe aktarım",
+      "minutes": 40,
+      "description": "Kararların çözümlemesi ve ekip taahhütleri."
+    }
+  ],
+  "guides": [
+    {
+      "id": "G1",
+      "title": "Oyunun amacı",
+      "category": "Başlangıç",
+      "content": "Mavi Vadi’yi birlikte işletin. Önce hizmet etkisini anlayın; doğru işi doğru kayda bağlayın. Bu bir çalışan değerlendirmesi değildir. Fiziksel hayvan müdahalesi yapılmaz."
+    },
+    {
+      "id": "G2",
+      "title": "İki saat, iki amaç",
+      "category": "SLA",
+      "content": "Atölye saati eğitmen akışını yönetir. Atölye kayıtlarının SLA hedefleri gerçek duvar saatiyle ölçülür; duraklatma SLA’yı durdurmaz. Niles bağlantısı doğrulanmadığında yerel gösterge Niles kanıtı sayılmaz."
+    },
+    {
+      "id": "G3",
+      "title": "Tek doğru kayıt yolu",
+      "category": "Akış",
+      "content": "Kesinti → olay. Yeni/rutin hizmet isteği → talep. Tekrarın nedeni → problem. Kontrollü müdahale → değişiklik. Yeniden kullanılabilir doğrulanmış çözüm → bilgi. İlişkileri ve kullanıcı teyidini kaybetmeyin."
+    },
+    {
+      "id": "G4",
+      "title": "Güvenli alan ve mizah",
+      "category": "Oyun",
+      "content": "Aslan çiti olayı kurgu ekranda canlandırılır. Gerçek tahliye veya bakım talimatı değildir. Şakalar kişilere değil çalışma alışkanlıklarına yönelir. Korsan bir onay makamı değildir."
+    },
+    {
+      "id": "G5",
+      "title": "Kaynaklar",
+      "category": "Kurallar",
+      "content": "100 oyun kredisi. Teknik A ve Teknik B aynı anda birer iş yapar. Çit onarımı 20 kredi/6 dakika; pompa bağımlılığı düzeltmesi 30 kredi/10 dakika; ikinci giriş masası 10 kredi/4 dakika; yedek parça 15 kredi/5 dakika. Bütçe harcamalarını karar kanıtına yazın; eğitmen kaynak çakışmasını kontrol eder."
+    }
+  ],
+  "events": [
+    {
+      "id": "E01",
+      "minute": 22,
+      "title": "Turnike bizi tanımıyor",
+      "process": "Hizmet masası · Olay",
+      "recordType": "incident",
+      "priority": "P2",
+      "zone": "entrance",
+      "serviceId": "SVC-VISIT",
+      "ciId": "CI-TURN",
+      "message": "Nermin Hoca: “120 öğrenci geldik. Turnike hepimize kırmızı yakıyor. Robot bize küsmüş olabilir mi?”",
+      "information": "Portalda rezervasyon doğru; ağ bağlantısı kesilmiş. Güvenli manuel kontrol listesi ve ikinci masa mevcut.",
+      "expected": "Kesintiyi olay olarak kaydet; etki/aciliyet, hizmet/CI, ekip ve tek iletişim sahibi belirle. Manuel geçişi teyit et.",
+      "choices": [
+        {
+          "id": "E01-1",
+          "label": "Kontrollü manuel geçiş + ziyaretçi teyidi",
+          "result": "Kuyruk çözülür. Teknik olay sürerken hizmet geçici çözümle geri gelir; geçici çözüm ve kullanıcı teyidi kaydedilir.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E01-2",
+          "label": "Yalnız turnikeyi yeniden başlat",
+          "result": "Kuyruk büyür. Hizmet hâlâ dönmedi; olay açık kalır. Aynı seçenek tekrar puan kazandırmaz.",
+          "score": 1,
+          "resolve": false,
+          "requiresResolved": []
+        },
+        {
+          "id": "E01-3",
+          "label": "Herkesi kontrolsüz içeri al",
+          "result": "Güvenli geçiş koşulu karşılanmaz. Bu yol kabul edilmez; alternatif plan gerekir.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Kaydın atanması, cihazın çalışması ve hizmetin geri gelmesi aynı an mı?",
+      "effect": "queue",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E02",
+      "minute": 32,
+      "title": "VIP değil, farklı bir ihtiyaç",
+      "process": "Talep · Hizmet kataloğu",
+      "recordType": "request",
+      "priority": "P3",
+      "zone": "education",
+      "serviceId": "SVC-EDU",
+      "ciId": "CI-GUIDE",
+      "message": "Okul temsilcisi erişilebilir rota ve işaret dili desteği istiyor. Sponsor: “Ben de VIP yazdırayım, benimki P1 olsun.”",
+      "information": "Bu yeni bir hizmet talebidir; mevcut kesinti yok. Standart erişilebilir rota hazır, ilave rehber için uygunluk ve görev planı gerekir.",
+      "expected": "Talebi katalogdan sınıflandır; kabul ölçütü, onay gereksinimi, sorumlu ve vaat edilen süreyi belirle.",
+      "choices": [
+        {
+          "id": "E02-1",
+          "label": "Katalog, uygunluk ve görev planıyla karşıla",
+          "result": "İhtiyaç karşılanır; talep, ziyaretçi kabul ölçütüyle kapatılır. Unvan öncelik yerine geçmez.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E02-2",
+          "label": "Sponsor söyledi: hepsini P1 yap",
+          "result": "Gerçek kesintiler öncelik gürültüsüne karışır. İhtiyaçlar netleşene kadar talep açık kalır.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Önceliği yüksek ses mi, hizmet etkisi mi belirliyor?",
+      "effect": "request",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E03",
+      "minute": 44,
+      "title": "Atlas sınırları test ediyor",
+      "process": "Büyük olay · İletişim",
+      "recordType": "incident",
+      "priority": "P1",
+      "zone": "savanna",
+      "serviceId": "SVC-SAFE",
+      "ciId": "CI-FENCE",
+      "message": "Çit sensörü alarm verdi. Atlas kırık bölümü inceliyor. Telsizden: “Aslan artık açık ofis konseptine geçti!”",
+      "information": "Alan oyunda kapalı duruma alınır; ziyaretçiler kontrollü alternatif rotaya yönlendirilebilir. Teknik onarım ve saha teyidi olmadan açılmaz.",
+      "expected": "Büyük olay liderini ata; güvenli alan, iletişim ritmi, teknik iş ve yeniden açma ölçütünü belirle. Acil değişikliği ilişkilendir.",
+      "choices": [
+        {
+          "id": "E03-1",
+          "label": "Alanı izole et, lider ata, onarım ve saha teyidi al",
+          "result": "Atlas güvenli alanda. Onarım, acil karar kaydı ve saha teyidiyle hizmet döner. Kırmızı ikaz söner.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E03-2",
+          "label": "Önce kök nedeni bulalım, yönlendirme beklesin",
+          "result": "Ziyaretçi belirsizliği sürer. Güvenli geçiş ve iletişim eksik; büyük olay açık kalır.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        },
+        {
+          "id": "E03-3",
+          "label": "Çit onarıldı diye alanı hemen aç",
+          "result": "Saha teyidi eksik. Kapalı alan ve kırmızı ikaz korunur; kayıt kapanmaz.",
+          "score": 1,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Büyük olay lideri, en iyi teknik uzman olmak zorunda mı?",
+      "effect": "fence",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E04",
+      "minute": 60,
+      "title": "SLA durmadı, biz durduk",
+      "process": "SLA · OLA · Tedarikçi",
+      "recordType": "incident",
+      "priority": "P2",
+      "zone": "depot",
+      "serviceId": "SVC-VISIT",
+      "ciId": "CI-TURN",
+      "message": "Tedarikçi: “30 dakika içinde döneriz.” Ziyaretçi hedefi 12 dakika. Korsan: “Beklemede, beklemede!”",
+      "information": "Bu olayda ilk müdahale 4, çözüm 12 gerçek dakikadır. Bilinçli gözlem için bu kayıt açık bırakılır. Bekleme oyunda SLA’yı durdurmaz. Niles kullanılıyorsa aynı politika ve canlı kayıt gerekir.",
+      "expected": "İlk müdahaleyi kaydet; çözüm hedefi geçene kadar gerçek zamanı bekle. Aşım kanıtını al; sonra alternatif kaynağı ve müşteri iletişimini uygula.",
+      "choices": [
+        {
+          "id": "E04-1",
+          "label": "Gerçek aşımı gözle, eskale et ve çözümü teyit et",
+          "result": "Hizmet geri gelir. Aşım geçmişi korunur; kayıt kapatmak ihlali silmez.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E04-2",
+          "label": "Beklemeye aldık, saat durmuş sayalım",
+          "result": "Bu politikada duraklatma yok. SLA saati ilerler; geriye dönük süre düzeltilemez.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "İç ve dış hedefler müşteri taahhüdünü gerçekten destekliyor mu?",
+      "effect": "supplier",
+      "prerequisites": [],
+      "requireBreach": true,
+      "finale": false
+    },
+    {
+      "id": "E05",
+      "minute": 70,
+      "title": "Mümtaz üçüncü kez aynı şakayı yapmıyor",
+      "process": "Problem · Bilinen hata",
+      "recordType": "problem",
+      "priority": "P2",
+      "zone": "water",
+      "serviceId": "SVC-WATER",
+      "ciId": "CI-P1",
+      "message": "Pompa üçüncü kez durdu. Mümtaz: “Beni değil, şu sistemi yeniden başlatmayı bırakın.”",
+      "information": "Üç olay aynı B1 dalgalanmasıyla eşleşiyor. Hipotez için elektrik kaydı ve CI ilişkisi gerekiyor; yeniden başlatma yalnız geçici çözüm.",
+      "expected": "İlişkili olayları bağla; doğrulanmış neden, geçici çözüm, sahibi olan kalıcı düzeltme ve tekrar ölçütü oluştur. E07 değişikliği doğrulanmadan problem kaydını kapatma.",
+      "choices": [
+        {
+          "id": "E05-1",
+          "label": "Kanıtla nedeni doğrula; bilinen hata ve düzeltme aç",
+          "result": "Bilinen hata ve geçici çözüm kabul edildi. Problem açık kalır; kalıcı düzeltme ve tekrar izleme kanıtı E07 sonrasında doğrulanmalıdır.",
+          "score": 5,
+          "resolve": false,
+          "requiresResolved": []
+        },
+        {
+          "id": "E05-2",
+          "label": "Bir kez daha yeniden başlat ve problemi kapat",
+          "result": "Servis kısa süre dönebilir ama tekrar nedeni ortadan kalkmaz; problem açık kalır.",
+          "score": 1,
+          "resolve": false,
+          "requiresResolved": []
+        },
+        {
+          "id": "E05-3",
+          "label": "E07 doğrulandı; kalıcı düzeltme ve tekrar izleme kanıtıyla kapat",
+          "result": "Bağımsız besleme testi, hizmet kabulü ve belirlenen izleme sonucu doğrulandı. Kalıcı düzeltme kanıtıyla problem kapatılır.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [
+            "E07"
+          ]
+        }
+      ],
+      "debrief": "Olayı çözmek ile problemi çözmek arasındaki somut fark ne?",
+      "effect": "water",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E06",
+      "minute": 82,
+      "title": "İki pompa, tek kader",
+      "process": "CMDB · Kullanılabilirlik",
+      "recordType": "task",
+      "priority": "P2",
+      "zone": "utilities",
+      "serviceId": "SVC-WATER",
+      "ciId": "CI-P2",
+      "message": "Envanter “yedekli” diyor. İki pompa da aynı panoya bağlı. Mümtaz: “İkiz yatak, tek sigorta.”",
+      "information": "P1 → B1, P2 → B1. Liste doğru olsa bile ilişki ve test kapsamı eksikse dayanıklılık varsayımı yanlıştır.",
+      "expected": "CI ilişkisini ve hizmet etkisini doğrula; CMDB’ye doğru bağımlılığı kaydet; yalnız cihaz sayısını kanıt sayma.",
+      "choices": [
+        {
+          "id": "E06-1",
+          "label": "Bağımlılığı doğrula ve CMDB ilişkisini düzelt",
+          "result": "Tek arıza noktası görünür olur. Düzeltme değişikliği ve doğrulama testi planlanır.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E06-2",
+          "label": "İki cihaz var: yedeklilik tamam",
+          "result": "Ortak bağımlılık sürer; pano arızasında iki cihaz da kaybedilir.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Kaç cihazınız var sorusu ile hangi arızayı tolere ediyorsunuz sorusu neden farklı?",
+      "effect": "power",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E07",
+      "minute": 94,
+      "title": "Korsan CAB toplantısını ele geçirdi",
+      "process": "Değişiklik · Yayın · Geri dönüş",
+      "recordType": "change",
+      "priority": "P2",
+      "zone": "utilities",
+      "serviceId": "SVC-WATER",
+      "ciId": "CI-B1",
+      "message": "Korsan “Onaylandı!” diye bağırdı. Teknik ekip: “P2’yi bağımsız beslemeye şimdi alalım mı?”",
+      "information": "Normal değişiklik: etki analizi, pencere, yetkili onay, test, geri dönüş eşiği ve uygulama sonucu gerekir. Güvenlik zorunlulukları hız için atlanmaz.",
+      "expected": "R6 yetkili kararı; R4 uygulama; R3 hizmet testi. B1 kesildiğinde P2’nin sürdüğünü doğrula. CMDB ve problem kaydını bağla.",
+      "choices": [
+        {
+          "id": "E07-1",
+          "label": "Yetkili onay, kontrollü uygulama ve bağımsız besleme testi",
+          "result": "Test geçer; hizmet korunur. Değişiklik sonrası CMDB güncellenir ve problemde kalıcı düzeltme doğrulanır.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E07-2",
+          "label": "Papağan onayladı; doğrudan uygula",
+          "result": "Yetki ve geri dönüş kanıtı yok. Uygulama başlatılmaz; değişiklik açık kalır.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        },
+        {
+          "id": "E07-3",
+          "label": "Test başarısız: geri dön ve yeniden planla",
+          "result": "Geri dönüş başarıyla tamamlanır. Güvenli geri dönüş değerlidir; hedef çözüm beklediği için değişiklik açık kalır.",
+          "score": 3,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Başarısız testi zamanında fark edip geri dönmek neden iyi bir değişiklik sonucu olabilir?",
+      "effect": "change",
+      "prerequisites": [
+        "E05",
+        "E06"
+      ],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E08",
+      "minute": 123,
+      "title": "Bir bilgi, üç vardiya",
+      "process": "Bilgi yönetimi · Vardiya devri",
+      "recordType": "knowledge",
+      "priority": "P3",
+      "zone": "birds",
+      "serviceId": "SVC-VISIT",
+      "ciId": "CI-TURN",
+      "message": "Yeni vardiya eski PDF’yi açtı. Korsan: “Ben ezberledim!” Ama yanlış sürümü ezberlemiş.",
+      "information": "Geçici çözümün sahibi, sürümü, koşulları ve gözden geçirme tarihi belirlenmeli; eski kopya kullanımdan kaldırılmalı.",
+      "expected": "Doğrulanmış çözümü bilgi kaydı yap; yeni ekibin bulup uygulayabildiğini teyit et.",
+      "choices": [
+        {
+          "id": "E08-1",
+          "label": "Bilgiyi doğrula, eski kopyayı çek ve uygulamayı gözle",
+          "result": "Yeni vardiya tek doğru kaynağı kullanır. Kuş alanı sakinleşir; tekrar çözüm süresi azalır.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E08-2",
+          "label": "Yeni PDF yükle, eski kopyalar kalsın",
+          "result": "Bilgi var ama kullanım çelişkili. Eski yönerge etkisi sürer.",
+          "score": 1,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Bilginin var olması ile bulunabilir ve kullanılabilir olması nasıl ayrılır?",
+      "effect": "knowledge",
+      "prerequisites": [
+        "E01"
+      ],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E09",
+      "minute": 137,
+      "title": "Sıra uzadı, grafik yeşil",
+      "process": "Kapasite · Deneyim ölçümü",
+      "recordType": "incident",
+      "priority": "P2",
+      "zone": "entrance",
+      "serviceId": "SVC-VISIT",
+      "ciId": "CI-PORTAL",
+      "message": "Portal yanıtı 200 ms. Dışarıda sıra 25 dakika. Nermin Hoca: “Sunucunuz hızlı, çocuklar hâlâ dışarıda.”",
+      "information": "Darboğaz gişe ve rehber kapasitesi. Aktif oturum başına 40 kişi; 120 kişi üç ardışık gruptur.",
+      "expected": "Uçtan uca beklemeyi ölç; ikinci masa ve kontrollü grup planı oluştur; vaat ile yaşanan deneyimi birlikte raporla.",
+      "choices": [
+        {
+          "id": "E09-1",
+          "label": "İkinci masa, üç grup ve saha bekleme ölçümü",
+          "result": "Kuyruk azalır. Sistem metriği ile ziyaretçi deneyimi birlikte görünür.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E09-2",
+          "label": "CPU yeşil, kaydı kapat",
+          "result": "Ziyaretçi beklemeye devam eder. Teknik gösterge tek başına hizmet sonucu sayılmaz.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Hangi yeşil metrik kötü müşteri deneyimini saklıyor olabilir?",
+      "effect": "queue",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E10",
+      "minute": 150,
+      "title": "Alarm orkestrası: herkes solo",
+      "process": "İzleme · Olay korelasyonu",
+      "recordType": "incident",
+      "priority": "P2",
+      "zone": "utilities",
+      "serviceId": "SVC-WATER",
+      "ciId": "CI-SENSOR",
+      "message": "Sensörler aynı arızadan 40 alarm üretti. Telsizde herkes konuşuyor, kimse dinleyemiyor.",
+      "information": "Bakım penceresi, ilişkili CI’lar ve tek kök olay kullanılabilir. Gerçek yeni etki alarm gürültüsünden ayrılmalı.",
+      "expected": "İlişkili alarmları tek olaya bağla; gerçek etkiyi teyit et; gereksiz çoğaltmayı azalt ama tüm izlemeyi kapatma.",
+      "choices": [
+        {
+          "id": "E10-1",
+          "label": "Korelasyon, bakım bağlamı ve etki teyidi",
+          "result": "Alarm gürültüsü azalır; gerçek hizmet etkisi izlenmeye devam eder.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E10-2",
+          "label": "Bütün alarmları sustur",
+          "result": "Sessizlik sağlık kanıtı değildir. Yeni etki fark edilmeyebilir; kayıt açık kalır.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Alarm adedini azaltmak hangi durumda iyileştirme, hangi durumda körleşmedir?",
+      "effect": "alerts",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E11",
+      "minute": 165,
+      "title": "Yedek parça geldi, uymadı",
+      "process": "Tedarikçi · Süreklilik · Kabul",
+      "recordType": "task",
+      "priority": "P2",
+      "zone": "depot",
+      "serviceId": "SVC-WATER",
+      "ciId": "CI-P2",
+      "message": "Kargo üzerinde “pompa parçası” yazıyor. Kutudan çıkan parça Atlas’ın oyuncağına daha çok benziyor.",
+      "information": "Model uyumu, teslim alma kontrolü, tedarik süresi ve alternatif parça listesi gerekli. En ucuz teklif tek karar ölçütü değildir.",
+      "expected": "Parça kabulünü yap; uygun değilse kullanma. Alternatif tedarik, hedef ve eskalasyonu hizmet sahibiyle netleştir.",
+      "choices": [
+        {
+          "id": "E11-1",
+          "label": "Uygunluk kontrolü + alternatif parça + test",
+          "result": "Uyumlu parça kontrollü kullanılır. Tedarikçi hedefi müşteri hedefini destekleyecek şekilde gözden geçirilir.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E11-2",
+          "label": "Teslim edildi: işi tamamlandı say",
+          "result": "Parça var ama hizmet kullanamıyor. Teslim tarihi tek başına başarı sayılmaz.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Satın alma başarısı ile hizmetin sürdürülebilirliği arasındaki ilişki nedir?",
+      "effect": "supplier",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": false
+    },
+    {
+      "id": "E12",
+      "minute": 185,
+      "title": "Her şey yeşil, Nermin Hoca hariç",
+      "process": "Hizmet raporu · Sürekli iyileştirme",
+      "recordType": "task",
+      "priority": "P3",
+      "zone": "education",
+      "serviceId": "SVC-EDU",
+      "ciId": "CI-GUIDE",
+      "message": "Yönetim gün sonu raporunu bekliyor. Nermin Hoca: “Raporunuzda beni de görebilecek miyim?”",
+      "information": "SLA aşımı, tekrarlar, bekleme, kullanıcı teyidi ve başarılı geri dönüşler birlikte raporlanır. İyileştirmeler için üç iş seçilir.",
+      "expected": "Gerçek sonuçları göster; üç iyileştirmeye sahip, tarih, başlangıç değeri ve başarı ölçütü ata.",
+      "choices": [
+        {
+          "id": "E12-1",
+          "label": "Dürüst rapor + üç ölçülebilir iyileştirme",
+          "result": "Operasyon günü kapanır. Ekip kendi işine taşıyacağı bir davranışı söyler; kutlama başlar.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": []
+        },
+        {
+          "id": "E12-2",
+          "label": "Aşımları çıkar, yeşil rapor sun",
+          "result": "Geçmiş değişmez. Rapor eksik olduğu için gün sonu kabulü bekler.",
+          "score": 0,
+          "resolve": false,
+          "requiresResolved": []
+        }
+      ],
+      "debrief": "Yarın işe döndüğümüzde ilk hangi davranışı değiştireceğiz?",
+      "effect": "finale",
+      "prerequisites": [],
+      "requireBreach": false,
+      "finale": true
+    }
+  ],
+  "services": [
+    {
+      "id": "SVC-VISIT",
+      "name": "Ziyaretçi kabul ve gezi",
+      "owner": "R1",
+      "cis": [
+        "CI-TURN",
+        "CI-PORTAL",
+        "CI-NET"
+      ],
+      "promise": "Güvenli giriş, tek doğru bilgi ve doğrulanmış hizmet sonucu."
+    },
+    {
+      "id": "SVC-SAFE",
+      "name": "Güvenli savan ziyareti",
+      "owner": "R3",
+      "cis": [
+        "CI-FENCE",
+        "CI-SENSOR"
+      ],
+      "promise": "Güvenli alan; koşullar sağlanmadan yeniden açılmaz."
+    },
+    {
+      "id": "SVC-WATER",
+      "name": "Su yaşamı ve bakım sürekliliği",
+      "owner": "R3",
+      "cis": [
+        "CI-P1",
+        "CI-P2",
+        "CI-B1",
+        "CI-HIPPO"
+      ],
+      "promise": "Bakım koşulları ve doğrulanmış altyapı bağımlılıkları."
+    },
+    {
+      "id": "SVC-EDU",
+      "name": "Rehberli eğitim turu",
+      "owner": "R2",
+      "cis": [
+        "CI-GUIDE",
+        "CI-PORTAL"
+      ],
+      "promise": "Onaylı kapasitede, erişilebilir ve zamanında tur."
+    }
+  ],
+  "cis": [
+    {
+      "id": "CI-TURN",
+      "name": "Giriş turnikesi",
+      "zone": "entrance",
+      "dependsOn": "CI-NET"
+    },
+    {
+      "id": "CI-PORTAL",
+      "name": "Rezervasyon portalı",
+      "zone": "entrance",
+      "dependsOn": "CI-NET"
+    },
+    {
+      "id": "CI-NET",
+      "name": "Park ağı",
+      "zone": "utilities",
+      "dependsOn": "CI-B1"
+    },
+    {
+      "id": "CI-FENCE",
+      "name": "Atlas savan çiti",
+      "zone": "savanna",
+      "dependsOn": "CI-SENSOR"
+    },
+    {
+      "id": "CI-SENSOR",
+      "name": "Çit sensörü",
+      "zone": "savanna",
+      "dependsOn": "CI-NET"
+    },
+    {
+      "id": "CI-P1",
+      "name": "Ana pompa P1",
+      "zone": "water",
+      "dependsOn": "CI-B1"
+    },
+    {
+      "id": "CI-P2",
+      "name": "Yedek pompa P2",
+      "zone": "water",
+      "dependsOn": "CI-B1"
+    },
+    {
+      "id": "CI-B1",
+      "name": "Ortak elektrik panosu B1",
+      "zone": "utilities",
+      "dependsOn": null
+    },
+    {
+      "id": "CI-HIPPO",
+      "name": "Mümtaz — canlı varlık kaydı",
+      "zone": "water",
+      "dependsOn": "CI-P1"
+    },
+    {
+      "id": "CI-GUIDE",
+      "name": "Yetkin rehber ekibi",
+      "zone": "education",
+      "dependsOn": null
+    }
+  ],
+  "slaPolicies": [
+    {
+      "id": "MV-P1",
+      "priority": "P1",
+      "responseMinutes": 2,
+      "resolutionMinutes": 8,
+      "calendar": "24x7",
+      "pause": "Yok"
+    },
+    {
+      "id": "MV-P2",
+      "priority": "P2",
+      "responseMinutes": 4,
+      "resolutionMinutes": 12,
+      "calendar": "24x7",
+      "pause": "Yok"
+    },
+    {
+      "id": "MV-P3",
+      "priority": "P3",
+      "responseMinutes": 6,
+      "resolutionMinutes": 18,
+      "calendar": "24x7",
+      "pause": "Yok"
+    }
+  ],
+  "scoring": {
+    "description": "Oyun içi öğrenme puanı; çalışan performansı veya gerçek risk puanı değildir. Her olay 0–5 puan; eğitmen eşdeğer çözümü aynı ölçütle kabul eder.",
+    "dimensions": [
+      "Hizmeti güvenli geri getirme",
+      "Doğru kayıt ve kanıt",
+      "İletişim ve yetki",
+      "Tekrarı azaltma"
+    ]
+  },
+  "engine": "itsm"
+}
