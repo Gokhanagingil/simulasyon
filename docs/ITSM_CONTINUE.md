@@ -1,5 +1,37 @@
 # Mavi Vadi ITSM — current continuation checkpoint
 
+Updated: 7 October 2026, 20:40 UTC.
+
+## Latest delivery and active scope
+- Latest user direction: build an easy-to-run, funny, high-quality, educational simulation with meaningful animation and stories participants will retell. Continue simulation work independently of Niles failures; record those for later. Do not resume Niles fixes or workflows from historical notes below.
+- Private live ITSM: https://mavi-vadi-itsm.gokhan-agingil.chatgpt.site
+- Existing Site: appgprj_6ac62ba86ea48191babde5b3c0d38828. Deployment appgdep_6ac6ae346d888191a084921fd0d8257f succeeded.
+- Published Site source commit: 5f2b7eb9b6ff19e0b2f23443b6e9059ae586e25a.
+- GitHub implementation commit: b573a3eaf015ed907dde63bda0e6b94a4761e49a in draft PR https://github.com/Gokhanagingil/simulasyon/pull/4. Keep this draft; main merge is not authorized.
+- Exact 171-file equality verified: Site source tree and GitHub editions/itsm tree are both 497106d9285870a28320f39ee6c92e583b35e644.
+- GRC application, GRC Site, identities, permissions and databases were not changed.
+
+## Experience now implemented
+- Role-first three-step briefing and trainer first-five-minute setup.
+- State-driven Atlas/Mümtaz/Korsan scenes; jammed vs rotating turnstile, animated queue, response crew after acknowledgment and recovery after verified closure.
+- Full finale only after all required scenario records resolve; no premature all-clear.
+- Day-end park story built from real decisions, debrief questions after resolution, 30-second retelling prompt, CSV plus story/evidence JSON explicitly marked local simulation.
+- Readable controls, responsive layouts, keyboard focus and reduced-motion rules.
+- Stale workshop/scenario response protection, concurrent-save locking, immutable released cards, idempotent server decision keys, closure race protection and impossible closure-cycle validation.
+
+## Evidence and remaining acceptance
+- 26 automated tests, JS/scenario validation, TypeScript and production build passed locally.
+- ESLint: zero errors; two pre-existing unused-variable warnings in preserved public/app.js.
+- ITSM GitHub CI on b573a3e passed: https://github.com/Gokhanagingil/simulasyon/actions/runs/37683746016
+- Root application CI on b573a3e was still running at checkpoint: https://github.com/Gokhanagingil/simulasyon/actions/runs/37683745949 . Check current status; its browser suite covers GRC, not ITSM.
+- Interactive ITSM visual acceptance remains UNVERIFIED. Supported cloud browser local preview was blocked (ERR_BLOCKED_BY_CLIENT); the private live Site needs a normal authenticated owner session. Do not bypass auth, change sharing or substitute another route around that block. SVG markup tests are not visual/performance proof.
+- Next: complete normal authenticated desktop/mobile ITSM acceptance when access is available; verify animation, role flow, event release/locking, studio import/export, persistence, debrief and reduced motion. Fix demonstrated simulation defects within this edition.
+- Niles live synchronization and official SLA acceptance are not implemented/verified. Local elapsed-time SLA and manual Niles record links are not official Niles evidence. Never mark Niles PASS to make the demo succeed.
+
+## Historical checkpoint, retained for traceability
+The record below predates the user's latest simulation-only focus. Its stopping point is historical, not an instruction to resume Niles work.
+
+
 Updated: 7 October 2026.
 
 ## Delivered
