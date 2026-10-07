@@ -24,10 +24,12 @@ GRC and ITSM are separate versions. The zoo story, humor and animation matter. S
 - Latest correction head: 329b0bddda65746c8f2388b7994f2924eb331a56.
 - Adds initial owner fields, safe retry key, validation and English/Turkish catalog text. Backend authorization remains unchanged.
 - Local validation: 9 targeted AdminTenants tests, full frontend:hygiene (ESLint + CI=true production build), i18n integrity and no-new-visible-literal-debt checks passed. Architecture guard and its tests passed.
-- Initial PR CI failed because separate translation files were not in the governed catalog; the latest commit moves the texts into common.json. Await latest exact-head CI before merge/deployment.
+- Initial PR CI failed because separate translation files were not in the governed catalog; the corrected commit moves the texts into common.json.
+- PR #1920 passed 31 checks (7 expected skips) and merged as a7341eeeaa17fd904954e54fc2ca486e0c4a04ff. Main CI and supply-chain certification are running; staging has NOT been deployed yet.
+- Operational state and deployment result are tracked in https://github.com/Gokhanagingil/grc/issues/1921. Check that issue before repeating any deployment or creating any tenant.
 
 ## Remaining
-1. Finish the normal GitHub gates for Niles PR #1920. Use docs/operations/NILES-CONTROL-PLANE.md for exact-main certified staging deployment; never bypass a gate or deploy production.
+1. Finish the exact-main GitHub gates after the merged Niles correction. Use docs/operations/NILES-CONTROL-PLANE.md for exact-main certified staging deployment; never bypass a gate or deploy production.
 2. After staging deployment, create only the separate workshop tenant with its tenant-bound initial owner. If credential entry requires secure user handoff, request it then; never collect passwords in chat.
 3. Implement staging-only setup in editions/itsm/content/niles-itsm-setup.json. Follow docs/NILES-ACCEPTANCE.md and obtain official Niles SLA breach evidence after 12 real minutes, then confirm breach remains after resolution.
 4. Live Niles synchronization is not implemented. The manual record URL is only a reference.
