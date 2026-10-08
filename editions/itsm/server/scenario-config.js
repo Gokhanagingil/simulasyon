@@ -30,6 +30,7 @@ export function validateScenario(input) {
   for (const zone of pack.zones) { string(zone.name, 'Bölge adı', 120); if (!roles.has(zone.owner)) fail(400, `${zone.id}: bölge sahibi bulunamadı.`); }
   for (const service of pack.services) {
     string(service.name, 'Hizmet adı', 120);
+    if(service.requiresServices!==undefined&&(!Array.isArray(service.requiresServices)||service.requiresServices.some(id=>id===service.id||!services.has(id))))fail(400,'Hizmet ön koşulu geçersiz.');
     if (!roles.has(service.owner) || !Array.isArray(service.cis) || service.cis.some(id => !cis.has(id))) fail(400, `${service.id}: hizmet sahibi veya CI ilişkisi geçersiz.`);
   }
   for (const ci of pack.cis) {

@@ -132,6 +132,7 @@ test('full scenario can be played and final status does not depend on a fixed ev
       assert.equal(closed.status,200);state=closed.body;
     }
   }
+  assert.equal(state.itsm.currentServicesReady,false);await animalStep('animal_revalidate',{note:'Kalıcı teknik düzeltme sonrası güncel gözlem hizmeti yeniden teyit edildi.'});state=(await f.trainer(f.path+'/state')).body;assert.equal(state.itsm.currentServicesReady,true);
   assert.equal(state.itsm.metrics.resolved,12);assert.equal(state.itsm.metrics.maximum,60);assert.equal(state.itsm.metrics.score,60);assert.equal(state.itsm.finale,true);assert.deepEqual(state.itsm.effects,[]);
 });
 

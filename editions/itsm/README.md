@@ -67,3 +67,5 @@ Ana hayvan hizmeti ve destekleyici E05/E06/E07 teknik zinciri aynı iki teknisye
 Mevcut atölyelerin senaryo kopyaları ve sonuçları değiştirilmez. Hayvan modeli yalnız yeni 1.1.0 paketinde etkinleşir. Eski atölye ekranı yeni atölye açılmasını açıklar. Runtime’ın yeni hayvan alanı ilk gerçek işlemde eklenir; geçmiş olay, kredi harcaması veya kabul uydurulmaz.
 
 Prova hesapları gerçek uygulama hesabıdır, rol takma adı değildir. Eğitmen tarafından bir kez oluşturulur; canlı giriş ve parola işlemleri kullanıcı kontrolündedir. Bağımsız kabul testleri için `docs/ANIMAL-ACCEPTANCE-CONTRACT.md` uç noktaları ve sentetik test sınırlarını açıklar.
+
+Paket 1.1.1: önceki ziyaretçi kabulü ile **güncel hizmet uygunluğu** ayrı gösterilir. Kurgusal gözlem hizmeti su sürekliliği ve PA → ağ ön koşullarına bağlıdır. Altyapı etkilenince eski puan/kayıt korunur; dönüşte R3 ücretsiz yeniden saha teyidi verir. Mevcut kabulde yeni uygunluk kaydı yoksa ekran bunu dürüstçe belirtir. Kısmi açılış gözlemi kapsamayan, önceden teyitli yerel alternatif rotadır.

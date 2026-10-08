@@ -33,3 +33,13 @@ Existing workshop scenario JSON remains authoritative. Old packs do not silently
 ## Verification scope at development handoff
 
 46 automated tests pass, including all three outcomes, negative role permissions, resource contention, failed test recovery, replay protection, existing 12-event lifecycle and SQLite/D1 behavior. Syntax and TypeScript checks pass. Live visual/role acceptance is a separate, independently run stage; this document does not claim it passed.
+
+## Current readiness versus historical acceptance (1.1.1)
+
+Historical `animals.accepted`, completed records, decisions and scores are immutable. A separate `animals.current` describes current service readiness. This is a fictional service rule, not an inference about animal welfare: SVC-OBS requires SVC-WATER continuity and its PA→NET dependency. Before any pump card is released there is no asserted current water incident. Once the chain is released, water `degraded`/`repairing`/`test_pending`, or NET down, makes previously accepted quiet/delayed observation `dependency_affected`.
+
+When water is `temporary` or `resilient` and NET is up, a changed dependency generation produces `revalidation_required`. R3 (or trainer rehearsal) sends `operation: "animal_revalidate"`, note 20–2000 characters, latest revision and requestId. This is free. It records a new current field confirmation without editing earlier acceptance or scores. Initial full/delayed field and visitor acceptance cannot bypass a current dependency failure either. A verified but not-yet-accepted plan may be tested again.
+
+The current field stamp includes the first pump-chain release, technical job generation and water/network state; merely closing records does not change it. An outage followed by restoration between browser reads still invalidates the earlier stamp. Temporary restoration can be revalidated, but recurrence affects it again. The accepted partial route excludes observation and remains `alternative_available`; it is the already-confirmed local alternative, not a promise that all park services work.
+
+Older accepted animal runtime with no current stamp is labeled as needing the new model's current confirmation, not as a fabricated earlier failure. Actual current failures take priority. No new cost, points, replacement animal or new event is introduced. Dashboard celebration, map, CMDB, exported state and debrief distinguish closed historical records from current readiness.

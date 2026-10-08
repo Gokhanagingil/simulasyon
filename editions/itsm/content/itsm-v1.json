@@ -1,6 +1,6 @@
 {
   "id": "itsm-v1",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "name": "ITSM · Operasyon Günü",
   "description": "Mümtaz’ın sessiz gözlemi, Atlas’ın güvenli alanı ve Korsan’ın yetkisiz onayları. Hayvan → yetkin bakıcı → habitat → ziyaretçi deneyimi zincirini birlikte yönetin.",
   "roles": [
@@ -40,7 +40,7 @@
       "color": "amber",
       "goal": "Ziyaretçiyi ve hayvan refahını gözeterek hizmeti güvenli biçimde sürdür.",
       "responsibility": "Gözlemi yorumdan ayırır, erişimi kontrol eder, alternatif rotayı ve gerçek hizmet sonucunu doğrularsın.",
-      "briefing": "Aslan Atlas kapıdaki boşluğu fark etti. Mümtaz havuzun sakin köşesinde; bu gözlem veterinerlik tanısı değildir. Mümtaz için oyunun tek koşulu: tanıdığı Elif ve sessiz alan. Fiziksel müdahale yok. Başarısız testte alan kapalı kalır; kısmi açılış başarı olabilir.",
+      "briefing": "Aslan Atlas kapıdaki boşluğu fark etti. Mümtaz havuzun sakin köşesinde; bu gözlem veterinerlik tanısı değildir. Mümtaz için oyunun tek koşulu: tanıdığı Elif ve sessiz alan. Fiziksel müdahale yok. Başarısız testte alan kapalı kalır; kısmi açılış başarı olabilir. Su/ağ dönüşünde daha önce kabul edilen gözlemin güncel uygunluğunu yeniden teyit edersin; geçmiş kabulü değiştirmezsin.",
       "authority": "Etkilenen alanı sınırlandırma ve verilen oyun prosedürüne göre güvenli geçici çözüm uygulama.",
       "steps": "Olayı bildirirken gözlenen etkiyi ve mevcut güvenli durumu söyleyin.",
       "partners": "R2 ziyaretçiye bilgi verir; R4 teknik müdahaleyi; R7 dış desteği yönetir.",
@@ -323,7 +323,7 @@
       "id": "G6",
       "title": "Mümtaz’ın hizmet sözleşmesi",
       "category": "Oyun kuralları",
-      "content": "Tümü kurgusal oyun koşullarıdır; veterinerlik bilgisi gerekmez. Mümtaz yalnız Elif ve sessiz alanda gözlemlenir. E02 sponsor saatini değiştirir; E09 vardiya uyumsuzluğunu, E10 PA kapsamını getirir. Üç kart geldikten sonra bağımlılık kanıtlarını birleştirin. Kısmi açılış: 0 kredi/0 teknisyen/30 sn, gözlem kapalı ve 40 kişilik eğitim rotası açık. Erteleme: 0 kredi/1 teknisyen/180 sn, normal vardiyada Elif ve sessiz PA. Sessiz tam gözlem: 20 kredi/1 teknisyen/90 sn, ayrıca Elif’in 60 sn erken devri. R3 saha testini, R2 yeni vaadin kabulünü kaydeder. Hayvan acı çekmez ve yedek parça değildir. Teknik ve hayvan işleri aynı kaynakları ve baskı saatini paylaşır; 35 kredi pompa kurtarma rezervidir."
+      "content": "Tümü kurgusal oyun koşullarıdır; veterinerlik bilgisi gerekmez. Mümtaz yalnız Elif ve sessiz alanda gözlemlenir. E02 sponsor saatini değiştirir; E09 vardiya uyumsuzluğunu, E10 PA kapsamını getirir. Üç kart geldikten sonra bağımlılık kanıtlarını birleştirin. Kısmi açılış: 0 kredi/0 teknisyen/30 sn, gözlem kapalı ve 40 kişilik eğitim rotası açık. Erteleme: 0 kredi/1 teknisyen/180 sn, normal vardiyada Elif ve sessiz PA. Sessiz tam gözlem: 20 kredi/1 teknisyen/90 sn, ayrıca Elif’in 60 sn erken devri. R3 saha testini, R2 yeni vaadin kabulünü kaydeder. Hayvan acı çekmez ve yedek parça değildir. Teknik ve hayvan işleri aynı kaynakları ve baskı saatini paylaşır; 35 kredi pompa kurtarma rezervidir. Ek kurgu bağımlılığı: gözlem hizmeti su sürekliliğine ve PA → park ağına bağlıdır. Kesintide önceki kabul/puan değişmez; güncel gözlem hizmeti etkilendi diye gösterilir. Altyapı döndüğünde R3 ücretsiz güncel saha teyidi verir. Alternatif rota gözlemi kapsamadığı için bundan etkilenmez. Bu bir hayvan refahı değerlendirmesi değildir."
     }
   ],
   "events": [
@@ -928,7 +928,10 @@
         "CI-HABITAT",
         "CI-PA"
       ],
-      "promise": "Hayvanın oyun koşulları korunur. Sessiz gözlem, açıkça ertelenmiş gözlem veya teyitli alternatif rota başarıdır."
+      "promise": "Hayvanın oyun koşulları korunur. Sessiz gözlem, açıkça ertelenmiş gözlem veya teyitli alternatif rota başarıdır.",
+      "requiresServices": [
+        "SVC-WATER"
+      ]
     }
   ],
   "cis": [

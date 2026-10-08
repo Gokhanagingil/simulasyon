@@ -41,3 +41,13 @@ Eski GRC ekran görüntüleri bu ITSM sürümünün doğrulama kanıtı değildi
 - Final development checks: **46/46 automated tests passed**, JavaScript/scenario and TypeScript checks passed. Includes full 12-event completion, all three animal outcomes, negative role permissions, shared capacity, failed-test recovery, legacy preservation and free fallback at five credits.
 - Production build and exact publication are separate handoff checks. Independent HTTP role-play and live browser acceptance are pending at this source freeze. A normal owner-authenticated browser session has been established for the separate live stage; the earlier authentication blocker is no longer assumed. Automated markup tests do not prove visual quality or real participant sign-ins.
 - Endpoint/identity contract: `ANIMAL-ACCEPTANCE-CONTRACT.md`. This increment changes only the standalone simulation; external integration acceptance is not claimed.
+
+### Live review follow-up: presentation corrections
+
+The independently observed baseline completed all 12 events. Two display-only issues were reproduced and corrected: CMDB habitat states now show Turkish labels, and a completed pump encounter retains completion guidance instead of requesting already-completed cards again. Both have regressions; 48 automated tests, syntax, TypeScript and production build pass. These corrections do not change state transitions. Animal observation versus later water-outage availability semantics are under separate review; this patch does not claim cross-branch withdrawal is implemented. Exact-version HTTP rerun and focused live retest belong to the final handoff evidence.
+
+### Cross-service current-readiness correction (1.1.1)
+
+Independent live/source review found that historic quiet observation acceptance remained displayed as currently open during later modeled dependency outages. The bounded correction now declares the fictional SVC-OBS→SVC-WATER prerequisite alongside PA→NET, and separates current readiness from immutable historical acceptance. Actual dependency failure shows affected readiness; restoration requires free R3 field revalidation. Partial opening excludes observation and retains its accepted local alternative. No animal-welfare inference is made.
+
+53 automated tests pass, including release-triggered impact, network outage, temporary restoration, recurrence, permanent recovery, wrong-role/premature revalidation rejection, unchanged historical decisions, legacy missing-stamp handling, unobserved interruption, initial acceptance gates and actual UI/map state labels. Syntax and TypeScript pass. Final independent HTTP and live checks run against the new frozen publication; earlier baseline acceptance does not alone establish this correction.
