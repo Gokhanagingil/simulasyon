@@ -1,8 +1,8 @@
 {
   "id": "itsm-v1",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "name": "ITSM · Operasyon Günü",
-  "description": "Bir hayvanat bahçesi. Sekiz ekip. Birbirine bağlı hizmetler. Önce hizmeti geri getir, sonra tekrarını önle.",
+  "description": "Mümtaz’ın sessiz gözlemi, Atlas’ın güvenli alanı ve Korsan’ın yetkisiz onayları. Hayvan → yetkin bakıcı → habitat → ziyaretçi deneyimi zincirini birlikte yönetin.",
   "roles": [
     {
       "id": "R1",
@@ -12,7 +12,7 @@
       "color": "forest",
       "goal": "İş değeri, öncelik, kaynak ve ziyaretçi deneyimini birlikte gözet.",
       "responsibility": "Hizmet hedeflerini belirler, ekipler arası önceliği uzlaştırır ve iyileştirme bütçesine karar verirsin.",
-      "briefing": "100 oyun kredisi; Teknik A ve Teknik B aynı anda yalnız birer iş yapabilir. Güvenlik koşulları pazarlık konusu değildir.",
+      "briefing": "100 oyun kredisi; Teknik A ve Teknik B aynı anda yalnız birer iş yapabilir. Güvenlik koşulları pazarlık konusu değildir. Üç meşru hizmet sonucu vardır: kısmi açılış, Elif’in vardiyasına erteleme veya sessiz tam gözlem. Bütçe ve vaat kapsamını sen kabul edersin.",
       "authority": "Bütçe ve hizmet önceliği kararı; değişiklik onayı görevini R6 yürütür.",
       "steps": "Hizmet hedeflerini ve tek eskalasyon yolunu açıklayın.",
       "partners": "R2 ziyaretçi etkisini; R3 saha durumunu; R6 değişiklik riskini; R8 ölçümü getirir.",
@@ -26,7 +26,7 @@
       "color": "sage",
       "goal": "Tek temas noktası ol; doğru kaydı, doğru ekibe, doğru bağlamla aktar.",
       "responsibility": "Olay ve talebi ayırır, etki/aciliyet ile önceliklendirir, ziyaretçiye anlaşılır durum mesajı verirsin.",
-      "briefing": "Okul grubu 120 kişi. Bilet turnikesi arızası ile özel tur talebi aynı kayıt türü değildir. Nermin Hoca tek ve doğru açıklama bekler.",
+      "briefing": "Okul grubu 120 kişi. Bilet turnikesi arızası ile özel tur talebi aynı kayıt türü değildir. Nermin Hoca tek ve doğru açıklama bekler. Sponsor saati değiştirdiğinde yeni kapsamı/süreyi ziyaretçiye teyit ettir. Hayvan hizmeti masasında yalnız senin kanıtını aç.",
       "authority": "Kayıt açma, öncelik önerisi, yönlendirme, iletişim ve kullanıcı teyidi.",
       "steps": "Etki, kapsam, başlangıç zamanı, hizmet ve CI bilgisini toplayın.",
       "partners": "R3/R4 çözüm ekipleri; R1 hizmet sahibi; R5 tekrarları araştırır.",
@@ -40,7 +40,7 @@
       "color": "amber",
       "goal": "Ziyaretçiyi ve hayvan refahını gözeterek hizmeti güvenli biçimde sürdür.",
       "responsibility": "Gözlemi yorumdan ayırır, erişimi kontrol eder, alternatif rotayı ve gerçek hizmet sonucunu doğrularsın.",
-      "briefing": "Aslan Atlas kapıdaki boşluğu fark etti. Mümtaz havuzun sakin köşesinde; bu gözlem veterinerlik tanısı değildir.",
+      "briefing": "Aslan Atlas kapıdaki boşluğu fark etti. Mümtaz havuzun sakin köşesinde; bu gözlem veterinerlik tanısı değildir. Mümtaz için oyunun tek koşulu: tanıdığı Elif ve sessiz alan. Fiziksel müdahale yok. Başarısız testte alan kapalı kalır; kısmi açılış başarı olabilir.",
       "authority": "Etkilenen alanı sınırlandırma ve verilen oyun prosedürüne göre güvenli geçici çözüm uygulama.",
       "steps": "Olayı bildirirken gözlenen etkiyi ve mevcut güvenli durumu söyleyin.",
       "partners": "R2 ziyaretçiye bilgi verir; R4 teknik müdahaleyi; R7 dış desteği yönetir.",
@@ -54,7 +54,7 @@
       "color": "blue",
       "goal": "Teknik parçayı ve uçtan uca hizmeti birlikte doğrula.",
       "responsibility": "CI ilişkilerini inceler, olay müdahalesini ve onaylı değişikliği uygularsın.",
-      "briefing": "P1 ve P2 pompaları iki ayrı cihazdır ama B1 panosuna bağlıdır. Son test yalnız pompa arızasını denemiştir; pano arızasını değil.",
+      "briefing": "P1 ve P2 pompaları iki ayrı cihazdır ama B1 panosuna bağlıdır. Son test yalnız pompa arızasını denemiştir; pano arızasını değil. PA sessiz alan değişikliği ile pompa değişikliği aynı iki teknisyeni paylaşır. Hayvan hizmeti planında test ve kapalı alan geri dönüşünü yaz.",
       "authority": "Onaylı standart işler; normal ve acil değişiklikler R6 yetkisine tabidir.",
       "steps": "Kapsamı teyit edin, geçici çözümü belgeleyin; kalıcı düzeltmeyi değişiklik akışına verin.",
       "partners": "R3 saha doğrulaması; R5 kök neden; R6 değişiklik; R7 parça/tedarik.",
@@ -68,7 +68,7 @@
       "color": "purple",
       "goal": "Tekrar eden olayları azalt; işe yarayan bilgiyi sonraki ekibe aktar.",
       "responsibility": "Olayları ilişkilendirir, kanıta dayalı neden analizi ve bilinen hata/geçici çözüm kaydı oluşturursun.",
-      "briefing": "Bir haftada üç pompa kesintisi var. “Yeniden başlatıldı” çözüm notu bir kök neden değildir. Korsan papağan her şeye “Onaylandı!” der.",
+      "briefing": "Bir haftada üç pompa kesintisi var. “Yeniden başlatıldı” çözüm notu bir kök neden değildir. Korsan papağan her şeye “Onaylandı!” der. Mümtaz, Elif vardiyası ve sessiz habitat ilişkisini saha, teknik ve tedarik kanıtıyla doğrula.",
       "authority": "Problem ve bilgi kaydı oluşturma; doğrulanmamış nedeni kesin bilgi gibi yayımlamama.",
       "steps": "Olay zamanlarını ve CI ilişkilerini karşılaştırın, hipotezleri kanıtla sınayın.",
       "partners": "R4 teknik kanıt; R2 tekrar eden olay; R6 kalıcı düzeltme; R8 etki ölçümü.",
@@ -82,7 +82,7 @@
       "color": "clay",
       "goal": "Hız ile kontrollü uygulamayı birlikte sağla.",
       "responsibility": "Değişiklik türünü ve yetkisini belirler; etki, test, geri dönüş, pencere ve uygulama sonucunu değerlendirirsin.",
-      "briefing": "Korsan yetkili onaycı değildir. Acil değişiklik de yetkili karar, kayıt ve uygulama sonrası inceleme gerektirir.",
+      "briefing": "Korsan yetkili onaycı değildir. Acil değişiklik de yetkili karar, kayıt ve uygulama sonrası inceleme gerektirir. Sponsorun aceleciliği onay değildir. Hayvan hizmeti ve teknik değişiklik için ayrı etki, plan ve kabul koşullarını incele.",
       "authority": "Düşük riskli önceden tanımlı standart akışı kullanma; normal/acil değişiklik kararı.",
       "steps": "Etkilenen hizmet ve CI, uygulayan, test eden ve geri dönüş koşulunu netleştirin.",
       "partners": "R4 uygular; R3 sonucu teyit eder; R1 öncelik; R7 tedarik bağımlılığı.",
@@ -96,7 +96,7 @@
       "color": "mint",
       "goal": "Müşteriye verilen sözü ekip ve tedarikçi taahhütleriyle destekle.",
       "responsibility": "Parça, yetkinlik, iç ekip hedefi (OLA) ve tedarikçi hedefini (UC) takip edersin.",
-      "briefing": "Tedarikçi 30 dakikada dönüş diyor; ziyaretçi hizmeti 12 dakikada geri gelmeli. Tedarikçinin geç kalması müşteri SLA saatini kendiliğinden durdurmaz.",
+      "briefing": "Tedarikçi 30 dakikada dönüş diyor; ziyaretçi hizmeti 12 dakikada geri gelmeli. Tedarikçinin geç kalması müşteri SLA saatini kendiliğinden durdurmaz. Elif bir yetkinlik bağımlılığıdır. Erken vardiya devri 60 simülasyon saniyesi ister; rastgele yedek bakıcı veya hayvan seçilemez.",
       "authority": "Yedek parça seçimi ve eskalasyon; bütçeli alternatifler R1 kararıyla.",
       "steps": "SLA → OLA → UC zaman zincirini ve alternatif kaynağı doğrulayın.",
       "partners": "R4 parça uyumu; R3 güvenli çalışma; R1 bütçe; R8 hedef ölçümü.",
@@ -110,7 +110,7 @@
       "color": "slate",
       "goal": "Yeşil panonun arkasındaki gerçek deneyimi görünür kıl.",
       "responsibility": "SLA, hizmetin kullanılabilirliği, bekleme ve tekrarları ölçer; düzeltme etkisini izlersin.",
-      "briefing": "Atölye saati duraklatılabilir. Kayıt SLA saati gerçek zamanla ilerler. Niles kullanılıyorsa Niles kaydı esas alınır.",
+      "briefing": "Atölye saati duraklatılabilir. Kayıt SLA saati gerçek zamanla ilerler. Niles kullanılıyorsa Niles kaydı esas alınır. Tam açılış tek başarı değildir. Kapsam, bekleme ve gerçek ziyaretçi teyidini raporla. Kredi tüketimi ortak; kişi performansı ölçülmez.",
       "authority": "Ölçüm tanımını açıklama ve kanıt inceleme; zamanı veya sonucu geriye dönük değiştirmeme.",
       "steps": "Hedef, başlangıç/duruş koşulu, takvim ve ölçüm kaynağını herkesle netleştirin.",
       "partners": "R2 kullanıcı teyidi; R1 hizmet kararı; R5 tekrar; R7 OLA/UC uyumu.",
@@ -139,10 +139,13 @@
       "name": "Su Yaşamı Merkezi",
       "shortName": "Su Yaşamı",
       "kind": "Yaşam alanı",
-      "owner": "R4",
+      "owner": "R3",
       "icon": "waves",
       "description": "Su altı yaşamını keşfeden ziyaret rotası; havuzlar, bakım alanları ve onları destekleyen teknik altyapı.",
       "assets": [
+        "Mümtaz · bireysel canlı CI",
+        "Elif · tanıdık bakıcı",
+        "Sessiz gözlem habitatı",
         "H1 · ana havuz",
         "P1 ve P2 · dolaşım pompaları",
         "Poyraz ve Deniz · penguenler",
@@ -159,7 +162,7 @@
       "icon": "feather",
       "description": "Ağaçların arasından geçen sakin bir rota. Rehberli gözlem, bakım ve ziyaret planları birlikte yürütülür.",
       "assets": [
-        "Rüzgar · papağan",
+        "Korsan · papağan",
         "Flamingo göleti",
         "Gözlem platformu"
       ],
@@ -315,6 +318,12 @@
       "title": "Kaynaklar",
       "category": "Kurallar",
       "content": "100 oyun kredisi, iki teknisyen; 35 kredi kurtarma rezervidir. Pompa laboratuvarında yeniden başlatma 10 kredi / bir teknisyen / 45 simülasyon saniyesi; bağımsız besleme 45 kredi / iki teknisyen / 120 saniyedir. Tedarik hazırlığı bir teknisyeni 90 saniye meşgul eder, kit maliyetini 35 krediye indirir. Bu işler sunucuda izlenir. Diğer olayların kaynak tercihleri eğitmen kanıtıyla tartışılır; otomatik harcama değildir."
+    },
+    {
+      "id": "G6",
+      "title": "Mümtaz’ın hizmet sözleşmesi",
+      "category": "Oyun kuralları",
+      "content": "Tümü kurgusal oyun koşullarıdır; veterinerlik bilgisi gerekmez. Mümtaz yalnız Elif ve sessiz alanda gözlemlenir. E02 sponsor saatini değiştirir; E09 vardiya uyumsuzluğunu, E10 PA kapsamını getirir. Üç kart geldikten sonra bağımlılık kanıtlarını birleştirin. Kısmi açılış: 0 kredi/0 teknisyen/30 sn, gözlem kapalı ve 40 kişilik eğitim rotası açık. Erteleme: 0 kredi/1 teknisyen/180 sn, normal vardiyada Elif ve sessiz PA. Sessiz tam gözlem: 20 kredi/1 teknisyen/90 sn, ayrıca Elif’in 60 sn erken devri. R3 saha testini, R2 yeni vaadin kabulünü kaydeder. Hayvan acı çekmez ve yedek parça değildir. Teknik ve hayvan işleri aynı kaynakları ve baskı saatini paylaşır; 35 kredi pompa kurtarma rezervidir."
     }
   ],
   "events": [
@@ -366,35 +375,54 @@
     {
       "id": "E02",
       "minute": 32,
-      "title": "VIP değil, farklı bir ihtiyaç",
+      "title": "Mümtaz toplantı davetini kabul etmedi",
       "process": "Talep · Hizmet kataloğu",
       "recordType": "request",
       "priority": "P3",
-      "zone": "education",
-      "serviceId": "SVC-EDU",
-      "ciId": "CI-GUIDE",
-      "message": "Okul temsilcisi erişilebilir rota ve işaret dili desteği istiyor. Sponsor: “Ben de VIP yazdırayım, benimki P1 olsun.”",
-      "information": "Bu yeni bir hizmet talebidir; mevcut kesinti yok. Standart erişilebilir rota hazır, ilave rehber için uygunluk ve görev planı gerekir.",
-      "expected": "Talebi katalogdan sınıflandır; kabul ölçütü, onay gereksinimi, sorumlu ve vaat edilen süreyi belirle.",
+      "zone": "water",
+      "serviceId": "SVC-OBS",
+      "ciId": "CI-HIPPO",
+      "message": "Sponsor: “Sessiz gözlemi 11.00’den 10.00’a çekelim. Mümtaz da imzalasın.” Mümtaz toplantıya katılmıyor. Ziyaret vaadi değişti; hizmet masası yeni kapsamı netleştirmeli.",
+      "information": "E02/E09/E10 aynı ana hizmet zinciridir. Kanıtlar hayvan hizmeti masasındaki rol zarflarında; kaynak ve saat kuralları oyun rehberinde. İlk kart kapanmadan diğer kartlar gönderilebilir.",
+      "expected": "Hayvan hizmeti masasında rol kanıtlarını paylaş; CMDB zincirini doğrula; plan, hizmet kapsamı, bütçe ve değişiklik onayı al; uygula, saha testi ve ziyaretçi teyidini kaydet. Gerçek planla aynı sonuç dalını kabul et.",
       "choices": [
         {
           "id": "E02-1",
-          "label": "Katalog, uygunluk ve görev planıyla karşıla",
-          "result": "İhtiyaç karşılanır; talep, ziyaretçi kabul ölçütüyle kapatılır. Unvan öncelik yerine geçmez.",
+          "label": "Sessiz tam gözlem ve ziyaretçi kabulü",
+          "result": "Elif’in erken devri ve bölgesel PA sessizliği doğrulandı; sessiz gözlem ziyaretçi kabulüyle açıldı.",
           "score": 5,
           "resolve": true,
-          "requiresResolved": []
+          "requiresResolved": [],
+          "animalOutcome": "quiet"
         },
         {
           "id": "E02-2",
-          "label": "Sponsor söyledi: hepsini P1 yap",
-          "result": "Gerçek kesintiler öncelik gürültüsüne karışır. İhtiyaçlar netleşene kadar talep açık kalır.",
+          "label": "Güvenli kısmi açılış ve alternatif rota kabulü",
+          "result": "Mümtaz’ın alanı sessiz ve kapalı kalır; 40 kişilik erişilebilir eğitim rotası ziyaretçi teyidiyle hizmet sunar.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [],
+          "animalOutcome": "partial"
+        },
+        {
+          "id": "E02-3",
+          "label": "Vardiyaya erteleme ve yeni süre kabulü",
+          "result": "Tur Elif’in vardiyasına ertelendi; PA sessizliği, saha ve yeni süre ziyaretçiyle doğrulandı.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [],
+          "animalOutcome": "delay"
+        },
+        {
+          "id": "E02-4",
+          "label": "Sponsor istedi; bakıcı ve sessizlik olmadan aç",
+          "result": "Oyun koşulları sağlanmadı. Alan kapalı kalır; sponsor isteği değişiklik onayı değildir.",
           "score": 0,
           "resolve": false,
           "requiresResolved": []
         }
       ],
-      "debrief": "Önceliği yüksek ses mi, hizmet etkisi mi belirliyor?",
+      "debrief": "Kişi, hayvan, vardiya ve ses profili hangi hizmet bağımlılığını değiştirdi? Güvenli kısmi açılışı neden başarısızlık saymadık?",
       "effect": "request",
       "prerequisites": [],
       "requireBreach": false,
@@ -409,7 +437,7 @@
       "priority": "P1",
       "zone": "savanna",
       "serviceId": "SVC-SAFE",
-      "ciId": "CI-FENCE",
+      "ciId": "CI-ATLAS",
       "message": "Çit sensörü alarm verdi. Atlas kırık bölümü inceliyor. Telsizden: “Aslan artık açık ofis konseptine geçti!”",
       "information": "Alan oyunda kapalı duruma alınır; ziyaretçiler kontrollü alternatif rotaya yönlendirilebilir. Teknik onarım ve saha teyidi olmadan açılmaz.",
       "expected": "Büyük olay liderini ata; güvenli alan, iletişim ritmi, teknik iş ve yeniden açma ölçütünü belirle. Acil değişikliği ilişkilendir.",
@@ -656,74 +684,116 @@
     {
       "id": "E09",
       "minute": 137,
-      "title": "Sıra uzadı, grafik yeşil",
+      "title": "Mümtaz hazır; tanıdığı bakıcı hangi vardiyada?",
       "process": "Kapasite · Deneyim ölçümü",
-      "recordType": "incident",
+      "recordType": "task",
       "priority": "P2",
-      "zone": "entrance",
-      "serviceId": "SVC-VISIT",
-      "ciId": "CI-PORTAL",
-      "message": "Portal yanıtı 200 ms. Dışarıda sıra 25 dakika. Nermin Hoca: “Sunucunuz hızlı, çocuklar hâlâ dışarıda.”",
-      "information": "Darboğaz gişe ve rehber kapasitesi. Aktif oturum başına 40 kişi; 120 kişi üç ardışık gruptur.",
-      "expected": "Uçtan uca beklemeyi ölç; ikinci masa ve kontrollü grup planı oluştur; vaat ile yaşanan deneyimi birlikte raporla.",
+      "zone": "water",
+      "serviceId": "SVC-OBS",
+      "ciId": "CI-HIPPO",
+      "message": "Takvim güncellendi, Elif’in vardiyası güncellenmedi. Mümtaz için başka bir bakıcı seçmek oyunda geçerli değil. 40 kişilik grup beklerken kısmi açılış, gecikme ve erken devir seçeneklerini tartışın.",
+      "information": "E02/E09/E10 aynı ana hizmet zinciridir. Kanıtlar hayvan hizmeti masasındaki rol zarflarında; kaynak ve saat kuralları oyun rehberinde. İlk kart kapanmadan diğer kartlar gönderilebilir.",
+      "expected": "Hayvan hizmeti masasında rol kanıtlarını paylaş; CMDB zincirini doğrula; plan, hizmet kapsamı, bütçe ve değişiklik onayı al; uygula, saha testi ve ziyaretçi teyidini kaydet. Gerçek planla aynı sonuç dalını kabul et.",
       "choices": [
         {
           "id": "E09-1",
-          "label": "İkinci masa, üç grup ve saha bekleme ölçümü",
-          "result": "Kuyruk azalır. Sistem metriği ile ziyaretçi deneyimi birlikte görünür.",
+          "label": "Sessiz tam gözlem ve ziyaretçi kabulü",
+          "result": "Elif’in erken devri ve bölgesel PA sessizliği doğrulandı; sessiz gözlem ziyaretçi kabulüyle açıldı.",
           "score": 5,
           "resolve": true,
-          "requiresResolved": []
+          "requiresResolved": [],
+          "animalOutcome": "quiet"
         },
         {
           "id": "E09-2",
-          "label": "CPU yeşil, kaydı kapat",
-          "result": "Ziyaretçi beklemeye devam eder. Teknik gösterge tek başına hizmet sonucu sayılmaz.",
+          "label": "Güvenli kısmi açılış ve alternatif rota kabulü",
+          "result": "Mümtaz’ın alanı sessiz ve kapalı kalır; 40 kişilik erişilebilir eğitim rotası ziyaretçi teyidiyle hizmet sunar.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [],
+          "animalOutcome": "partial"
+        },
+        {
+          "id": "E09-3",
+          "label": "Vardiyaya erteleme ve yeni süre kabulü",
+          "result": "Tur Elif’in vardiyasına ertelendi; PA sessizliği, saha ve yeni süre ziyaretçiyle doğrulandı.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [],
+          "animalOutcome": "delay"
+        },
+        {
+          "id": "E09-4",
+          "label": "Sponsor istedi; bakıcı ve sessizlik olmadan aç",
+          "result": "Oyun koşulları sağlanmadı. Alan kapalı kalır; sponsor isteği değişiklik onayı değildir.",
           "score": 0,
           "resolve": false,
           "requiresResolved": []
         }
       ],
-      "debrief": "Hangi yeşil metrik kötü müşteri deneyimini saklıyor olabilir?",
-      "effect": "queue",
-      "prerequisites": [],
+      "debrief": "Kişi, hayvan, vardiya ve ses profili hangi hizmet bağımlılığını değiştirdi? Güvenli kısmi açılışı neden başarısızlık saymadık?",
+      "effect": "request",
+      "prerequisites": [
+        "E02"
+      ],
       "requireBreach": false,
       "finale": false
     },
     {
       "id": "E10",
       "minute": 150,
-      "title": "Alarm orkestrası: herkes solo",
+      "title": "Yeni anons, eski sessiz alan",
       "process": "İzleme · Olay korelasyonu",
-      "recordType": "incident",
+      "recordType": "change",
       "priority": "P2",
-      "zone": "utilities",
-      "serviceId": "SVC-WATER",
-      "ciId": "CI-SENSOR",
-      "message": "Sensörler aynı arızadan 40 alarm üretti. Telsizde herkes konuşuyor, kimse dinleyemiyor.",
-      "information": "Bakım penceresi, ilişkili CI’lar ve tek kök olay kullanılabilir. Gerçek yeni etki alarm gürültüsünden ayrılmalı.",
-      "expected": "İlişkili alarmları tek olaya bağla; gerçek etkiyi teyit et; gereksiz çoğaltmayı azalt ama tüm izlemeyi kapatma.",
+      "zone": "water",
+      "serviceId": "SVC-OBS",
+      "ciId": "CI-PA",
+      "message": "Sponsorun yeni PA profili sessiz gözlem alanına da yayın veriyor. Korsan: “Sessizliğin sesini açın!” Saat, vardiya ve yayın kapsamını tek değişiklik etkisi olarak değerlendirin.",
+      "information": "E02/E09/E10 aynı ana hizmet zinciridir. Kanıtlar hayvan hizmeti masasındaki rol zarflarında; kaynak ve saat kuralları oyun rehberinde. İlk kart kapanmadan diğer kartlar gönderilebilir.",
+      "expected": "Hayvan hizmeti masasında rol kanıtlarını paylaş; CMDB zincirini doğrula; plan, hizmet kapsamı, bütçe ve değişiklik onayı al; uygula, saha testi ve ziyaretçi teyidini kaydet. Gerçek planla aynı sonuç dalını kabul et.",
       "choices": [
         {
           "id": "E10-1",
-          "label": "Korelasyon, bakım bağlamı ve etki teyidi",
-          "result": "Alarm gürültüsü azalır; gerçek hizmet etkisi izlenmeye devam eder.",
+          "label": "Sessiz tam gözlem ve ziyaretçi kabulü",
+          "result": "Elif’in erken devri ve bölgesel PA sessizliği doğrulandı; sessiz gözlem ziyaretçi kabulüyle açıldı.",
           "score": 5,
           "resolve": true,
-          "requiresResolved": []
+          "requiresResolved": [],
+          "animalOutcome": "quiet"
         },
         {
           "id": "E10-2",
-          "label": "Bütün alarmları sustur",
-          "result": "Sessizlik sağlık kanıtı değildir. Yeni etki fark edilmeyebilir; kayıt açık kalır.",
+          "label": "Güvenli kısmi açılış ve alternatif rota kabulü",
+          "result": "Mümtaz’ın alanı sessiz ve kapalı kalır; 40 kişilik erişilebilir eğitim rotası ziyaretçi teyidiyle hizmet sunar.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [],
+          "animalOutcome": "partial"
+        },
+        {
+          "id": "E10-3",
+          "label": "Vardiyaya erteleme ve yeni süre kabulü",
+          "result": "Tur Elif’in vardiyasına ertelendi; PA sessizliği, saha ve yeni süre ziyaretçiyle doğrulandı.",
+          "score": 5,
+          "resolve": true,
+          "requiresResolved": [],
+          "animalOutcome": "delay"
+        },
+        {
+          "id": "E10-4",
+          "label": "Sponsor istedi; bakıcı ve sessizlik olmadan aç",
+          "result": "Oyun koşulları sağlanmadı. Alan kapalı kalır; sponsor isteği değişiklik onayı değildir.",
           "score": 0,
           "resolve": false,
           "requiresResolved": []
         }
       ],
-      "debrief": "Alarm adedini azaltmak hangi durumda iyileştirme, hangi durumda körleşmedir?",
-      "effect": "alerts",
-      "prerequisites": [],
+      "debrief": "Kişi, hayvan, vardiya ve ses profili hangi hizmet bağımlılığını değiştirdi? Güvenli kısmi açılışı neden başarısızlık saymadık?",
+      "effect": "change",
+      "prerequisites": [
+        "E02"
+      ],
       "requireBreach": false,
       "finale": false
     },
@@ -819,6 +889,7 @@
       "name": "Güvenli savan ziyareti",
       "owner": "R3",
       "cis": [
+        "CI-ATLAS",
         "CI-FENCE",
         "CI-SENSOR"
       ],
@@ -841,10 +912,23 @@
       "name": "Rehberli eğitim turu",
       "owner": "R2",
       "cis": [
+        "CI-KORSAN",
         "CI-GUIDE",
         "CI-PORTAL"
       ],
       "promise": "Onaylı kapasitede, erişilebilir ve zamanında tur."
+    },
+    {
+      "id": "SVC-OBS",
+      "name": "Mümtaz ile sessiz gözlem",
+      "owner": "R1",
+      "cis": [
+        "CI-HIPPO",
+        "CI-ELIF",
+        "CI-HABITAT",
+        "CI-PA"
+      ],
+      "promise": "Hayvanın oyun koşulları korunur. Sessiz gözlem, açıkça ertelenmiş gözlem veya teyitli alternatif rota başarıdır."
     }
   ],
   "cis": [
@@ -898,15 +982,76 @@
     },
     {
       "id": "CI-HIPPO",
-      "name": "Mümtaz — canlı varlık kaydı",
+      "name": "Mümtaz · su aygırı",
       "zone": "water",
-      "dependsOn": "CI-P1"
+      "dependsOn": "CI-ELIF",
+      "kind": "animal",
+      "owner": "R3",
+      "identity": "MV-A-001",
+      "needs": "Yalnız tanıdığı Elif ile, sessiz habitatta gözlem. Diğer bakıcı/hayvan ikame değildir.",
+      "services": [
+        "SVC-OBS",
+        "SVC-WATER"
+      ],
+      "changeHistory": []
     },
     {
       "id": "CI-GUIDE",
       "name": "Yetkin rehber ekibi",
       "zone": "education",
       "dependsOn": null
+    },
+    {
+      "id": "CI-ELIF",
+      "name": "Elif · Mümtaz’ın tanıdığı yetkin bakıcı",
+      "zone": "clinic",
+      "dependsOn": "CI-HABITAT",
+      "kind": "keeper",
+      "owner": "R3"
+    },
+    {
+      "id": "CI-HABITAT",
+      "name": "Mümtaz’ın sessiz gözlem habitatı",
+      "zone": "water",
+      "dependsOn": "CI-PA",
+      "kind": "habitat",
+      "owner": "R3"
+    },
+    {
+      "id": "CI-PA",
+      "name": "PA-1 · bölgesel ses yayını",
+      "zone": "water",
+      "dependsOn": "CI-NET",
+      "kind": "equipment",
+      "owner": "R4"
+    },
+    {
+      "id": "CI-ATLAS",
+      "name": "Atlas · aslan",
+      "zone": "savanna",
+      "dependsOn": "CI-FENCE",
+      "kind": "animal",
+      "owner": "R3",
+      "identity": "MV-A-002",
+      "needs": "Oyunda sınır teyidi olmadan ziyaret alanı açılmaz.",
+      "services": [
+        "SVC-SAFE"
+      ],
+      "changeHistory": []
+    },
+    {
+      "id": "CI-KORSAN",
+      "name": "Korsan · papağan",
+      "zone": "birds",
+      "dependsOn": "CI-GUIDE",
+      "kind": "animal",
+      "owner": "R3",
+      "identity": "MV-A-003",
+      "needs": "Rehberli gözlem; söyledikleri yetkili onay değildir.",
+      "services": [
+        "SVC-EDU"
+      ],
+      "changeHistory": []
     }
   ],
   "slaPolicies": [
@@ -944,5 +1089,6 @@
       "Tekrarı azaltma"
     ]
   },
-  "engine": "itsm"
+  "engine": "itsm",
+  "animalModel": 1
 }

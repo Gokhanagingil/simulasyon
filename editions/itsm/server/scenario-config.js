@@ -34,6 +34,8 @@ export function validateScenario(input) {
   }
   for (const ci of pack.cis) {
     string(ci.name, 'Varlık adı', 120);
+    if(ci.kind==='animal'){string(ci.identity,'Hayvan kimliği',80);string(ci.needs,'Kurgusal oyun ihtiyacı',2000);if(!roles.has(ci.owner)||!Array.isArray(ci.services)||ci.services.some(id=>!services.has(id))||!Array.isArray(ci.changeHistory))fail(400,`${ci.id}: canlı CI sahibi, hizmetleri veya geçmişi geçersiz.`);}
+
     if (!zones.has(ci.zone) || (ci.dependsOn && !cis.has(ci.dependsOn))) fail(400, `${ci.id}: bölge veya bağımlılık bulunamadı.`);
   }
   const priorities = new Set();
@@ -54,6 +56,7 @@ export function validateScenario(input) {
     if (event.requireBreach && !['incident','request'].includes(event.recordType)) fail(400, `${event.id}: aşım gözlemi yalnız olay veya talep için seçilebilir.`);
     unique(event.choices, `${event.id} sonuçları`, 10);
     for (const choice of event.choices) {
+      if(choice.animalOutcome&&!['partial','delay','quiet'].includes(choice.animalOutcome))fail(400,'Hayvan hizmeti sonucu geçersiz.');
       choice.requiresResolved ??= [];
       if(!Array.isArray(choice.requiresResolved)||choice.requiresResolved.some(id=>id===event.id||!events.has(id)))fail(400, `${event.id}: sonuç için gereken tamamlanmış olay geçersiz.`);
       string(choice.label, 'Sonuç adı', 250); string(choice.result, 'Sonuç açıklaması', 4000);

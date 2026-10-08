@@ -1,3 +1,4 @@
+import { animalPermissions, applyAnimal, projectAnimal } from './animal-encounter.js';
 import { encounterPermissions, actionLabels } from './itsm-authority.js';
 const fail=(status,message)=>{throw Object.assign(new Error(message),{status});};
 const facts={
@@ -14,6 +15,7 @@ const initial=now=>({version:1,revision:0,clock:{seconds:0,at:now,running:false,
 export function projectEncounter(original,now=Date.now()){
  const s=structuredClone(original);const clock=s.clock;s.time=clock.seconds+(clock.running?Math.max(0,now-clock.at)/1000*clock.speed:0);
  for(const job of s.jobs){if(job.done||job.until>s.time)continue;job.done=true;
+  if(projectAnimal(s,job))continue;
   if(job.type==='restart'){s.water='temporary';s.network='up';s.recurrenceAt=job.until+180;}
   if(job.type==='isolate'){s.water='test_pending';s.network='up';s.recurrenceAt=null;}
   s.history.push({at:job.until,actor:'Sistem',message:job.type==='support'?'Tedarik hazırlığı tamamlandı; teknisyen yeniden uygun, bağımsız kit 35 krediye hazır.':job.type==='restart'?'Pano yeniden başlatıldı. Giriş açıldı; ortak besleme riski kaldı.':'Bağımsız besleme kuruldu. Teknik iş bitti; saha kabulü bekleniyor.'});
@@ -35,19 +37,20 @@ async function load(store,wid,now){
 export async function readEncounter(store,wid,role,trainer,now=Date.now()){
  const {row,state:s}=await load(store,wid,now);const active=!s.legacyAccepted&&!!await store.one("SELECT 1 FROM simulation_records WHERE workshop_id=? AND event_id IN ('E05','E06','E07') AND resolved_at IS NULL",wid);
  const safe={...s,recoveryReserve};if(s.plan)safe.plan={...s.plan,effectiveCost:effectiveCost(s)};delete safe.requests; // Idempotency metadata is server-private.
- const next=s.legacyAccepted?'Önceki E07 kabulü korunuyor. Eski kaynak harcaması bu modelde ölçülmedi.':!active?'E05 veya E06 kartını gönderin.':!s.shared.R4?'Teknik bakım ölçümünü ekiple paylaşsın.':!s.inspected?'Teknik bakım veya problem yöneticisi CMDB bağımlılığını incelesin.':!s.plan?'Teknik bakım iki müdahale seçeneğini karşılaştırsın.':!s.funded?'Hizmet sahibi maliyeti ve kalan kapasiteyi değerlendirsin.':!s.approved?'Değişiklik yetkilisi iş ve saha kanıtını birleştirip riske karar versin.':s.jobs.some(j=>!j.done&&j.type!=='support')?(s.clock.running?'Uygulama sürüyor; kapasite doluyken başka iş başlatmayın.':'İş sırada; eğitmen baskı saatini başlatmalı. Düşünme arasında kaynak işleri de durur.'):s.water==='test_pending'?'Saha operasyonu gerçek akışı doğrulasın.':s.water==='temporary'?'Geçici çözüm hizmeti döndürdü. Tekrarı bekleyebilir veya teknik bakımdan kalıcı plan isteyebilirsiniz.':s.validated?'Hizmet kabul edildi. Eğitmen E06/E07 sonuçlarını kanıtla değerlendirebilir.':'Teknik bakım onaylı planı uygulasın.';
+ const next=s.legacyAccepted?'Önceki E07 kabulü korunuyor. Eski kaynak harcaması bu modelde ölçülmedi.':!active?'E05 veya E06 kartını gönderin.':!s.shared.R4?'Teknik bakım ölçümünü ekiple paylaşsın.':!s.inspected?'Teknik bakım veya problem yöneticisi CMDB bağımlılığını incelesin.':!s.plan?'Teknik bakım iki müdahale seçeneğini karşılaştırsın.':!s.funded?'Hizmet sahibi maliyeti ve kalan kapasiteyi değerlendirsin.':!s.approved?'Değişiklik yetkilisi iş ve saha kanıtını birleştirip riske karar versin.':s.jobs.some(j=>!j.done&&!['support','animal_keeper','animal_visit'].includes(j.type))?(s.clock.running?'Uygulama sürüyor; kapasite doluyken başka iş başlatmayın.':'İş sırada; eğitmen baskı saatini başlatmalı. Düşünme arasında kaynak işleri de durur.'):s.water==='test_pending'?'Saha operasyonu gerçek akışı doğrulasın.':s.water==='temporary'?'Geçici çözüm hizmeti döndürdü. Tekrarı bekleyebilir veya teknik bakımdan kalıcı plan isteyebilirsiniz.':s.validated?'Hizmet kabul edildi. Eğitmen E06/E07 sonuçlarını kanıtla değerlendirebilir.':'Teknik bakım onaylı planı uygulasın.';
  return {...safe,revision:row.revision,active,privateFact:trainer?null:facts[role]||null,trainerFacts:trainer?facts:undefined,allowed:encounterPermissions(role,trainer),actionLabels,next,capacity:2,mode:'standalone',hint:trainer?'Cevabı söylemeden sorun: Bu CI arızalanırsa hangi iki hizmeti kaybederiz? Hangi kanıt planı değiştirirdi?':undefined};
 }
-export async function mutateEncounter({store,wid,user,role,input,now=Date.now()}){
- const action=input.operation;if(!encounterPermissions(role,user.trainer).includes(action))fail(403,'Bu oyun işlemi rolünüzün yetkisinde değil. Ekip ve roller ekranındaki yetkiyi kullanın.');
+export async function mutateEncounter({store,wid,user,role,input,now=Date.now(),animal=false}){
+ const action=input.operation;if(!(animal?animalPermissions(role,user.trainer):encounterPermissions(role,user.trainer)).includes(action))fail(403,'Bu oyun işlemi rolünüzün yetkisinde değil. Ekip ve roller ekranındaki yetkiyi kullanın.');
  if(typeof input.requestId!=='string'||!/^[A-Za-z0-9_-]{8,80}$/.test(input.requestId))fail(400,'Tekrarlanabilir işlem kimliği gerekli.');
  const {row,state:s}=await load(store,wid,now);const signature=JSON.stringify([user.id,action,input.option||null,input.note||null]);
  if(s.requests[input.requestId]){if(s.requests[input.requestId]!==signature)fail(409,'İşlem kimliği başka bir karar için kullanılmış.');return;}
- if(s.legacyAccepted)fail(409,'Bu atölyenin önceki E07 kabulü korunuyor. Yeni kaynak modelini oynamak için yeni atölye açın.');
+ if(s.legacyAccepted&&!animal&&action!=='pace')fail(409,'Bu atölyenin önceki E07 kabulü korunuyor. Yeni kaynak modelini oynamak için yeni atölye açın.');
  if(input.runtimeRevision!==row.revision)fail(409,'Ekip bu sırada bir karar verdi. Güncel durumu okuyup yeniden deneyin.');
- if(action!=='pace'&&!await store.one("SELECT 1 FROM event_runs WHERE workshop_id=? AND event_id IN ('E05','E06','E07')",wid))fail(409,'Önce pompa senaryosu eğitmen tarafından açılmalı.');
+ if(!animal&&action!=='pace'&&!await store.one("SELECT 1 FROM event_runs WHERE workshop_id=? AND event_id IN ('E05','E06','E07')",wid))fail(409,'Önce pompa senaryosu eğitmen tarafından açılmalı.');
  let message='';
- if(action==='pace'){
+ if(animal){message=applyAnimal(s,input,user,role);}
+ else if(action==='pace'){
   if(!user.trainer)fail(403,'Baskı saatini yalnız eğitmen yönetir.');
   if(!['pause','1','3','6'].includes(input.option))fail(400,'Hız 1, 3 veya 6 olmalı.');
   s.clock={seconds:s.time,at:now,running:input.option!=='pause',speed:input.option==='pause'?s.clock.speed:Number(input.option)};
@@ -59,7 +62,7 @@ export async function mutateEncounter({store,wid,user,role,input,now=Date.now()}
   if(!s.shared.R4)fail(409,'Önce teknik bakımın saha ölçümünü isteyin.');if(s.inspected)fail(409,'CMDB incelemesi zaten kaydedildi.');
   s.inspected=true;message='CMDB saha ölçümüyle doğrulandı: P1 + P2 → B1 → park ağı → turnike / rezervasyon. İki pompa bağımsız yedeklilik değil.';
  } else if(action==='plan'){
-  if(!s.inspected)fail(409,'Önce CI bağımlılıklarını inceleyin.');if(s.jobs.some(j=>!j.done&&j.type!=='support')||s.validated||s.water==='test_pending')fail(409,'Uygulama veya kabul sonrası plan değiştirilemez.');
+  if(!s.inspected)fail(409,'Önce CI bağımlılıklarını inceleyin.');if(s.jobs.some(j=>!j.done&&!['support','animal_keeper','animal_visit'].includes(j.type))||s.validated||s.water==='test_pending')fail(409,'Uygulama veya kabul sonrası plan değiştirilemez.');
   if(!['restart','isolate'].includes(input.option))fail(400,'Bir teknik plan seçin.');
   if(typeof input.note!=='string'||input.note.trim().length<20||input.note.length>2000)fail(400,'Test ve geri dönüş koşulunu en az 20 karakterle açıklayın.');
   s.plan={type:input.option,cost:input.option==='restart'?10:45,technicians:input.option==='restart'?1:2,duration:input.option==='restart'?45:120,note:input.note.trim()};s.approved=false;s.funded=false;
@@ -71,7 +74,7 @@ export async function mutateEncounter({store,wid,user,role,input,now=Date.now()}
   s.approved=true;message='Değişiklik yetkilisi hizmet etkisini, test/geri dönüş planını ve bütçeyi değerlendirerek uygulamaya izin verdi.';
  } else if(action==='execute'){
   if(!s.plan||!s.approved||!s.funded)fail(409,'Uygulama için plan, kaynak ve değişiklik onayı gerekli.');
-  if(s.jobs.some(j=>!j.done&&j.type!=='support')||s.water==='test_pending'||(s.water==='temporary'&&s.plan.type==='restart')||s.validated)fail(409,'Bu uygulama zaten başlatılmış veya tamamlanmış.');
+  if(s.jobs.some(j=>!j.done&&!['support','animal_keeper','animal_visit'].includes(j.type))||s.water==='test_pending'||(s.water==='temporary'&&s.plan.type==='restart')||s.validated)fail(409,'Bu uygulama zaten başlatılmış veya tamamlanmış.');
   if(s.available<s.plan.technicians)fail(409,'Teknisyenler başka işte. İş bitmesini bekleyin; aynı kişiyi iki işe veremezsiniz.');
   const cost=effectiveCost(s);
   if(s.plan.type==='restart'&&s.credits-cost<recoveryReserve)fail(409,'35 kredilik kurtarma rezervi harcanamaz; kalıcı çözüm için tedarik hazırlığını tamamlayın.');

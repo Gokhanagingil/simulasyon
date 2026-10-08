@@ -13,7 +13,7 @@ Ayrı bir hayvanat bahçesi hizmet yönetimi atölyesi. Bu klasör GRC uygulamas
 
 ### Senaryo paketleri
 
-Varsayılan paket 12 olay, 8 rol, 4 hizmet ve 10 CI içerir. Her atölye kendi senaryo kopyasını saklar. Olay ekleme, kopyalama ve çıkarma uygulama üzerinden yapılır. Tam paket JSON olarak indirilebilir; roller, hizmetler, CI ilişkileri, rehber ve diğer veriler düzenlenip yeniden yüklenebilir. Kod değişikliği veya yeniden yayın gerekmez.
+Varsayılan paket 12 olay, 8 rol, 5 hizmet ve 15 CI içerir. Her atölye kendi senaryo kopyasını saklar. Olay ekleme, kopyalama ve çıkarma uygulama üzerinden yapılır. Tam paket JSON olarak indirilebilir; roller, hizmetler, CI ilişkileri, rehber ve diğer veriler düzenlenip yeniden yüklenebilir. Kod değişikliği veya yeniden yayın gerekmez.
 
 Gönderilmiş olayın metni ve kabul ölçütleri kilitlenir. Açık kaydın SLA hedefi sonradan politika değiştirilerek geriye dönük değiştirilmez. Eşzamanlı düzenleme eski sürümün yeni sürümü ezmesini engeller. Kayıtlı sürümden önceki taslak aynı tarayıcı sekmesinde korunur.
 
@@ -57,3 +57,13 @@ Operasyon masasındaki **baskı saati** başlangıçta durur; 1×/3×/6× hızla
 Rol yetkileri Ekip ve roller ekranında gösterilir; aynı sınırlar sunucuda uygulanır. Bu yetkiler yalnız eğitim simülasyonuna aittir. Varsayılan E05/E06/E07 kimliklerini kaldıran özel senaryolar bu özel karar laboratuvarını kullanmaz.
 
 Hizmet sahibinin 35 kredilik kurtarma rezervi tekrar yeniden başlatmalara harcanamaz. Böylece ucuz geçici çözümler bütçeyi tüketse de tedarik hazırlığıyla kalıcı çözüm yolu açık kalır; bu eğitim kuralı ekranda görünür.
+
+### Hayvan merkezli ana hikâye (paket 1.1.0)
+
+E02 → E09 → E10 sponsor saati, Elif’in vardiyası ve PA kapsamını aynı Mümtaz hizmet zincirinde birleştirir. Hayvanlar kimlik, konum, bakım sahibi, kurgusal ihtiyaç, hizmet ilişkisi ve gerçekleşen karar geçmişiyle bireysel CI’dır. Mümtaz → Elif → sessiz habitat → gözlem deneyimi, sunucudaki plan/onay/uygulama/saha testi/ziyaretçi kabulü kapılarıyla oynanır. Kısmi açılış ve erteleme de tam puanlı güvenli sonuçlardır; yanlış sonuç dalı kabul edilemez.
+
+Ana hayvan hizmeti ve destekleyici E05/E06/E07 teknik zinciri aynı iki teknisyeni, 100 krediyi, 35 kredi kurtarma rezervini ve baskı saatini paylaşır. Hayvanlar yedek parça değildir. Tüm kurallar oyunda verilir; veterinerlik bilgisi veya fiziksel hayvan müdahalesi gerekmez.
+
+Mevcut atölyelerin senaryo kopyaları ve sonuçları değiştirilmez. Hayvan modeli yalnız yeni 1.1.0 paketinde etkinleşir. Eski atölye ekranı yeni atölye açılmasını açıklar. Runtime’ın yeni hayvan alanı ilk gerçek işlemde eklenir; geçmiş olay, kredi harcaması veya kabul uydurulmaz.
+
+Prova hesapları gerçek uygulama hesabıdır, rol takma adı değildir. Eğitmen tarafından bir kez oluşturulur; canlı giriş ve parola işlemleri kullanıcı kontrolündedir. Bağımsız kabul testleri için `docs/ANIMAL-ACCEPTANCE-CONTRACT.md` uç noktaları ve sentetik test sınırlarını açıklar.

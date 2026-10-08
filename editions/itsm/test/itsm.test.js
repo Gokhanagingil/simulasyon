@@ -62,7 +62,7 @@ test('scenario editing persists across handler restart; changes are scoped, vers
   const record=live.body.itsm.records[0];assert.equal(record.due_at-record.created_at,15*60000);
   const locked=structuredClone(persisted);locked.pack.events.find(e=>e.id==='CUSTOM').title='Geçmişi değiştirme';
   assert.equal((await f.trainer(f.path+'/scenario','PUT',locked)).status,409);
-  const removed=structuredClone(persisted);removed.pack.events=removed.pack.events.filter(e=>e.id!=='E02');
+  const removed=structuredClone(persisted);removed.pack.events=removed.pack.events.filter(e=>e.id!=='E02');removed.pack.events.forEach(e=>e.prerequisites=e.prerequisites.filter(id=>id!=='E02'));
   removed.pack.slaPolicies.find(p=>p.priority==='P2').resolutionMinutes=20;
   assert.equal((await f.trainer(f.path+'/scenario','PUT',removed)).status,200);
   assert.equal((await f.trainer(f.path+'/state')).body.itsm.records[0].due_at,record.due_at);
@@ -105,6 +105,12 @@ test('SLA is independent of paused workshop time and retains breach after closur
 
 test('full scenario can be played and final status does not depend on a fixed event id or score denominator',async t=>{
   const f=await fixture(t);let state;
+  for(const eventId of ['E02','E09','E10'])assert.equal((await f.action({action:'release',eventId})).status,200);
+  const animalStep=async(operation,extra={})=>{const current=(await f.trainer(f.path+'/state')).body.itsm.encounter;const response=await f.action({action:'animal',operation,runtimeRevision:current.revision,requestId:crypto.randomUUID(),...extra});assert.equal(response.status,200,JSON.stringify(response.body));};
+  for(const option of ['R2','R3','R4','R7','R8'])await animalStep('animal_share',{option});
+  await animalStep('animal_inspect');await animalStep('animal_plan',{option:'quiet',note:'Elif ve PA sessizliği saha testi; başarısızsa gözlem alanı kapalı.'});await animalStep('animal_fund');await animalStep('animal_approve');await animalStep('animal_keeper');
+  const advance=seconds=>{const row=f.store.one('SELECT state FROM simulation_runtime WHERE workshop_id=?',f.wid),runtime=JSON.parse(row.state);runtime.clock.seconds+=seconds;f.store.run('UPDATE simulation_runtime SET state=? WHERE workshop_id=?',JSON.stringify(runtime),f.wid);};
+  advance(60);await animalStep('animal_execute');advance(90);await animalStep('animal_validate',{option:'pass'});await animalStep('animal_accept',{note:'Nermin Hoca sessiz gözlem kapsamını ve zamanını kabul etti.'});
   for(const event of f.scenario.events){
     const released=await f.action({action:'release',eventId:event.id});assert.equal(released.status,200,event.id);
     const record=released.body.itsm.records.find(r=>r.event_id===event.id);
@@ -114,7 +120,7 @@ test('full scenario can be played and final status does not depend on a fixed ev
       for(const option of ['R2','R3','R4'])await step('share',{option});
       await step('inspect');await step('plan',{option:'isolate',note:'B1 kesintisinde su akışını test et; başarısızsa güvenli kapalı rota.'});await step('fund');await step('approve');await step('execute');
       // Controlled simulation-clock advance, not a real SLA or Niles claim.
-      const row=f.store.one('SELECT * FROM simulation_runtime WHERE workshop_id=?',f.wid),runtime=JSON.parse(row.state);runtime.clock.seconds=121;f.store.run('UPDATE simulation_runtime SET state=? WHERE workshop_id=?',JSON.stringify(runtime),f.wid);
+      const row=f.store.one('SELECT * FROM simulation_runtime WHERE workshop_id=?',f.wid),runtime=JSON.parse(row.state);runtime.clock.seconds+=121;f.store.run('UPDATE simulation_runtime SET state=? WHERE workshop_id=?',JSON.stringify(runtime),f.wid);
       await step('validate');
     }
     if(event.requireBreach)f.store.run('UPDATE simulation_records SET due_at=? WHERE id=?',Date.now()-1,record.id);
