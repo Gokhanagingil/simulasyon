@@ -47,3 +47,13 @@ Sites sürümü Vinext/Cloudflare Worker + D1 kullanır. `.openai/hosting.json` 
 Bu turda tarayıcı ile görsel kontrol çalıştırılmadı. Başarılı derleme ve otomatik sunucu testleri görsel kabulün yerine geçmez.
 
 Güncel doğrulama kapsamı: `docs/validation.md`. Ana depodaki `docs/ITSM_CONTINUE.md` devam noktasıdır; bu klasördeki `docs/CONTINUE-ITSM.md` tarihsel kurtarma notudur.
+
+### Kalıcı karar laboratuvarı
+
+E05/E06/E07 pompa zincirinde rol kanıtlarını paylaşın, CMDB bağımlılığını inceleyin, teknik planı test/geri dönüş koşuluyla yazın. R1 bütçe ayırır, R6 iş ve saha etkisini görüp değişikliği onaylar, R4 uygular, R3 gerçek hizmeti kabul eder. Eğitmen prova için tüm adımları uygulayabilir.
+
+Operasyon masasındaki **baskı saati** başlangıçta durur; 1×/3×/6× hızlandırma yalnız kaynak işleri ve tekrar testini etkiler. Gerçek kayıt SLA saati ayrı kalır. Bir teknisyen aynı anda iki iş yapamaz. Ucuz yeniden başlatma kısa kesinti ve tekrar riski taşır; bağımsız besleme daha fazla bütçe/kapasite ister. Tedarik hazırlığı zaman karşılığı 10 kredi tasarruf sağlar. Sonuçlar kaybolmadan ekranda ve gün sonu neden–karar–sonuç günlüğünde görünür.
+
+Rol yetkileri Ekip ve roller ekranında gösterilir; aynı sınırlar sunucuda uygulanır. Bu yetkiler yalnız eğitim simülasyonuna aittir. Varsayılan E05/E06/E07 kimliklerini kaldıran özel senaryolar bu özel karar laboratuvarını kullanmaz.
+
+Hizmet sahibinin 35 kredilik kurtarma rezervi tekrar yeniden başlatmalara harcanamaz. Böylece ucuz geçici çözümler bütçeyi tüketse de tedarik hazırlığıyla kalıcı çözüm yolu açık kalır; bu eğitim kuralı ekranda görünür.

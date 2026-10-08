@@ -48,3 +48,7 @@ export const workshopScenarios = sqliteTable('workshop_scenarios', {
   workshop_id: text().primaryKey().references(() => workshops.id), revision: integer().notNull().default(1),
   definition: text().notNull(), updated_at: integer().notNull(),
 });
+
+export const simulationRuntime = sqliteTable('simulation_runtime', {
+  workshop_id: text().primaryKey().references(() => workshops.id), revision: integer().notNull().default(0), state: text().notNull(),
+});

@@ -134,3 +134,16 @@ test('example accounts cover all roles, require a trainer and preserve work when
   assert.equal((await account.request(path + '/state')).body.note, 'Örnek kullanıcının kalıcı notu');
   assert.equal((await trainer.request('/api/me')).body.workshops.length, 2);
 });
+
+test('D1 runtime migration, authenticated role gate, persistence and retry survive Worker restart',async t=>{
+ const f=await fixture(t),trainer=f.client();const login=await trainer.login('egitmen','initial-test-password-938'),path=`/api/workshops/${login.body.workshops[0].id}`;
+ await trainer.request(`${path}/members`,'POST',{username:'field',name:'Saha',password:'participant-password-938',roleId:'R3'});
+ const field=f.client();await field.login('field','participant-password-938');
+ assert.equal((await trainer.request(`${path}/itsm`,'POST',{action:'release',eventId:'E06'})).status,200);
+ const state=(await field.request(`${path}/state`)).body;const command={action:'encounter',operation:'share',runtimeRevision:state.itsm.encounter.revision,requestId:'d1-share-persist-001'};
+ assert.equal((await field.request(`${path}/itsm`,'POST',{...command,operation:'approve',role:'R6',trainer:true})).status,403);
+ assert.equal((await field.request(`${path}/itsm`,'POST',command)).status,200);
+ await f.restart();assert.equal((await field.request(`${path}/itsm`,'POST',command)).status,200);
+ const restored=(await field.request(`${path}/state`)).body.itsm.encounter;assert.equal(restored.history.length,1);assert.ok(restored.shared.R3);assert.equal(restored.credits,100);
+ const outsider=await trainer.request('/api/workshops','POST',{name:'Başka kaynak havuzu'});assert.equal((await field.request(`/api/workshops/${outsider.body.workshop.id}/itsm`,'POST',command)).status,404);
+});

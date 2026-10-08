@@ -60,7 +60,7 @@ export function createHandler({store,scenario:defaultScenario,passwords,secureCo
         roles:scenario.roles.map(r=>user.trainer||membership?.role_id===r.id?r:publicRole(r)),
         zones:scenario.zones.map(z=>({...z,...zoneStates.find(s=>s.zone_id===z.id)}))},
       phase:currentPhase(scenario.phases,seconds),members,announcements,note:note?.text||'',activity,
-      itsm:await readITSM(store,scenario,id,!!user.trainer),
+      itsm:await readITSM(store,scenario,id,!!user.trainer,membership?.role_id||null),
     };
   }
   async function body(request,limit=32768) {

@@ -109,6 +109,14 @@ test('full scenario can be played and final status does not depend on a fixed ev
     const released=await f.action({action:'release',eventId:event.id});assert.equal(released.status,200,event.id);
     const record=released.body.itsm.records.find(r=>r.event_id===event.id);
     await f.action({action:'ack',recordId:record.id});
+    if(event.id==='E06'){
+      const step=async(operation,extra={})=>{const current=(await f.trainer(f.path+'/state')).body.itsm.encounter;const response=await f.action({action:'encounter',operation,runtimeRevision:current.revision,requestId:crypto.randomUUID(),...extra});assert.equal(response.status,200,JSON.stringify(response.body));};
+      for(const option of ['R2','R3','R4'])await step('share',{option});
+      await step('inspect');await step('plan',{option:'isolate',note:'B1 kesintisinde su akışını test et; başarısızsa güvenli kapalı rota.'});await step('fund');await step('approve');await step('execute');
+      // Controlled simulation-clock advance, not a real SLA or Niles claim.
+      const row=f.store.one('SELECT * FROM simulation_runtime WHERE workshop_id=?',f.wid),runtime=JSON.parse(row.state);runtime.clock.seconds=121;f.store.run('UPDATE simulation_runtime SET state=? WHERE workshop_id=?',JSON.stringify(runtime),f.wid);
+      await step('validate');
+    }
     if(event.requireBreach)f.store.run('UPDATE simulation_records SET due_at=? WHERE id=?',Date.now()-1,record.id);
     const result=await f.action({action:'evaluate',recordId:record.id,choiceId:event.choices[0].id,note:'Eğitmen, kayıt ilişkisini ve hizmet sahibinin kabul kanıtını doğruladı.'});
     assert.equal(result.status,200,event.id);state=result.body;

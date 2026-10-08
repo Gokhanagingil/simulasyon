@@ -296,7 +296,7 @@
       "id": "G2",
       "title": "İki saat, iki amaç",
       "category": "SLA",
-      "content": "Atölye saati eğitmen akışını yönetir. Atölye kayıtlarının SLA hedefleri gerçek duvar saatiyle ölçülür; duraklatma SLA’yı durdurmaz. Niles bağlantısı doğrulanmadığında yerel gösterge Niles kanıtı sayılmaz."
+      "content": "Atölye saati eğitmen akışını yönetir. Atölye kayıtlarının SLA hedefleri gerçek duvar saatiyle ölçülür; duraklatma SLA’yı durdurmaz. Niles bağlantısı doğrulanmadığında yerel gösterge Niles kanıtı sayılmaz. Pompa laboratuvarının ayrı baskı saati yalnız teknisyen işlerini ve tekrar testini ilerletir; gerçek SLA hedefini değiştirmez."
     },
     {
       "id": "G3",
@@ -314,7 +314,7 @@
       "id": "G5",
       "title": "Kaynaklar",
       "category": "Kurallar",
-      "content": "100 oyun kredisi. Teknik A ve Teknik B aynı anda birer iş yapar. Çit onarımı 20 kredi/6 dakika; pompa bağımlılığı düzeltmesi 30 kredi/10 dakika; ikinci giriş masası 10 kredi/4 dakika; yedek parça 15 kredi/5 dakika. Bütçe harcamalarını karar kanıtına yazın; eğitmen kaynak çakışmasını kontrol eder."
+      "content": "100 oyun kredisi, iki teknisyen; 35 kredi kurtarma rezervidir. Pompa laboratuvarında yeniden başlatma 10 kredi / bir teknisyen / 45 simülasyon saniyesi; bağımsız besleme 45 kredi / iki teknisyen / 120 saniyedir. Tedarik hazırlığı bir teknisyeni 90 saniye meşgul eder, kit maliyetini 35 krediye indirir. Bu işler sunucuda izlenir. Diğer olayların kaynak tercihleri eğitmen kanıtıyla tartışılır; otomatik harcama değildir."
     }
   ],
   "events": [
