@@ -29,7 +29,7 @@ Gönderilmiş olayın metni ve kabul ölçütleri kilitlenir. Açık kaydın SLA
 
 **Canlı entegrasyon ve Niles SLA kabulü tamamlanmadı.** Atölye SLA'sı Niles SLA verisi değildir. Niles kaydına elle referans eklemek senkronizasyon oluşturmaz. Hedef yalnız staging: `https://niles-grc.com`.
 
-`content/niles-itsm-setup.json` ayrı eğitim alanı, kullanıcı/rol eşlemesi, hizmet/CI ve 24×7 SLA kurulum planıdır; uygulanmış kayıt kanıtı değildir. Ayrıntılı kabul adımları `docs/NILES-ACCEPTANCE.md` içindedir.
+`content/niles-itsm-setup.json`, varsayılan senaryo 1.2.0 ile birebir eşleşen 5 hizmet, 15 CI, ilişkiler, olay-kayıt yolu ve 24×7 SLA kurulum planıdır; kullanıcı/rol eşlemesi ile katalog teklifleri yalnız şablondur, uygulanmış kayıt kanıtı değildir. Model sapması `test/niles-setup.test.js` ile denetlenir. Ayrıntılı kabul adımları `docs/NILES-ACCEPTANCE.md` içindedir.
 
 ## Çalıştırma
 
