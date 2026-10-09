@@ -1,6 +1,6 @@
 {
   "id": "itsm-v1",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "name": "ITSM · Operasyon Günü",
   "description": "Mümtaz’ın sessiz gözlemi, Atlas’ın güvenli alanı ve Korsan’ın yetkisiz onayları. Hayvan → yetkin bakıcı → habitat → ziyaretçi deneyimi zincirini birlikte yönetin.",
   "roles": [
@@ -13,10 +13,10 @@
       "goal": "İş değeri, öncelik, kaynak ve ziyaretçi deneyimini birlikte gözet.",
       "responsibility": "Hizmet hedeflerini belirler, ekipler arası önceliği uzlaştırır ve iyileştirme bütçesine karar verirsin.",
       "briefing": "100 oyun kredisi; Teknik A ve Teknik B aynı anda yalnız birer iş yapabilir. Güvenlik koşulları pazarlık konusu değildir. Üç meşru hizmet sonucu vardır: kısmi açılış, Elif’in vardiyasına erteleme veya sessiz tam gözlem. Bütçe ve vaat kapsamını sen kabul edersin.",
-      "authority": "Bütçe ve hizmet önceliği kararı; değişiklik onayı görevini R6 yürütür.",
-      "steps": "Hizmet hedeflerini ve tek eskalasyon yolunu açıklayın.",
+      "authority": "Karar: kapsam ve bütçe. Yapamam: değişikliği onaylama, teknik uygulama ve saha kabulü.",
+      "steps": "R2 iş etkisi ve R8 ölçümünü iste; planın kısmi/ertelenmiş/tam sonucunu karşılaştır.",
       "partners": "R2 ziyaretçi etkisini; R3 saha durumunu; R6 değişiklik riskini; R8 ölçümü getirir.",
-      "output": "Hizmet hedefi, kaynak kararı, üç öncelikli iyileştirme."
+      "output": "Kaynak/kapsam kararını R6’ya, ziyaretçi vaadini R2’ye devret."
     },
     {
       "id": "R2",
@@ -27,10 +27,10 @@
       "goal": "Tek temas noktası ol; doğru kaydı, doğru ekibe, doğru bağlamla aktar.",
       "responsibility": "Olay ve talebi ayırır, etki/aciliyet ile önceliklendirir, ziyaretçiye anlaşılır durum mesajı verirsin.",
       "briefing": "Okul grubu 120 kişi. Bilet turnikesi arızası ile özel tur talebi aynı kayıt türü değildir. Nermin Hoca tek ve doğru açıklama bekler. Sponsor saati değiştirdiğinde yeni kapsamı/süreyi ziyaretçiye teyit ettir. Hayvan hizmeti masasında yalnız senin kanıtını aç.",
-      "authority": "Kayıt açma, öncelik önerisi, yönlendirme, iletişim ve kullanıcı teyidi.",
-      "steps": "Etki, kapsam, başlangıç zamanı, hizmet ve CI bilgisini toplayın.",
+      "authority": "Karar: ziyaretçi vaadinin teyidi. Yapamam: bütçe, değişiklik onayı, teknik uygulama, bilgi yayını.",
+      "steps": "İlk kaydı üstlen ve iş etkisini paylaş; yayımlı bilgiyi başka olayda kendi gözleminle sına.",
       "partners": "R3/R4 çözüm ekipleri; R1 hizmet sahibi; R5 tekrarları araştırır.",
-      "output": "Olay ve talep kayıtları, zamanlı durum mesajı ve ziyaretçi teyidi."
+      "output": "R3/R4’e etki ve kayıt; R5’e bilgi kullanım sonucu; hizmet sonunda ziyaretçi teyidi."
     },
     {
       "id": "R3",
@@ -41,10 +41,10 @@
       "goal": "Ziyaretçiyi ve hayvan refahını gözeterek hizmeti güvenli biçimde sürdür.",
       "responsibility": "Gözlemi yorumdan ayırır, erişimi kontrol eder, alternatif rotayı ve gerçek hizmet sonucunu doğrularsın.",
       "briefing": "Aslan Atlas kapıdaki boşluğu fark etti. Mümtaz havuzun sakin köşesinde; bu gözlem veterinerlik tanısı değildir. Mümtaz için oyunun tek koşulu: tanıdığı Elif ve sessiz alan. Fiziksel müdahale yok. Başarısız testte alan kapalı kalır; kısmi açılış başarı olabilir. Su/ağ dönüşünde daha önce kabul edilen gözlemin güncel uygunluğunu yeniden teyit edersin; geçmiş kabulü değiştirmezsin.",
-      "authority": "Etkilenen alanı sınırlandırma ve verilen oyun prosedürüne göre güvenli geçici çözüm uygulama.",
-      "steps": "Olayı bildirirken gözlenen etkiyi ve mevcut güvenli durumu söyleyin.",
+      "authority": "Karar: saha testi, başarısız testte kapalı alan, dönüşte yeniden teyit. Yapamam: teknik planı uygulama, bütçe veya değişiklik onayı.",
+      "steps": "Gözlemi paylaş; uygulamayı beklerken yayımlı bilginin koşullarını yeni olayda sına.",
       "partners": "R2 ziyaretçiye bilgi verir; R4 teknik müdahaleyi; R7 dış desteği yönetir.",
-      "output": "Saha teyidi, geçici çözüm sonucu ve kontrollü yeniden açılış."
+      "output": "Gerçek hizmet testi sonucunu R2 ve R8’e; uygunsuzluğu R4’e devret."
     },
     {
       "id": "R4",
@@ -55,10 +55,10 @@
       "goal": "Teknik parçayı ve uçtan uca hizmeti birlikte doğrula.",
       "responsibility": "CI ilişkilerini inceler, olay müdahalesini ve onaylı değişikliği uygularsın.",
       "briefing": "P1 ve P2 pompaları iki ayrı cihazdır ama B1 panosuna bağlıdır. Son test yalnız pompa arızasını denemiştir; pano arızasını değil. PA sessiz alan değişikliği ile pompa değişikliği aynı iki teknisyeni paylaşır. Hayvan hizmeti planında test ve kapalı alan geri dönüşünü yaz.",
-      "authority": "Onaylı standart işler; normal ve acil değişiklikler R6 yetkisine tabidir.",
-      "steps": "Kapsamı teyit edin, geçici çözümü belgeleyin; kalıcı düzeltmeyi değişiklik akışına verin.",
+      "authority": "Karar: teknik seçenek, test ve geri dönüş planı. Yapamam: kendi bütçemi/onayımı verme veya kendi saha kabulümü yapma.",
+      "steps": "Ölçümü paylaş; R5 bağımlılık, R8 ölçüt çalışırken plan alternatiflerini karşılaştır.",
       "partners": "R3 saha doğrulaması; R5 kök neden; R6 değişiklik; R7 parça/tedarik.",
-      "output": "Teknik kanıt, CMDB düzeltmesi, test ve geri dönüş planı."
+      "output": "Planı R1/R6’ya; uygulama sonrası testi R3’e devret. Bilgiyi R5 yazar, R8 inceler."
     },
     {
       "id": "R5",
@@ -69,10 +69,10 @@
       "goal": "Tekrar eden olayları azalt; işe yarayan bilgiyi sonraki ekibe aktar.",
       "responsibility": "Olayları ilişkilendirir, kanıta dayalı neden analizi ve bilinen hata/geçici çözüm kaydı oluşturursun.",
       "briefing": "Bir haftada üç pompa kesintisi var. “Yeniden başlatıldı” çözüm notu bir kök neden değildir. Korsan papağan her şeye “Onaylandı!” der. Mümtaz, Elif vardiyası ve sessiz habitat ilişkisini saha, teknik ve tedarik kanıtıyla doğrula.",
-      "authority": "Problem ve bilgi kaydı oluşturma; doğrulanmamış nedeni kesin bilgi gibi yayımlamama.",
-      "steps": "Olay zamanlarını ve CI ilişkilerini karşılaştırın, hipotezleri kanıtla sınayın.",
+      "authority": "Karar: kanıtlı hipotez ve bilgi sürümü. Yapamam: kendi bilgimi onaylama, bütçe, değişiklik onayı veya uygulama.",
+      "steps": "Bağımlılık zincirini incele; kaydedilmiş kanıttan kapsam/adım/sınır içeren bilgi taslağı oluştur.",
       "partners": "R4 teknik kanıt; R2 tekrar eden olay; R6 kalıcı düzeltme; R8 etki ölçümü.",
-      "output": "Problem, bilinen hata, doğrulanmış bilgi makalesi ve tekrar ölçümü."
+      "output": "Taslağı R8’e incelet; onay sonrası yayımla, yeni kanıtta yeni sürüm aç. Kullanımı R2/R3/R7’ye devret."
     },
     {
       "id": "R6",
@@ -83,10 +83,10 @@
       "goal": "Hız ile kontrollü uygulamayı birlikte sağla.",
       "responsibility": "Değişiklik türünü ve yetkisini belirler; etki, test, geri dönüş, pencere ve uygulama sonucunu değerlendirirsin.",
       "briefing": "Korsan yetkili onaycı değildir. Acil değişiklik de yetkili karar, kayıt ve uygulama sonrası inceleme gerektirir. Sponsorun aceleciliği onay değildir. Hayvan hizmeti ve teknik değişiklik için ayrı etki, plan ve kabul koşullarını incele.",
-      "authority": "Düşük riskli önceden tanımlı standart akışı kullanma; normal/acil değişiklik kararı.",
-      "steps": "Etkilenen hizmet ve CI, uygulayan, test eden ve geri dönüş koşulunu netleştirin.",
+      "authority": "Karar: kaynak ve kanıtı tamamlanmış değişiklik onayı. Yapamam: teknik uygulama veya bağımsız saha teyidi.",
+      "steps": "Planın etki, test ve geri dönüşünü sorgula; eksikse onaylama, ilgili role çalışma notu yaz.",
       "partners": "R4 uygular; R3 sonucu teyit eder; R1 öncelik; R7 tedarik bağımlılığı.",
-      "output": "Gerekçeli karar, uygulama/test kanıtı, geri dönüş veya başarılı kapanış."
+      "output": "Gerekçeyi kayda yaz, onaylı uygulamayı R4’e ve bağımsız testi R3’e devret."
     },
     {
       "id": "R7",
@@ -97,10 +97,10 @@
       "goal": "Müşteriye verilen sözü ekip ve tedarikçi taahhütleriyle destekle.",
       "responsibility": "Parça, yetkinlik, iç ekip hedefi (OLA) ve tedarikçi hedefini (UC) takip edersin.",
       "briefing": "Tedarikçi 30 dakikada dönüş diyor; ziyaretçi hizmeti 12 dakikada geri gelmeli. Tedarikçinin geç kalması müşteri SLA saatini kendiliğinden durdurmaz. Elif bir yetkinlik bağımlılığıdır. Erken vardiya devri 60 simülasyon saniyesi ister; rastgele yedek bakıcı veya hayvan seçilemez.",
-      "authority": "Yedek parça seçimi ve eskalasyon; bütçeli alternatifler R1 kararıyla.",
-      "steps": "SLA → OLA → UC zaman zincirini ve alternatif kaynağı doğrulayın.",
+      "authority": "Karar: tedarik hazırlığı veya vardiya devri. Yapamam: bütçe, değişiklik onayı, rastgele bakıcı/hayvan ikamesi.",
+      "steps": "Zaman–kapasite maliyetini karşılaştır; kaynak hazırlığını başlatmadan R4 ile kapasiteyi konuş.",
       "partners": "R4 parça uyumu; R3 güvenli çalışma; R1 bütçe; R8 hedef ölçümü.",
-      "output": "Tedarik kaydı, iç/dış taahhüt, eskalasyon ve süreklilik seçeneği."
+      "output": "Hazır kaynak/taahhüdü R1/R4’e; başka olayda denediğin bilgi sonucunu R5’e devret."
     },
     {
       "id": "R8",
@@ -111,10 +111,10 @@
       "goal": "Yeşil panonun arkasındaki gerçek deneyimi görünür kıl.",
       "responsibility": "SLA, hizmetin kullanılabilirliği, bekleme ve tekrarları ölçer; düzeltme etkisini izlersin.",
       "briefing": "Atölye saati duraklatılabilir. Kayıt SLA saati gerçek zamanla ilerler. Niles kullanılıyorsa Niles kaydı esas alınır. Tam açılış tek başarı değildir. Kapsam, bekleme ve gerçek ziyaretçi teyidini raporla. Kredi tüketimi ortak; kişi performansı ölçülmez.",
-      "authority": "Ölçüm tanımını açıklama ve kanıt inceleme; zamanı veya sonucu geriye dönük değiştirmeme.",
-      "steps": "Hedef, başlangıç/duruş koşulu, takvim ve ölçüm kaynağını herkesle netleştirin.",
+      "authority": "Karar: ölçüt, ara/son gözlem ve bağımsız bilgi incelemesinde onay veya düzeltme. Yapamam: kendi makalemi inceleme, SLA geçmişini değiştirme, teknik uygulama.",
+      "steps": "Başlangıçta ölçüt/yöntem kaydet; ara noktada hizmet kapsamını kontrol et; R5 taslağını kanıt ve sınırlar yönünden sorgula.",
       "partners": "R2 kullanıcı teyidi; R1 hizmet kararı; R5 tekrar; R7 OLA/UC uyumu.",
-      "output": "Dürüst hizmet raporu, SLA kanıtı ve sahibi/tarihi/ölçütü olan iyileştirme."
+      "output": "İnceleme gerekçesini R5’e; ölçüm farkı ve gözlenen sonucu R1’e devret. Kapanış puanını öğrenme diye sunma."
     }
   ],
   "zones": [
@@ -324,6 +324,18 @@
       "title": "Mümtaz’ın hizmet sözleşmesi",
       "category": "Oyun kuralları",
       "content": "Tümü kurgusal oyun koşullarıdır; veterinerlik bilgisi gerekmez. Mümtaz yalnız Elif ve sessiz alanda gözlemlenir. E02 sponsor saatini değiştirir; E09 vardiya uyumsuzluğunu, E10 PA kapsamını getirir. Üç kart geldikten sonra bağımlılık kanıtlarını birleştirin. Kısmi açılış: 0 kredi/0 teknisyen/30 sn, gözlem kapalı ve 40 kişilik eğitim rotası açık. Erteleme: 0 kredi/1 teknisyen/180 sn, normal vardiyada Elif ve sessiz PA. Sessiz tam gözlem: 20 kredi/1 teknisyen/90 sn, ayrıca Elif’in 60 sn erken devri. R3 saha testini, R2 yeni vaadin kabulünü kaydeder. Hayvan acı çekmez ve yedek parça değildir. Teknik ve hayvan işleri aynı kaynakları ve baskı saatini paylaşır; 35 kredi pompa kurtarma rezervidir. Ek kurgu bağımlılığı: gözlem hizmeti su sürekliliğine ve PA → park ağına bağlıdır. Kesintide önceki kabul/puan değişmez; güncel gözlem hizmeti etkilendi diye gösterilir. Altyapı döndüğünde R3 ücretsiz güncel saha teyidi verir. Alternatif rota gözlemi kapsamadığı için bundan etkilenmez. Bu bir hayvan refahı değerlendirmesi değildir."
+    },
+    {
+      "id": "G-CLOCKS",
+      "title": "Üç saat, üç ayrı iş",
+      "category": "Akış ve adalet",
+      "content": "Atölye saati yalnız gündemi gösterir. Baskı saati 1×/3×/6× kaynak işi ve tekrar riskini yürütür. SLA her zaman gerçek 1× dakikadır; iki saati duraklatmak SLA’yı durdurmaz. E02/E09/E10 tek demette T+32 gönderilir: herhangi birinin gönderimi üçünü birlikte açar. E04 kasıtlı SLA aşımı öğretimidir. Moladan önce açık kayıtları devredin. Giriş aracındaki prova gecikmesi katılımcı performansı değildir."
+    },
+    {
+      "id": "G-KNOWLEDGE",
+      "title": "Bir sonraki vardiyaya işe yarayan bilgi bırak",
+      "category": "Bilgi ve öğrenme",
+      "content": "R5 kaydedilmiş olay kanıtından taslak yazar. R8 kaynak/kapsam/sınır incelemesiyle onaylar veya düzeltmeye yollar; yazar kendi metnini onaylayamaz. R5 onaylı sürümü yayımlar. R2/R3/R7 başka bir olayda uygulama gözlemini kaydeder ve o sürümle ilişkilendirir. Yeni sürüm yayımlanınca eskisi emekli olur; önceki kullanım kanıtı kalır. Yeni sürüm incelenirken önceki yayımlı sürüm geçerlidir. Çalışmadı veya uygun değildi sonucu da değerli kanıttır. Final aktarım yanıtını eğitmen üç ölçütle değerlendirir; keyif ve öğrenme otomatik puanlanmaz."
     }
   ],
   "events": [
@@ -485,7 +497,7 @@
       "ciId": "CI-TURN",
       "message": "Tedarikçi: “30 dakika içinde döneriz.” Ziyaretçi hedefi 12 dakika. Korsan: “Beklemede, beklemede!”",
       "information": "Bu olayda ilk müdahale 4, çözüm 12 gerçek dakikadır. Bilinçli gözlem için bu kayıt açık bırakılır. Bekleme oyunda SLA’yı durdurmaz. Niles kullanılıyorsa aynı politika ve canlı kayıt gerekir.",
-      "expected": "İlk müdahaleyi kaydet; çözüm hedefi geçene kadar gerçek zamanı bekle. Aşım kanıtını al; sonra alternatif kaynağı ve müşteri iletişimini uygula.",
+      "expected": "İlk müdahaleyi kaydet; çözüm hedefi geçene kadar gerçek zamanı bekle. Aşım kanıtını al; sonra alternatif kaynağı ve müşteri iletişimini uygula. Bu kartta gerçek SLA aşımı kasıtlı öğrenme koşuludur; başta açıklayın, katılımcı başarısızlığı saymayın.",
       "choices": [
         {
           "id": "E04-1",
@@ -654,7 +666,7 @@
       "ciId": "CI-TURN",
       "message": "Yeni vardiya eski PDF’yi açtı. Korsan: “Ben ezberledim!” Ama yanlış sürümü ezberlemiş.",
       "information": "Geçici çözümün sahibi, sürümü, koşulları ve gözden geçirme tarihi belirlenmeli; eski kopya kullanımdan kaldırılmalı.",
-      "expected": "Doğrulanmış çözümü bilgi kaydı yap; yeni ekibin bulup uygulayabildiğini teyit et.",
+      "expected": "Doğrulanmış çözümü bilgi kaydı yap; yeni ekibin bulup uygulayabildiğini teyit et. Bilgi alanında R5 kaynak kanıtlı taslak oluşturur, R8 bağımsız inceler; R2/R3/R7 yayımlanmış sürümü başka gönderilmiş olayda dener. Bilgi yayını bu kaydı otomatik kapatmaz.",
       "choices": [
         {
           "id": "E08-1",
@@ -683,7 +695,7 @@
     },
     {
       "id": "E09",
-      "minute": 137,
+      "minute": 32,
       "title": "Mümtaz hazır; tanıdığı bakıcı hangi vardiyada?",
       "process": "Kapasite · Deneyim ölçümü",
       "recordType": "task",
@@ -741,7 +753,7 @@
     },
     {
       "id": "E10",
-      "minute": 150,
+      "minute": 32,
       "title": "Yeni anons, eski sessiz alan",
       "process": "İzleme · Olay korelasyonu",
       "recordType": "change",
@@ -846,7 +858,7 @@
       "ciId": "CI-GUIDE",
       "message": "Yönetim gün sonu raporunu bekliyor. Nermin Hoca: “Raporunuzda beni de görebilecek miyim?”",
       "information": "SLA aşımı, tekrarlar, bekleme, kullanıcı teyidi ve başarılı geri dönüşler birlikte raporlanır. İyileştirmeler için üç iş seçilir.",
-      "expected": "Gerçek sonuçları göster; üç iyileştirmeye sahip, tarih, başlangıç değeri ve başarı ölçütü ata.",
+      "expected": "Gerçek sonuçları göster; üç iyileştirmeye sahip, tarih, başlangıç değeri ve başarı ölçütü ata. Bilgi ve öğrenme ekranında R8 başlangıç ve son gözlemlerini kaydeder. En az bir katılımcının yeni DNS/sipariş örneğine aktarım yanıtını eğitmen üç ayrı ölçütle değerlendirir; bu kanıtlar olmadan final kabul edilmez. Pratik gerekli sonucu da dürüst bir öğrenme çıktısıdır.",
       "choices": [
         {
           "id": "E12-1",
@@ -1093,5 +1105,21 @@
     ]
   },
   "engine": "itsm",
-  "animalModel": 1
+  "animalModel": 1,
+  "learningModel": 1,
+  "releaseBundles": [
+    {
+      "id": "animal-opening",
+      "label": "Mümtaz hizmet kararı · E02 + E09 + E10 birlikte",
+      "events": [
+        "E02",
+        "E09",
+        "E10"
+      ]
+    }
+  ],
+  "learningAcceptance": {
+    "knowledgeEvent": "E08",
+    "finalEvent": "E12"
+  }
 }

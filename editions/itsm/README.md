@@ -69,3 +69,11 @@ Mevcut atölyelerin senaryo kopyaları ve sonuçları değiştirilmez. Hayvan mo
 Prova hesapları gerçek uygulama hesabıdır, rol takma adı değildir. Eğitmen tarafından bir kez oluşturulur; canlı giriş ve parola işlemleri kullanıcı kontrolündedir. Bağımsız kabul testleri için `docs/ANIMAL-ACCEPTANCE-CONTRACT.md` uç noktaları ve sentetik test sınırlarını açıklar.
 
 Paket 1.1.1: önceki ziyaretçi kabulü ile **güncel hizmet uygunluğu** ayrı gösterilir. Kurgusal gözlem hizmeti su sürekliliği ve PA → ağ ön koşullarına bağlıdır. Altyapı etkilenince eski puan/kayıt korunur; dönüşte R3 ücretsiz yeniden saha teyidi verir. Mevcut kabulde yeni uygunluk kaydı yoksa ekran bunu dürüstçe belirtir. Kısmi açılış gözlemi kapsamayan, önceden teyitli yerel alternatif rotadır.
+
+### Bilgi ve öğrenme akışı (paket 1.2.0)
+
+Yeni atölyelerde E02/E09/E10 bir gönderim demetidir; herhangi birini göndermek üçünü aynı anda açar. Böylece E02'nin gerçek 18 dakikalık hedefi, geç gönderilen zorunlu kartları beklemek zorunda kalmaz. Süreler katılımcı performansına ilişkin garanti değildir.
+
+**Bilgi ve öğrenme** ekranı R5 taslağını, R8 bağımsız incelemesini, sürüm yayın/emekliliğini ve R2/R3/R7'nin başka olayda gerçek gözlemle kullanımını saklar. R8 başlangıç/ara/son ölçütlerini kaydeder. Yeni iş örneğine aktarımı eğitmen ayrı ölçütlerle değerlendirir; senaryo puanı öğrenme/katılımcı keyfi sayılmaz. E08 ve E12 kabul kapıları kanıt gerektirir. Ayrıntılı uygulama gerçekleri: `docs/LEARNING-FLOW-1.2.md`.
+
+Mevcut atölyelerin kayıtlı paketleri değiştirilmez. Bu akışı kullanmak için yeni atölye açın; örnek hesap hazırlama var olan prova atölyesini yeni pakete dönüştürmez.

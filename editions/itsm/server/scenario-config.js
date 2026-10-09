@@ -65,9 +65,25 @@ export function validateScenario(input) {
     }
     if (!event.choices.some(c => c.resolve)) fail(400, `${event.id}: en az bir sonuç olayı tamamlamalı.`);
   }
+  if(pack.learningModel!==undefined&&pack.learningModel!==1)fail(400,'Desteklenmeyen öğrenme modeli.');
+  if(pack.learningAcceptance!==undefined){if(pack.learningModel!==1||!events.has(pack.learningAcceptance.knowledgeEvent)||!events.has(pack.learningAcceptance.finalEvent)||pack.learningAcceptance.knowledgeEvent===pack.learningAcceptance.finalEvent)fail(400,'Öğrenme kabul kartı eşlemesi geçersiz.');}
+  if(pack.releaseBundles!==undefined){
+    if(!Array.isArray(pack.releaseBundles)||pack.releaseBundles.length>20)fail(400,'Gönderim demetleri geçersiz.');
+    const grouped=new Set(),bundleIds=new Set();
+    for(const bundle of pack.releaseBundles){
+      string(bundle.id,'Demet kimliği',40);string(bundle.label,'Demet adı',160);
+      if(bundleIds.has(bundle.id)||!Array.isArray(bundle.events)||bundle.events.length<2||bundle.events.length>10)fail(400,'Demet kimliği benzersiz ve 2–10 kart olmalı.');bundleIds.add(bundle.id);
+      for(const id of bundle.events){if(!events.has(id)||grouped.has(id))fail(400,'Demet kartı bilinmiyor veya birden fazla demette.');grouped.add(id);}
+      if(new Set(bundle.events.map(id=>pack.events.find(e=>e.id===id).minute)).size!==1)fail(400,'Birlikte gönderilen kartların önerilen dakikası aynı olmalı.');
+    }
+  }
   const visiting = new Set(), done = new Set();
   function visit(id) { if (visiting.has(id)) fail(400, 'Olay ön koşulları döngü oluşturuyor.'); if (done.has(id)) return; visiting.add(id); pack.events.find(e => e.id === id).prerequisites.forEach(visit); visiting.delete(id); done.add(id); }
   pack.events.forEach(e => visit(e.id));
+  const groupOf=id=>(pack.releaseBundles||[]).find(b=>b.events.includes(id))?.id||'event:'+id;
+  const groupDone=new Set(),groupActive=new Set();
+  function groupVisit(group){if(groupActive.has(group))fail(400,'Gönderim demetleri dış ön koşulları kilitliyor.');if(groupDone.has(group))return;groupActive.add(group);for(const ev of pack.events.filter(e=>groupOf(e.id)===group))for(const pre of ev.prerequisites)if(groupOf(pre)!==group)groupVisit(groupOf(pre));groupActive.delete(group);groupDone.add(group);}
+  pack.events.forEach(e=>groupVisit(groupOf(e.id)));
   // At least one closing choice per event must be reachable. A release-only
   // dependency is not a closure dependency (a problem can precede its change).
   const closable = new Set();
@@ -97,6 +113,7 @@ export async function saveWorkshopScenario(store, fallback, wid, input) {
   for (const run of runs) {
     if (JSON.stringify(pack.events.find(e => e.id === run.event_id)) !== JSON.stringify(current.pack.events.find(e => e.id === run.event_id))) fail(409, `${run.event_id} ekibe gönderildi. Geçmişi korumak için bu olay değiştirilemez veya silinemez.`);
   }
+  if(runs.length&&(pack.learningModel!==current.pack.learningModel||JSON.stringify(pack.learningAcceptance)!==JSON.stringify(current.pack.learningAcceptance)||JSON.stringify(pack.releaseBundles||[])!==JSON.stringify(current.pack.releaseBundles||[])))fail(409,'Başlamış oturumda öğrenme modeli veya gönderim demeti değiştirilemez. Yeni atölye açın.');
   const memberships = await store.all('SELECT role_id FROM memberships WHERE workshop_id=?', wid);
   if (memberships.some(m => !pack.roles.some(r => r.id === m.role_id))) fail(409, 'Katılımcı atanmış rol kaldırılamaz.');
   const workshop = await store.one('SELECT * FROM workshops WHERE id=?', wid);

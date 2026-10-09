@@ -1,3 +1,4 @@
+import { learningEnabled, learningView } from './learning.js';
 import { animalEnabled, animalView } from './animal-encounter.js';
 import { recordPermissions, encounterPermissions, actionLabels, typeOwners } from './itsm-authority.js';
 import { readEncounter, mutateEncounter } from './itsm-encounter.js';
@@ -21,10 +22,10 @@ export async function readITSM(store,scenario,wid,isTrainer,role=null) {
   ]);
   const now=Date.now(),encounter=await readEncounter(store,wid,role,isTrainer),enriched=records.map(r=>({...r,...(!isTrainer&&r.event_id==='E06'?{notes:publicPumpBrief}:{}),sla:slaStatus(r,now),permissions:recordPermissions(role,isTrainer,r)}));
   const animals=animalView(encounter,role,isTrainer,animalEnabled(scenario),runs.map(r=>r.event_id));
-  delete encounter.animal;
+  const learning=learningView(encounter,role,isTrainer,learningEnabled(scenario));delete encounter.learning;delete encounter.animal;
   const activeEvents=scenario.events.filter(e=>runs.some(r=>r.event_id===e.id)&&!records.find(r=>r.event_id===e.id)?.resolved_at);
   return {serverNow:now,mode:'workshop',niles:{status:'not_connected',label:'Niles bağlantısı doğrulanmadı',message:'Buradaki SLA atölye kaydına aittir. Niles referansı eklemek canlı senkronizasyon veya Niles SLA kanıtı sağlamaz.'},
-    animals,currentServicesReady:!animals.enabled||!['dependency_affected','revalidation_required'].includes(animals.current.status),encounter,authority:{role,recordTypes:Object.keys(typeOwners).filter(type=>isTrainer||typeOwners[type].includes(role)),referenceAllowed:isTrainer||role==='R2',allowed:encounterPermissions(role,isTrainer),labels:actionLabels,description:isTrainer?'Eğitmen prova için tüm oyun rollerini uygulayabilir. Katılımcı yetkisi üyelikten belirlenir.':'Çalışma notunu herkes paylaşabilir. Üstlenme ve sonuç önerisi kayıt türündeki sorumlu rollere aittir. Kayıt kapatma/puan kabulü yalnız eğitmendedir. Niles yetkisi verilmez.'},
+    releaseBundles:scenario.releaseBundles||[],learning,animals,currentServicesReady:!animals.enabled||!['dependency_affected','revalidation_required'].includes(animals.current.status),encounter,authority:{role,recordTypes:Object.keys(typeOwners).filter(type=>isTrainer||typeOwners[type].includes(role)),referenceAllowed:isTrainer||role==='R2',allowed:encounterPermissions(role,isTrainer),labels:actionLabels,description:isTrainer?'Eğitmen prova için tüm oyun rollerini uygulayabilir. Katılımcı yetkisi üyelikten belirlenir.':'Çalışma notunu herkes paylaşabilir. Üstlenme ve sonuç önerisi kayıt türündeki sorumlu rollere aittir. Kayıt kapatma/puan kabulü yalnız eğitmendedir. Niles yetkisi verilmez.'},
     events:scenario.events.filter(e=>isTrainer||runs.some(r=>r.event_id===e.id)).map(e=>({...Object.fromEntries(['id','minute','title','process','recordType','priority','zone','serviceId','ciId','message','prerequisites'].map(k=>[k,e[k]])),information:isTrainer||(['E05','E06','E07'].includes(e.id)?(encounter.inspected||['R4','R5'].includes(role)):recordPermissions(role,false,{type:e.recordType}).propose)?e.information:'Bu teknik bilgi sorumlu rolün zarfında. İlgili ekipten kanıt isteyin; çalışma notuyla paylaşılabilir.',...(e.id==='E06'&&!isTrainer?{message:publicPumpBrief}:{}),run:runs.find(r=>r.event_id===e.id)||null,...(isTrainer?{expected:e.expected,choices:e.choices,debrief:e.debrief}:records.find(r=>r.event_id===e.id)?.resolved_at?{debrief:e.debrief}:{})})),
     records:enriched,decisions:decisions.map(d=>({...d,...(!isTrainer?{choice_id:undefined}: {})})),services:scenario.services.map(service=>animals.enabled&&service.id==='SVC-OBS'?{...service,requiresServices:['SVC-WATER']}:service),cis:scenario.cis.map(ci=>{const c={...ci};if(c.kind==='animal')c.changeHistory=c.id==='CI-HIPPO'&&animals.enabled?animals.history:decisions.filter(d=>records.some(r=>r.event_id===d.event_id&&r.ci_id===c.id)).map(d=>({at:d.created_at,actor:d.actor,message:d.note,clock:'wall'}));if(animals.enabled&&c.id==='CI-ELIF')c.state=animals.keeperReady?'Vardiya hazır':'Vardiya teyidi bekleniyor';if(animals.enabled&&c.id==='CI-HABITAT')c.state=animals.accepted&&['dependency_affected','revalidation_required'].includes(animals.current.status)?animals.current.status:animals.habitat;return c;}).map(c=>!isTrainer&&!encounter.inspected&&!records.some(r=>r.event_id==='E07'&&r.resolved_at)&&role!=='R4'&&['CI-P1','CI-P2'].includes(c.id)?{...c,dependsOn:'Saha teyidi bekleniyor',name:c.name+' · ilişki teyidi bekliyor'}:encounter.validated&&c.id==='CI-P2'?{...c,dependsOn:null,name:c.name+' · bağımsız besleme doğrulandı'}:c),slaPolicies:scenario.slaPolicies,
     effects:[...new Set([...activeEvents.filter(e=>!(encounter.validated&&['E05','E06','E07'].includes(e.id))).map(e=>e.effect),...(encounter.active&&!encounter.validated?['water']:[]),...(encounter.network==='down'?['queue','power']:[])])],
@@ -38,6 +39,7 @@ export async function mutateITSM({store,scenario,wid,user,input,revision}) {
   const membership=await store.one('SELECT role_id FROM memberships WHERE workshop_id=? AND user_id=?',wid,user.id);
   const role=membership?.role_id||null;
   if(!user.trainer&&!role)fail(403,'Bu atölyenin katılımcısı değilsiniz.');
+  if(input.action==='learning'){if(!learningEnabled(scenario))fail(409,'Bu oturumun kayıtlı paketinde bilgi yaşam döngüsü yok. Eski oturum korunur; yeni atölye açın.');return mutateEncounter({store,wid,user,role,input,now,learning:true});}
   if(input.action==='animal'){if(!animalEnabled(scenario))fail(409,'Bu kayıtlı paket hayvan hizmeti modelini içermiyor. Eski atölye korunur; yeni atölye açın.');const runs=await store.all('SELECT event_id FROM event_runs WHERE workshop_id=?',wid);if(!runs.some(r=>r.event_id==='E02'))fail(409,'Önce E02 kartını gönderin.');if(['animal_plan','animal_execute'].includes(input.operation)&&!['E09','E10'].every(id=>runs.some(r=>r.event_id===id)))fail(409,'Vardiya ve PA riskini görmek için E09 ve E10 kartlarını da gönderin.');return mutateEncounter({store,wid,user,role,input,now,animal:true});}
   if(input.action==='encounter')return mutateEncounter({store,wid,user,role,input,now});
   if(input.requestId!==undefined&&(typeof input.requestId!=='string'||!/^[A-Za-z0-9_-]{8,80}$/.test(input.requestId)))fail(400,'İşlem kimliği geçersiz.');
@@ -45,14 +47,19 @@ export async function mutateITSM({store,scenario,wid,user,input,revision}) {
   if(input.action==='release') {
     const e=scenario.events.find(e=>e.id===input.eventId);if(!e)fail(404,'Olay bulunamadı.');
     const runs=await store.all('SELECT event_id FROM event_runs WHERE workshop_id=?',wid);
-    if(e.prerequisites.some(id=>!runs.some(r=>r.event_id===id)))fail(409,'Önce bu olayın ön koşulu olan kartları gönder.');
-    const policy=scenario.slaPolicies.find(p=>p.priority===e.priority),timed=['incident','request'].includes(e.recordType);
-    await store.batch([
-      ['INSERT OR IGNORE INTO event_runs(workshop_id,event_id,released_at,score) SELECT ?,?,?,0 WHERE EXISTS(SELECT 1 FROM workshop_scenarios WHERE workshop_id=? AND revision=?)',[wid,e.id,now,wid,revision]],
-      ['INSERT OR IGNORE INTO simulation_records(id,workshop_id,event_id,number,type,title,priority,service_id,ci_id,status,created_at,response_due_at,due_at,notes) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM workshop_scenarios WHERE workshop_id=? AND revision=?)',
-        [eventRecordId(wid,e.id),wid,e.id,`${{incident:'INC',request:'REQ',problem:'PRB',change:'CHG',knowledge:'KB',task:'TSK'}[e.recordType]}-${e.id.replace(/^E/,'').padStart(3,'0')}`,e.recordType,e.title,e.priority,e.serviceId,e.ciId,'new',now,timed?now+policy.responseMinutes*60000:null,timed?now+policy.resolutionMinutes*60000:null,e.message,wid,revision]],
-    ]);
-    if(!await store.one('SELECT id FROM simulation_records WHERE id=? AND workshop_id=?',eventRecordId(wid,e.id),wid))fail(409,'Senaryo bu sırada değişti. Güncel olay akışından tekrar gönderin.');
+    const bundle=(scenario.releaseBundles||[]).find(b=>b.events.includes(e.id));
+    const ids=bundle?bundle.events:[e.id],batchEvents=ids.map(id=>scenario.events.find(x=>x.id===id));
+    if(batchEvents.some(ev=>!ev))fail(409,'Gönderim demetinde bulunamayan kart var.');
+    for(const ev of batchEvents)if(ev.prerequisites.some(id=>!ids.includes(id)&&!runs.some(r=>r.event_id===id)))fail(409,'Önce demetin dış ön koşulu olan kartları gönder.');
+    const statements=[];
+    for(const ev of batchEvents){
+      const policy=scenario.slaPolicies.find(p=>p.priority===ev.priority),timed=['incident','request'].includes(ev.recordType);
+      statements.push(
+        ['INSERT OR IGNORE INTO event_runs(workshop_id,event_id,released_at,score) SELECT ?,?,?,0 WHERE EXISTS(SELECT 1 FROM workshop_scenarios WHERE workshop_id=? AND revision=?)',[wid,ev.id,now,wid,revision]],
+        ['INSERT OR IGNORE INTO simulation_records(id,workshop_id,event_id,number,type,title,priority,service_id,ci_id,status,created_at,response_due_at,due_at,notes) SELECT ?,?,?,?,?,?,?,?,?,?,?,?,?,? WHERE EXISTS(SELECT 1 FROM workshop_scenarios WHERE workshop_id=? AND revision=?)',[eventRecordId(wid,ev.id),wid,ev.id,`${{incident:'INC',request:'REQ',problem:'PRB',change:'CHG',knowledge:'KB',task:'TSK'}[ev.recordType]}-${ev.id.replace(/^E/,'').padStart(3,'0')}`,ev.recordType,ev.title,ev.priority,ev.serviceId,ev.ciId,'new',now,timed?now+policy.responseMinutes*60000:null,timed?now+policy.resolutionMinutes*60000:null,ev.message,wid,revision]]);
+    }
+    await store.batch(statements);
+    for(const id of ids)if(!await store.one('SELECT id FROM simulation_records WHERE id=? AND workshop_id=?',eventRecordId(wid,id),wid))fail(409,'Senaryo bu sırada değişti. Güncel olay akışından tekrar gönderin.');
     return;
   }
   const record=await store.one('SELECT * FROM simulation_records WHERE workshop_id=? AND id=?',wid,input.recordId);
@@ -88,6 +95,11 @@ export async function mutateITSM({store,scenario,wid,user,input,revision}) {
     if(choice.resolve&&animalEnabled(scenario)&&['E02','E09','E10'].includes(e.id)){const a=encounter.animal;if(!a?.accepted)fail(409,'Önce hayvan hizmeti planını uygulayın, saha ve ziyaretçi kabulünü doğrulayın.');if(choice.animalOutcome&&choice.animalOutcome!==a.plan.type)fail(409,'Seçilen sonuç gerçek ziyaret planıyla uyuşmuyor.');}
     if(choice.resolve&&e.id==='E06'&&!encounter.inspected)fail(409,'E06 kabulü için CMDB bağımlılığı saha kanıtıyla incelenmeli.');
     if(choice.resolve&&e.id==='E07'&&!encounter.validated)fail(409,'E07 kabulü için onaylı değişiklik uygulanmalı ve saha hizmet testi doğrulanmalı.');
+    if(choice.resolve&&learningEnabled(scenario)){
+      const l=learningView(encounter,role,!!user.trainer,true);
+      if(e.id===scenario.learningAcceptance?.knowledgeEvent&&(!l.articles.some(a=>a.publishedAt&&a.review?.decision==='approve')||!l.reuses.length))fail(409,'Bilgi kabulü için bağımsız incelenmiş/yayımlanmış sürüm ve başka rolde gözlenen kullanım gerekli. Bilgi ve öğrenme ekranına geçin.');
+      if(e.id===scenario.learningAcceptance?.finalEvent&&(!['baseline','final'].every(stage=>l.measurements.some(m=>m.stage===stage))||!l.transfers.some(t=>t.assessment)))fail(409,'Finalde R8 başlangıç/son gözlemi ve eğitmenin değerlendirdiği en az bir aktarım yanıtı gerekli. Öğrenme puandan ayrı gösterilir.');
+    }
     const note=text(input.note,20);
     if(choice.resolve&&e.requireBreach&&now<=record.due_at)fail(409,'Bu kartta gerçek SLA aşımı gözlenecek. Çözüm hedefi henüz dolmadı.');
     if(choice.resolve&&!record.ack_at)fail(409,'Önce ilk müdahaleyi kaydet.');

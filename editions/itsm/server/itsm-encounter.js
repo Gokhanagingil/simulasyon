@@ -1,3 +1,4 @@
+import { applyLearning, learningPermissions } from './learning.js';
 import { animalPermissions, applyAnimal, projectAnimal, observationDependency } from './animal-encounter.js';
 import { encounterPermissions, actionLabels } from './itsm-authority.js';
 const fail=(status,message)=>{throw Object.assign(new Error(message),{status});};
@@ -40,16 +41,17 @@ export async function readEncounter(store,wid,role,trainer,now=Date.now()){
  const next=s.legacyAccepted?'Önceki E07 kabulü korunuyor. Eski kaynak harcaması bu modelde ölçülmedi.':s.validated?'Destekleyen altyapı ve saha hizmet testi doğrulandı. Tamamlanan kartların karar geçmişini gün sonu raporunda inceleyin.':!active?'E05 veya E06 kartını gönderin.':!s.shared.R4?'Teknik bakım ölçümünü ekiple paylaşsın.':!s.inspected?'Teknik bakım veya problem yöneticisi CMDB bağımlılığını incelesin.':!s.plan?'Teknik bakım iki müdahale seçeneğini karşılaştırsın.':!s.funded?'Hizmet sahibi maliyeti ve kalan kapasiteyi değerlendirsin.':!s.approved?'Değişiklik yetkilisi iş ve saha kanıtını birleştirip riske karar versin.':s.jobs.some(j=>!j.done&&!['support','animal_keeper','animal_visit'].includes(j.type))?(s.clock.running?'Uygulama sürüyor; kapasite doluyken başka iş başlatmayın.':'İş sırada; eğitmen baskı saatini başlatmalı. Düşünme arasında kaynak işleri de durur.'):s.water==='test_pending'?'Saha operasyonu gerçek akışı doğrulasın.':s.water==='temporary'?'Geçici çözüm hizmeti döndürdü. Tekrarı bekleyebilir veya teknik bakımdan kalıcı plan isteyebilirsiniz.':s.validated?'Hizmet kabul edildi. Eğitmen E06/E07 sonuçlarını kanıtla değerlendirebilir.':'Teknik bakım onaylı planı uygulasın.';
  return {...safe,revision:row.revision,active,privateFact:trainer?null:facts[role]||null,trainerFacts:trainer?facts:undefined,allowed:encounterPermissions(role,trainer),actionLabels,next,capacity:2,mode:'standalone',hint:trainer?'Cevabı söylemeden sorun: Bu CI arızalanırsa hangi iki hizmeti kaybederiz? Hangi kanıt planı değiştirirdi?':undefined};
 }
-export async function mutateEncounter({store,wid,user,role,input,now=Date.now(),animal=false}){
- const action=input.operation;if(!(animal?animalPermissions(role,user.trainer):encounterPermissions(role,user.trainer)).includes(action))fail(403,'Bu oyun işlemi rolünüzün yetkisinde değil. Ekip ve roller ekranındaki yetkiyi kullanın.');
+export async function mutateEncounter({store,wid,user,role,input,now=Date.now(),animal=false,learning=false}){
+ const action=input.operation;if(!(learning?learningPermissions(role,user.trainer):animal?animalPermissions(role,user.trainer):encounterPermissions(role,user.trainer)).includes(action))fail(403,'Bu oyun işlemi rolünüzün yetkisinde değil. Ekip ve roller ekranındaki yetkiyi kullanın.');
  if(typeof input.requestId!=='string'||!/^[A-Za-z0-9_-]{8,80}$/.test(input.requestId))fail(400,'Tekrarlanabilir işlem kimliği gerekli.');
- const {row,state:s}=await load(store,wid,now);const signature=JSON.stringify([user.id,action,input.option||null,input.note||null]);
- if(s.requests[input.requestId]){if(s.requests[input.requestId]!==signature)fail(409,'İşlem kimliği başka bir karar için kullanılmış.');return;}
- if(s.legacyAccepted&&!animal&&action!=='pace')fail(409,'Bu atölyenin önceki E07 kabulü korunuyor. Yeni kaynak modelini oynamak için yeni atölye açın.');
+ const {row,state:s}=await load(store,wid,now);const signature=JSON.stringify([user.id,learning?'learning':animal?'animal':'encounter',Object.fromEntries(Object.entries(input).filter(([k])=>!['requestId','runtimeRevision'].includes(k)).sort(([a],[b])=>a.localeCompare(b)))]);
+ if(s.requests[input.requestId]){if(s.requests[input.requestId]!==signature&&!( !learning&&s.requests[input.requestId]===JSON.stringify([user.id,action,input.option||null,input.note||null]) ))fail(409,'İşlem kimliği başka bir karar için kullanılmış.');return;}
+ if(s.legacyAccepted&&!animal&&!learning&&action!=='pace')fail(409,'Bu atölyenin önceki E07 kabulü korunuyor. Yeni kaynak modelini oynamak için yeni atölye açın.');
  if(input.runtimeRevision!==row.revision)fail(409,'Ekip bu sırada bir karar verdi. Güncel durumu okuyup yeniden deneyin.');
- if(!animal&&action!=='pace'&&!await store.one("SELECT 1 FROM event_runs WHERE workshop_id=? AND event_id IN ('E05','E06','E07')",wid))fail(409,'Önce pompa senaryosu eğitmen tarafından açılmalı.');
+ if(!animal&&!learning&&action!=='pace'&&!await store.one("SELECT 1 FROM event_runs WHERE workshop_id=? AND event_id IN ('E05','E06','E07')",wid))fail(409,'Önce pompa senaryosu eğitmen tarafından açılmalı.');
  let message='';
- if(animal){message=applyAnimal(s,input,user,role);}
+ if(learning){const records=await store.all('SELECT * FROM simulation_records WHERE workshop_id=?',wid),decisions=await store.all('SELECT * FROM simulation_decisions WHERE workshop_id=?',wid);message=applyLearning(s,input,user,role,records,decisions,now);}
+ else if(animal){message=applyAnimal(s,input,user,role);}
  else if(action==='pace'){
   if(!user.trainer)fail(403,'Baskı saatini yalnız eğitmen yönetir.');
   if(!['pause','1','3','6'].includes(input.option))fail(400,'Hız 1, 3 veya 6 olmalı.');

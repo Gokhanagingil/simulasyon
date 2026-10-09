@@ -18,7 +18,21 @@ async function fixture(t) {
   const trainer=client(),login=await trainer('/api/auth/login','POST',{username:'trainer',password:'test-only-password'}),wid=login.body.workshops[0].id,path=`/api/workshops/${wid}`;
   await trainer(path+'/members','POST',{username:'member',name:'Katılımcı',password:'test-member-password',roleId:'R2'});
   const member=client();await member('/api/auth/login','POST',{username:'member',password:'test-member-password'});
-  return {store,trainer,member,wid,path,scenario,restart:()=>handler=createHandler({store,scenario,passwords:{hashPassword,verifyPassword,digest}}),action:(body,as=trainer)=>as(path+'/itsm','POST',body)};
+  return {store,trainer,member,client,wid,path,scenario,restart:()=>handler=createHandler({store,scenario,passwords:{hashPassword,verifyPassword,digest}}),action:(body,as=trainer)=>as(path+'/itsm','POST',body)};
+}
+
+async function completeLearningEvidence(f){
+ const clients={};
+ for(const role of ['R5','R8']){await f.trainer(f.path+'/members','POST',{username:'learning-'+role.toLowerCase(),name:role,password:'isolated-learning-fixture',roleId:role});clients[role]=f.client();await clients[role]('/api/auth/login','POST',{username:'learning-'+role.toLowerCase(),password:'isolated-learning-fixture'});}
+ const step=async(client,operation,extra={})=>{const current=(await client(f.path+'/state')).body.itsm.encounter;const out=await f.action({action:'learning',operation,runtimeRevision:current.revision,requestId:crypto.randomUUID(),...extra},client);assert.equal(out.status,200,JSON.stringify(out.body));return out.body.itsm.learning;};
+ for(const eventId of ['E01','E03'])await f.action({action:'release',eventId});
+ const note=async(eventId)=>{const out=await f.action({action:'note',recordId:f.wid+'__'+eventId,note:'Gerçek atölye gözlemi: verilen hizmet koşulu ve saha sonucu kaydedildi.'},f.member);return out.body.itsm.decisions.find(d=>d.event_id===eventId&&d.kind==='note').id;};
+ const evidenceId=await note('E01');let l=await step(clients.R5,'draft',{title:'Hizmet koşulunu önce doğrula',scope:'Ziyaret hizmeti etkilenince kapsam ve bağımlılık kontrolü.',procedure:'Saha ölçümünü karşılaştır, gerçek ziyaretçi teyidi al.',limits:'Teknik yeşil tek başına yeterli değil; uygunsuzsa alan kapalı.',eventId:'E01',evidenceId});const articleId=l.articles[0].id;
+ await step(clients.R5,'submit',{articleId});await step(clients.R8,'review',{articleId,option:'approve',note:'Kanıt, kullanım koşulu ve güvenli sınırlar bağımsız incelendi.'});await step(clients.R5,'publish',{articleId});
+ await step(f.member,'reuse',{articleId,eventId:'E03',evidenceId:await note('E03'),option:'worked',note:'Başka olayda kapsam ve saha teyidi kontrolü uygulandı; sonuç gözlendi.'});
+ for(const option of ['baseline','final'])await step(clients.R8,'measure',{eventId:'E01',option,metric:'Atölye kaydı ve gerçek SLA başlangıç/son gözlem penceresi.',note:'Bu izole test ölçümüdür; insan öğrenmesi veya memnuniyeti iddia edilmez.'});
+ l=await step(f.member,'transfer',{dependency:'İki sunucu aynı DNS bağımlılığına sahip; sipariş hizmeti etkilenir.',decision:'Plan, kaynak ve onay ayrı rollerdedir; kontrolsüz değişiklik yapılmaz.',verification:'Sipariş uçtan uca test edilir ve müşteri kabul kanıtı alınır.'});
+ await step(f.trainer,'assess',{transferId:l.transfers[0].id,dependency:'demonstrated',decision:'demonstrated',verification:'needs_practice',note:'Bu fixture öğrenme mekanizmasını sınar; gerçek katılımcı değerlendirmesi değildir.'});
 }
 
 test('only trainers release events; duplicate releases do not reset records; prerequisites and participant visibility hold',async t=>{
@@ -62,7 +76,7 @@ test('scenario editing persists across handler restart; changes are scoped, vers
   const record=live.body.itsm.records[0];assert.equal(record.due_at-record.created_at,15*60000);
   const locked=structuredClone(persisted);locked.pack.events.find(e=>e.id==='CUSTOM').title='Geçmişi değiştirme';
   assert.equal((await f.trainer(f.path+'/scenario','PUT',locked)).status,409);
-  const removed=structuredClone(persisted);removed.pack.events=removed.pack.events.filter(e=>e.id!=='E02');removed.pack.events.forEach(e=>e.prerequisites=e.prerequisites.filter(id=>id!=='E02'));
+  const removed=structuredClone(persisted);removed.pack.events=removed.pack.events.filter(e=>e.id!=='E11');removed.pack.events.forEach(e=>e.prerequisites=e.prerequisites.filter(id=>id!=='E11'));
   removed.pack.slaPolicies.find(p=>p.priority==='P2').resolutionMinutes=20;
   assert.equal((await f.trainer(f.path+'/scenario','PUT',removed)).status,200);
   assert.equal((await f.trainer(f.path+'/state')).body.itsm.records[0].due_at,record.due_at);
@@ -104,7 +118,7 @@ test('SLA is independent of paused workshop time and retains breach after closur
 });
 
 test('full scenario can be played and final status does not depend on a fixed event id or score denominator',async t=>{
-  const f=await fixture(t);let state;
+  const f=await fixture(t);await completeLearningEvidence(f);let state;
   for(const eventId of ['E02','E09','E10'])assert.equal((await f.action({action:'release',eventId})).status,200);
   const animalStep=async(operation,extra={})=>{const current=(await f.trainer(f.path+'/state')).body.itsm.encounter;const response=await f.action({action:'animal',operation,runtimeRevision:current.revision,requestId:crypto.randomUUID(),...extra});assert.equal(response.status,200,JSON.stringify(response.body));};
   for(const option of ['R2','R3','R4','R7','R8'])await animalStep('animal_share',{option});
@@ -161,7 +175,7 @@ test('unreachable closure dependencies and malformed guide content are rejected'
 });
 
 test('finale does not celebrate while the other required events remain unplayed',async t=>{
-  const f=await fixture(t),config=(await f.trainer(f.path+'/scenario')).body;
+  const f=await fixture(t);await completeLearningEvidence(f);const config=(await f.trainer(f.path+'/scenario')).body;
   const final=config.pack.events.find(e=>e.finale);final.prerequisites=[];
   assert.equal((await f.trainer(f.path+'/scenario','PUT',config)).status,200);
   const released=await f.action({action:'release',eventId:final.id}),r=released.body.itsm.records[0];

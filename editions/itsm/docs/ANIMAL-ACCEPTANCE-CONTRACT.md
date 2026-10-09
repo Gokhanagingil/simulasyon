@@ -14,7 +14,7 @@ GET `/api/workshops/{id}/state`: `itsm.animals` returns role-filtered evidence, 
 
 POST `/api/workshops/{id}/itsm`: every animal command uses `action: "animal"`, unique `requestId`, latest `runtimeRevision`, `operation`, optional `option` and `note`. Authenticated workshop membership supplies role; client role/trainer fields have no authority.
 
-1. Trainer releases E02, then E09 and E10. E02 need not close before the other cards are released.
+1. In package 1.2.0, the trainer selects “Demeti birlikte gönder” for E02, E09 or E10: all three are released atomically with the same actual start time. E02 need not close first. Older stored packs retain their earlier sequential release rules; do not apply the new bundle retroactively.
 2. R3/R4/R7 `animal_share`; R5 `animal_inspect`.
 3. R4 `animal_plan`, option `partial`, `delay` or `quiet`; note 20–2000 characters describing scope, test and safe fallback.
 4. R2/R8 `animal_share`; R1 `animal_fund`; R6 `animal_approve`.
@@ -30,9 +30,9 @@ Partial costs 0 credits/0 technicians and keeps Mümtaz observation closed; the 
 
 Existing workshop scenario JSON remains authoritative. Old packs do not silently adopt the new model or invent earlier decisions. New workshops use animalModel 1. Runtime fields are added lazily when the first real animal command occurs. Existing pump history and accepted changes are retained. Page reconnection reads the same persisted clock and jobs; no browser timer owns completion.
 
-## Verification scope at development handoff
+## Historical verification scope at the animal-model handoff
 
-46 automated tests pass, including all three outcomes, negative role permissions, resource contention, failed test recovery, replay protection, existing 12-event lifecycle and SQLite/D1 behavior. Syntax and TypeScript checks pass. Live visual/role acceptance is a separate, independently run stage; this document does not claim it passed.
+At that earlier handoff, 46 automated tests passed, including all three outcomes, negative role permissions, resource contention, failed test recovery, replay protection, existing 12-event lifecycle and SQLite/D1 behavior. Syntax and TypeScript checks pass. Live visual/role acceptance is a separate, independently run stage; this document does not claim it passed.
 
 ## Current readiness versus historical acceptance (1.1.1)
 

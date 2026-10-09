@@ -44,6 +44,7 @@ export function createScenarioEditor({api,escape:e,onSaved,toast}) {
     const choice=target.closest('[data-choice]'),policy=target.closest('[data-policy]'),phase=target.closest('[data-phase]');
     const owner=target.dataset.pack?config.pack:choice?ev.choices[Number(choice.dataset.choice)]:policy?config.pack.slaPolicies[Number(policy.dataset.policy)]:phase?config.pack.phases[Number(phase.dataset.phase)]:ev;
     if(owner===ev||choice){if(released.includes(ev.id))return;}
+    if(owner===ev&&key==='minute'){const bundle=(config.pack.releaseBundles||[]).find(b=>b.events.includes(ev.id));if(bundle)for(const id of bundle.events)config.pack.events.find(e=>e.id===id).minute=value;}
     owner[key]=value;stash();
   }
   function download(value,name){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(value,null,2)],{type:'application/json'}));a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);}
@@ -57,7 +58,7 @@ export function createScenarioEditor({api,escape:e,onSaved,toast}) {
     if(a==='reload'){if((dirty||sessionStorage.getItem(cacheKey()))&&!confirm('Kaydedilmemiş taslağı bırakıp sunucudaki sürümü yüklemek istiyor musunuz?'))return false;config=await api(`/api/workshops/${wid}/scenario`);sessionStorage.removeItem(cacheKey());dirty=false;selected=config.pack.events[0].id;return true;}
     if(a==='add'||a==='duplicate'){const id=newId(),copy=structuredClone(ev);copy.id=id;copy.title=a==='add'?'Yeni olay':`${ev.title} — kopya`;copy.prerequisites=[];copy.requireBreach=false;copy.finale=false;copy.choices.forEach((c,i)=>{c.id=`${id}-${i+1}`;c.requiresResolved=[];});p.events.push(copy);selected=id;stash();return true;}
     if(released.includes(ev.id))throw Error('Ekibe gönderilen olay değiştirilemez.');
-    if(a==='remove'){if(p.events.length===1)throw Error('Paket en az bir olay içermeli.');const refs=p.events.filter(x=>x.prerequisites.includes(ev.id)||x.choices.some(c=>(c.requiresResolved||[]).includes(ev.id)));if(refs.length)throw Error(`Önce ${refs.map(x=>x.id).join(', ')} olaylarının ön koşul ilişkisini kaldırın.`);if(!confirm(`${ev.title} olayı bu taslaktan çıkarılsın mı?`))return false;p.events=p.events.filter(x=>x.id!==ev.id);selected=p.events[0].id;}
+    if(a==='remove'){if((p.releaseBundles||[]).some(b=>b.events.includes(ev.id)))throw Error('Bu kart birlikte gönderim demetinde. Yeni atölyenin paket JSON’unda demeti ve ilişkileri birlikte düzenleyin.');if(p.events.length===1)throw Error('Paket en az bir olay içermeli.');const refs=p.events.filter(x=>x.prerequisites.includes(ev.id)||x.choices.some(c=>(c.requiresResolved||[]).includes(ev.id)));if(refs.length)throw Error(`Önce ${refs.map(x=>x.id).join(', ')} olaylarının ön koşul ilişkisini kaldırın.`);if(!confirm(`${ev.title} olayı bu taslaktan çıkarılsın mı?`))return false;p.events=p.events.filter(x=>x.id!==ev.id);selected=p.events[0].id;}
     if(a==='add-choice'){let n=ev.choices.length+1;while(ev.choices.some(c=>c.id===`${ev.id}-${n}`))n++;ev.choices.push({id:`${ev.id}-${n}`,label:'Yeni sonuç',result:'Gözlenen sonucu açıklayın.',score:0,resolve:false,requiresResolved:[]});}
     if(a==='remove-choice'){if(ev.choices.length===1)throw Error('En az bir sonuç olmalı.');ev.choices.splice(Number(button.dataset.choiceIndex),1);}
     stash();return true;
