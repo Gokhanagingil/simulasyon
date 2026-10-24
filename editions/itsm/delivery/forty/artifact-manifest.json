@@ -1,0 +1,15 @@
+{
+  "filename": "Mavi_Vadi_Kirk_Kisilik_Soz.html",
+  "bytes": 154186,
+  "sha256": "13c49190bbf4db5230dd14c18f3964a39d180b21db86fec62d7ccef1e11e1913",
+  "externalRuntimeDependencies": 0,
+  "mode": "single-device-offline-simulation",
+  "sourceEntrypoint": "/forty-visitors.html",
+  "narration": {
+    "kind": "deterministic-public-script",
+    "liveAI": false,
+    "localVoiceOnly": true,
+    "microphone": false,
+    "contractVersion": "1.0.0"
+  }
+}

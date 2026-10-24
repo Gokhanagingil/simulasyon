@@ -1,0 +1,311 @@
+{
+  "schema": "mavi-vadi-training-contract/1",
+  "id": "mavi-vadi-training",
+  "version": "1.0.0",
+  "language": "tr",
+  "status": "local_candidate_not_human_validated",
+  "scope": {
+    "moduleIds": [
+      "forty-visitors",
+      "mavi-vadi-next-vertical-slice"
+    ],
+    "legacy240MinutePilotChanged": false,
+    "grcChanged": false,
+    "realWorldAuthority": false
+  },
+  "identity": {
+    "participantSlot": "R1–R8 aynı katılımcıyı gösterir; bölüm değişince kişi değişmez.",
+    "ciOwnership": "CI, hizmeti oluşturan bir hayvanın, aracın veya hizmet kaydının takip kartıdır. Sahibi bilgiyi ve takibi koordine eder.",
+    "processHat": "Bu bölümdeki görev şapkan neyi yapabileceğini söyler. CI sahipliği tek başına uygulama, değişiklik onayı, risk kabulü veya bağımsız kabul yetkisi vermez.",
+    "localRoleSelection": "Tek cihazda rol seçmek kimlik doğrulama veya kişiye özel gizlilik sağlamaz.",
+    "transition": "Eğitmen bölüm değişimini duyurur. Aynı R numaranı koru ve yeni bölümdeki görevini oku; önceki bölümün bütçesi, sonucu ve işlem yetkisi yeni bölüme taşınmaz."
+  },
+  "roles": [
+    {
+      "id": "R1",
+      "title": "Hizmet sahibi",
+      "ownedCiIds": [
+        "CI-ATLAS",
+        "CI-CATALOG"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Hizmet masası",
+      "ownedCiIds": [
+        "CI-KORSAN",
+        "CI-PORTAL"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Saha ve hayvan bakım",
+      "ownedCiIds": [
+        "CI-HIPPO",
+        "CI-HABITAT"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Teknik bakım",
+      "ownedCiIds": [
+        "CI-P1",
+        "CI-NET"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Problem ve bilgi",
+      "ownedCiIds": [
+        "CI-P2",
+        "CI-MAP"
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Değişiklik yetkilisi",
+      "ownedCiIds": [
+        "CI-CAM-GW",
+        "CI-PA"
+      ]
+    },
+    {
+      "id": "R7",
+      "title": "Tedarik ve süreklilik",
+      "ownedCiIds": [
+        "CI-CARE-SCHEDULE",
+        "CI-B1"
+      ]
+    },
+    {
+      "id": "R8",
+      "title": "Hizmet düzeyleri",
+      "ownedCiIds": [
+        "CI-EDU-CAPACITY",
+        "CI-MONITOR"
+      ]
+    }
+  ],
+  "modules": {
+    "forty-visitors": {
+      "title": "Kırk Kişilik Söz",
+      "durationMinutes": 12,
+      "debriefMinutes": 3,
+      "fiction": "Öğretmen ilk 40 ziyaretçiyle Mümtaz’ı gözlemlemeye geldi. Sponsor erken ayrılacak ve yeni istekleri var. Sekiz kişilik ekip, verdiği sözü güvenli biçimde yerine getirmek için bilgilerini birleştiriyor.",
+      "firstAction": "Rolünü seç, zarfını aç ve bildiğini ekibe anlat. R2 öğretmenin amacını teyit etsin; sonra eğitmen saati başlatsın.",
+      "rules": [
+        "Yalnız kendi rolünün işlemini yap; eksik bilgiyi ilgili rolden iste.",
+        "Yeni istek, açıkça kabul edilene kadar verilmiş bir söz değildir.",
+        "Hayvan refahı ve güvenlik hazır değilse dur; kredi bu koşulları satın alamaz.",
+        "İşin bitmesi, saha teyidi ve müşteri kabulü ayrı adımlardır.",
+        "Kararının sonucunu kaydet; bölüm sonunda nedenini birlikte konuşun."
+      ],
+      "conditions": [
+        "12 dakika oyun, ardından 3 dakika değerlendirme.",
+        "20 kredi ve 1 ortak teknisyen var. Bir gözlem en fazla 40 kişidir.",
+        "İlerleme yalnız açık sekmede tutulur. Bu tek cihaz provası gerçek kullanıcı hesapları değildir."
+      ],
+      "resources": {
+        "normalBudget": 20,
+        "recoveryReserve": 0,
+        "technicians": 1
+      },
+      "portfolioActive": false,
+      "roleHats": {
+        "R1": {
+          "title": "Hizmet sahibi",
+          "publicMission": "20 kredi ve kapsam yetkisi.",
+          "firstAction": "R2’ye ilk gruba verilen sözü sor; bütçeyi harcamadan kapsamı netleştir.",
+          "publicAuthorityBoundary": "Bütçe ve kapsamı yönetirsin; teknik değişikliği veya müşteri kabulünü onaylamazsın.",
+          "can": "20 kredi ve kapsam yetkisi.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R2": {
+          "title": "Öğretmen ve müşteri ilişkileri",
+          "publicMission": "Amaç, rıza, açık müşteri kabulü ve sponsor müzakeresi.",
+          "firstAction": "Öğretmenin öğrenme amacını sor ve “Öğretmenin amacını teyit et” işlemiyle kaydet.",
+          "publicAuthorityBoundary": "Müşteri amacı, kapsam, rıza ve öğretmen kabulü sende. Saha teyidi R3, ziyaretçi kabulü R8’dedir.",
+          "can": "Amaç, rıza, açık müşteri kabulü ve sponsor müzakeresi.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R3": {
+          "title": "Saha sorumlusu",
+          "publicMission": "30 saniyelik nitelikli saha teyidi.",
+          "firstAction": "Saha zarfını oku; alanı açmadan hangi güncel koşulları doğrulaman gerektiğini söyle.",
+          "publicAuthorityBoundary": "Güncel saha teyidi sende; değişiklik onayı ve müşteri kabulü sende değildir.",
+          "can": "30 saniyelik nitelikli saha teyidi.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R4": {
+          "title": "Teknik ekip",
+          "publicMission": "Sessiz PA hazırlığı; Korsan ile bir ortak teknisyen.",
+          "firstAction": "Teknik zarfını oku; bir iş başlatmadan gerekli yetkiyi ve ortak kaynağı kontrol et.",
+          "publicAuthorityBoundary": "PA uygulaması sende; kendi değişiklik onayını veya saha kabulünü vermezsin.",
+          "can": "Sessiz PA hazırlığı; Korsan ile bir ortak teknisyen.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R5": {
+          "title": "Alternatif ve atölye koordinasyonu",
+          "publicMission": "Korsan farklı içeriktir; ek 80 kişi yeni kapsamdır.",
+          "firstAction": "Alternatifin hangi ihtiyacı karşılayacağını R2 ile konuş; kabul edilmeden söz verme.",
+          "publicAuthorityBoundary": "Alternatif ve gelecek atölye işini koordine edersin; müşteri kabulü R2’dedir.",
+          "can": "Korsan farklı içeriktir; ek 80 kişi yeni kapsamdır.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R6": {
+          "title": "Değişiklik sahibi",
+          "publicMission": "PA önerisi; kendi değişikliğini onaylayamaz.",
+          "firstAction": "Değişiklik zarfını oku; öneri ile bağımsız onayı kimin vereceğini ekibe söyle.",
+          "publicAuthorityBoundary": "PA değişikliğini önerirsin. Kendi önerine bağımsız onay veremezsin; onay eğitmendedir.",
+          "can": "PA önerisi; kendi değişikliğini onaylayamaz.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R7": {
+          "title": "Nitelikli bakım sorumlusu",
+          "publicMission": "Güvenli erken devir, refah durdurması ve bakım izni.",
+          "firstAction": "Bakım zarfını oku; güvenli devir koşullarını ekibe bildir.",
+          "publicAuthorityBoundary": "Yetkin bakım, refah durdurması ve bakım devam izni sende; güncel saha teyidi yine R3’tedir.",
+          "can": "Güvenli erken devir, refah durdurması ve bakım izni.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R8": {
+          "title": "Ziyaretçi akışı ve kabul",
+          "publicMission": "En fazla 40 kişi; iki dakika kesintisiz, zorlamasız gözlem.",
+          "firstAction": "Ziyaret zarfını oku; hazırlık ile gerçekten yaşanan deneyimi nasıl ayıracağını söyle.",
+          "publicAuthorityBoundary": "Ziyaretçi akışı ve gerçekleşen gözlemin kabulü sende; öğretmenin kabulü ayrıca R2’dedir.",
+          "can": "En fazla 40 kişi; iki dakika kesintisiz, zorlamasız gözlem.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "trainer": {
+          "title": "Bağımsız eğitmen",
+          "publicMission": "Saati kolaylaştırır ve bağımsız onay verir; katılımcı kararlarını üstlenmez.",
+          "firstAction": "Görevleri ve kısa kuralları oku; ekibin yerine karar vermeden saati yönet.",
+          "publicAuthorityBoundary": "PA için bağımsız onay verirsin. Saat ve refah durdurma kontrollerin katılımcıların karar yetkisini sana devretmez.",
+          "can": "Saati kolaylaştırır ve bağımsız onay verir; katılımcı kararlarını üstlenmez.",
+          "partner": "Katılımcı rolleri kendi kararlarını verir."
+        }
+      },
+      "authority": {
+        "changeProposal": {
+          "pa": "R6"
+        },
+        "changeApproval": {
+          "pa": "trainer"
+        },
+        "budget": "R1",
+        "technicalImplementation": "R4",
+        "fieldValidation": "R3",
+        "customerConfirmation": "R2",
+        "visitorAcceptance": "R8",
+        "qualifiedCare": "R7",
+        "riskAcceptance": null
+      }
+    },
+    "mavi-vadi-next-vertical-slice": {
+      "title": "Yoğun Ziyaret Günü",
+      "durationMinutes": 42,
+      "debriefMinutes": 0,
+      "fiction": "Mavi Vadi yoğun bir ziyaret gününe hazırlanıyor. Ziyaretçilere verdiğiniz sözü, hayvan refahını ve çalışan hizmetleri birlikte koruyacaksınız. Herkes iki hizmet kartının takibini üstlenir; yeni olaylar geldikçe bilgileri birleştirip karar verirsiniz.",
+      "firstAction": "Kendi iki CI kartını oku. Ekibe neyin takibini üstlendiğini ve ilk bilgiyi kimden isteyeceğini söyle; ilk olay T+5’te gelir.",
+      "rules": [
+        "Kendi rolünün işlemini yap; bilmediğin ayrıntıyı ilgili kişiden sor.",
+        "Kartın sahibi olmak her kararı verme yetkisi değildir; onayı doğru kişiden al.",
+        "İşin bitmesi, sahada doğrulama ve müşterinin kabulü ayrı adımlardır.",
+        "Yeni bir isteğe söz vermeden kapsamı, zamanı ve kaynakları konuş.",
+        "Gördüğün kanıtı ve sonraki adımı kaydet; eksik kanıtı tamamlanmış sayma."
+      ],
+      "conditions": [
+        "42 dakika oyun, 8 rol ve her rolde 2 CI kartı.",
+        "40 kredi normal bütçe ve 2 teknisyen var. Ek 20 kredi kurtarma rezervini yalnız eğitmen açabilir.",
+        "Eğitim molası oyun hedeflerini durdurur; varsa lisansın gerçek zamanlı süresi işlemeye devam eder."
+      ],
+      "resources": {
+        "normalBudget": 40,
+        "recoveryReserve": 20,
+        "technicians": 2
+      },
+      "portfolioActive": true,
+      "roleHats": {
+        "R1": {
+          "title": "Hizmet sahibi",
+          "publicMission": "Ziyaretçiye verilen sözü, hizmet kapsamını ve bütçeyi birlikte yönet.",
+          "firstAction": "İki CI kartını incele. Ekibe bugün hangi ziyaret deneyimini koruduğunuzu söyle.",
+          "publicAuthorityBoundary": "Bütçe onayı teknik değişiklik onayı değildir. Kendi başına risk kabul edemezsin.",
+          "can": "Kapsamı tanımlar, iş bütçesini onaylar ve kendi CI takibini yaparsın.",
+          "partner": "R2 ile müşteri sözü; R3 ile güvenli hizmet koşulu."
+        },
+        "R2": {
+          "title": "Hizmet masası",
+          "publicMission": "Dağınık bildirimleri anlamlı bir hizmet durumuna dönüştür; müşterinin neyi kabul ettiğini kaydet.",
+          "firstAction": "Müşteri taahhüdünü oku. Bir bildirimde etkiyi ve sonraki güncellemeyi nasıl anlatacağını hazırla.",
+          "publicAuthorityBoundary": "Müşteri kabulü saha doğrulamasının yerini tutmaz. Teknik değişiklik onaylayamazsın.",
+          "can": "Talep kararını ve müşteri kabulünü kaydeder, anlamlı durum güncellemesi yaparsın.",
+          "partner": "R1 ile kapsam; R3 ile güncel saha kanıtı; R7 ile koordinasyon."
+        },
+        "R3": {
+          "title": "Saha ve hayvan bakım",
+          "publicMission": "Mümtazın refahını ve ziyaretin sahada gerçekten güvenli olmasını koru.",
+          "firstAction": "Mümtaz ve habitat kartlarını incele. Hizmetin hazır olduğunu hangi gözlemle kanıtlayacağını belirle.",
+          "publicAuthorityBoundary": "Teknik işin bitmesi otomatik saha kabulü değildir. Risk kabulü veya teknik değişiklik onayı veremezsin.",
+          "can": "Yetkin saha kontrolünü yürütür, güncel saha kabulünü ve güvenli rotayı kaydedersin.",
+          "partner": "R4 ile teknik sonuç; R7 ile bakım düzeni; R2 ile müşteri kabulü."
+        },
+        "R4": {
+          "title": "Teknik bakım",
+          "publicMission": "Kısıtlı teknisyen kapasitesiyle doğru işi doğru zamanda uygula; sonucunu kanıtla.",
+          "firstAction": "İki CI kartının bağımlılıklarını oku. İşin süresi, kredisi ve teknisyen ihtiyacını başlamadan karşılaştır.",
+          "publicAuthorityBoundary": "CI sahibi olmak onay gerektiren değişikliği kendin onaylamana izin vermez. İşin bitmesi müşteri kabulü değildir.",
+          "can": "Yetkili teknik işleri başlatır, yerel bağımlılık kanıtını ve kendi CI takibini kaydedersin.",
+          "partner": "R6 veya bağımsız vekille değişiklik; R1 ile bütçe; R3 ile saha testi."
+        },
+        "R5": {
+          "title": "Problem ve bilgi",
+          "publicMission": "Hizmeti geri getirmekle tekrarını önlemeyi ayır; işe yarayan bilgiyi yeniden kullanılabilir hale getir.",
+          "firstAction": "Kendi CI kartlarını incele. Bir varsayımı kanıtlamak için kimden hangi veriyi isteyeceğini düşün.",
+          "publicAuthorityBoundary": "Bir olayın kapanması kök nedenin giderildiğini kanıtlamaz. Kendi bilgi taslağının bağımsız inceleyicisi değilsin.",
+          "can": "Bağımlılık kanıtını paylaşır, bilgi taslağı ve iyileştirme kanıtı üretirsin.",
+          "partner": "R4 ve diğer CI sahipleriyle kanıt; R8 ile bağımsız inceleme."
+        },
+        "R6": {
+          "title": "Değişiklik yetkilisi",
+          "publicMission": "Değişikliğin hizmet etkisini, geri dönüşünü ve sahiplik takibini görünür kıl.",
+          "firstAction": "Kendi iki CI kartını incele. Sahip olduğun CI üzerinde karar verirken bağımsız onay sınırını kontrol et.",
+          "publicAuthorityBoundary": "Kendi CI değişikliklerinde bağımsız vekil gerekir. Değişiklik onayı artık riski kabul etme yetkisi vermez.",
+          "can": "Yetki kapsamındaki değişiklikleri değerlendirir; kendi CI bulgusunun eylem sorumlusu ve takibini koordine edersin.",
+          "partner": "R4 ile uygulama; R8 ile kanıt; eğitmenin bağımsız vekiliyle çıkar çatışması."
+        },
+        "R7": {
+          "title": "Tedarik ve süreklilik",
+          "publicMission": "Bakım düzenini, dış desteği ve hizmetin devam etmesi için gereken koordinasyonu sahiplen.",
+          "firstAction": "Bakım düzeni ve güç panosu kartlarını incele. Hizmet koşullarını hangi rolün doğrulayacağını netleştir.",
+          "publicAuthorityBoundary": "Tedarikçiden gelen bilgi değişiklik onayı değildir. Teknik erişim veya sınırsız risk kabul yetkin yoktur.",
+          "can": "Koordinasyon işlerini yürütür, kendi bağımlılık kanıtını ve takip planını kaydedersin.",
+          "partner": "R3 ile bakım; R2 ile ziyaret koordinasyonu; R4 ile teknik bağımlılıklar."
+        },
+        "R8": {
+          "title": "Hizmet düzeyleri",
+          "publicMission": "Yeşil göstergenin arkasındaki gerçek hizmeti ve kanıtın yeterliliğini sorgula.",
+          "firstAction": "Kapasite ve izleme kartlarını incele. Bir kabul ölçütünün sınanabilir olup olmadığını nasıl anlayacağını belirle.",
+          "publicAuthorityBoundary": "Eksik veriyi tahminle tamamlayamazsın. Kanıt incelemesi risk kabulü veya teknik değişiklik onayı değildir.",
+          "can": "Kanıtı ve bilgi taslağını bağımsız inceler, devir örneklerini aynı ölçütle değerlendirirsin.",
+          "partner": "R2 ile hizmet sözü; R5 ile ölçüm ve öğrenme; CI sahipleriyle kapanış kanıtı."
+        }
+      },
+      "authority": {
+        "changeApproval": {
+          "quiet-pa": "trainer",
+          "camera-egress-control": "trainer",
+          "independent-power": "R6",
+          "controlled-test": "R6"
+        },
+        "budget": "R1",
+        "technicalImplementation": "R4",
+        "fieldValidation": "R3",
+        "customerConfirmation": "R2",
+        "independentEvidenceReview": "R8",
+        "riskAcceptance": "trainer",
+        "reserveRelease": "trainer"
+      }
+    }
+  }
+}

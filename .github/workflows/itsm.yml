@@ -1,0 +1,32 @@
+name: ITSM edition checks
+on:
+  pull_request:
+    paths:
+      - 'editions/itsm/**'
+      - '.github/workflows/itsm.yml'
+  push:
+    branches: [main, feat/itsm-operation-day]
+    paths:
+      - 'editions/itsm/**'
+      - '.github/workflows/itsm.yml'
+permissions:
+  contents: read
+jobs:
+  itsm:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: editions/itsm
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: editions/itsm/package.json
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check
+      - run: pnpm test
+      - run: pnpm exec tsc --noEmit
+      - run: pnpm build
