@@ -1,5 +1,7 @@
 # Mavi Vadi · ITSM Operasyon Günü
 
+Sesli rehber güncellemesi: kısa başlangıç kurgusu, beş kural ve seçili rolün ortak görev anlatımı aynı sürümlü eğitim kaynağından gelir. İsteğe bağlı yerel Türkçe cihaz sesi vardır; metin her zaman kullanılabilir. Bu deterministik rehber canlı AI değildir ve mikrofon kullanmaz. [Kullanım ve sınırlar](docs/NARRATOR-INTEGRATION-TR.md).
+
 24 Ekim 2026: **Kırk Kişilik Söz**, önceki pilotun hesap, veritabanı ve çalışma akışını değiştirmeyen ayrı tek cihazlık eğitim bölümüdür. `/forty-visitors.html` veya `delivery/forty/Mavi_Vadi_Kirk_Kisilik_Soz.html` ile açılır. [Kullanım ve sınırlar](docs/FORTY-VISITORS-TR.md); [bu PR kaynağının doğrulaması](docs/FORTY-GITHUB-VALIDATION.md).
 
 Ayrı bir hayvanat bahçesi hizmet yönetimi atölyesi. Bu klasör GRC uygulamasının yerini almaz; kendi Site kimliği ve veritabanıyla çalışır.

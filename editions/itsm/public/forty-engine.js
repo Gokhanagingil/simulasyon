@@ -1,15 +1,6 @@
 /** Pure offline rehearsal. Role selection is not multiuser authentication. */
-export const ROLES = Object.freeze([
-    { id: 'R1', name: 'Hizmet sahibi', summary: '20 kredi ve kapsam yetkisi.' },
-    { id: 'R2', name: 'Öğretmen ve müşteri ilişkileri', summary: 'Amaç, rıza, açık müşteri kabulü ve sponsor müzakeresi.' },
-    { id: 'R3', name: 'Saha sorumlusu', summary: '30 saniyelik nitelikli saha teyidi.' },
-    { id: 'R4', name: 'Teknik ekip', summary: 'Sessiz PA hazırlığı; Korsan ile bir ortak teknisyen.' },
-    { id: 'R5', name: 'Alternatif ve atölye koordinasyonu', summary: 'Korsan farklı içeriktir; ek 80 kişi yeni kapsamdır.' },
-    { id: 'R6', name: 'Değişiklik sahibi', summary: 'PA önerisi; kendi değişikliğini onaylayamaz.' },
-    { id: 'R7', name: 'Nitelikli bakım sorumlusu', summary: 'Güvenli erken devir, refah durdurması ve bakım izni.' },
-    { id: 'R8', name: 'Ziyaretçi akışı ve kabul', summary: 'En fazla 40 kişi; iki dakika kesintisiz, zorlamasız gözlem.' },
-    { id: 'trainer', name: 'Bağımsız eğitmen', summary: 'Saati kolaylaştırır ve bağımsız onay verir; katılımcı kararlarını üstlenmez.' }
-]);
+import { getPublicBriefing, changeAuthorityFor } from './training-contract.js';
+export const ROLES = Object.freeze(getPublicBriefing('forty-visitors').roles.map(role=>({id:role.id,name:role.title,summary:role.publicMission})));
 const JOBS = {
     pa: { label: 'Sessiz PA hazırlığı', cost: 10, duration: 180, owner: 'R4', resource: 'technician' },
     keeper: { label: 'Güvenli erken bakım devri', cost: 5, duration: 120, owner: 'R7', resource: 'qualifiedCare' },
@@ -29,7 +20,7 @@ export const ACTIONS = Object.freeze([
         meta(`cancel_${job}`, 'CANCEL_JOB', `${s.label}: iptal et`, ['R1', s.owner], 'Başlamış işin kredisi iade edilmez. İptal edilen iş yeniden başlatılamaz.', { job }, [NOTE])
     ]),
     meta('propose_pa', 'PROPOSE_PA_CHANGE', 'PA değişikliğini öner', ['R6'], 'R6 değişiklik sahibidir; bağımsız eğitmen onayı gerekir.', {}, [NOTE]),
-    meta('approve_pa', 'APPROVE_PA_CHANGE', 'PA değişikliğini bağımsız onayla', ['trainer'], 'Bütçe ve uygulama katılımcı rollerinde kalır.', {}, [NOTE]),
+    meta('approve_pa', 'APPROVE_PA_CHANGE', 'PA değişikliğini bağımsız onayla', [changeAuthorityFor('forty-visitors','pa')], 'Bütçe ve uygulama katılımcı rollerinde kalır.', {}, [NOTE]),
     meta('alternative_substitute', 'ACCEPT_ALTERNATIVE', 'Korsan’ı ikame olarak kabul et', ['R2'], 'Öğretmen farklı içerik ve erken zamanlamayı açıkça kabul eder; Mümtaz sözü anlaşmayla değiştirilir.', { mode: 'substitute' }, [NOTE]),
     meta('alternative_additional', 'ACCEPT_ALTERNATIVE', 'Korsan’ı ek deneyim olarak kabul et', ['R2'], 'Korsan ek içeriktir; Mümtaz sözü devam eder.', { mode: 'additional' }, [NOTE]),
     meta('offer_addon', 'OFFER_ADDON', 'Ek 80 kişilik kapsamı teklif et', ['R1'], 'Mevcut 80 kişilik program korunur. Yeni 10 kredilik atölye planı teklifi; henüz söz verilmiş değildir.', {}, [NOTE]),

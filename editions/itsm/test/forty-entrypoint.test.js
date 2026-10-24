@@ -9,7 +9,7 @@ test('separate episode entrypoint and module assets are served without changing 
  const {server}=createApp({databasePath:':memory:',admin:{password:'synthetic-forty-test-password-3249'}});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));t.after(()=>new Promise(resolve=>server.close(resolve)));
  const base=`http://127.0.0.1:${server.address().port}`;
- for(const path of ['/forty-visitors.html','/forty-visitors.css','/forty-engine.js','/forty-ui.js']){const response=await fetch(base+path);assert.equal(response.status,200,path);assert.ok((await response.text()).length>1000);}
+ for(const path of ['/forty-visitors.html','/forty-visitors.css','/forty-engine.js','/forty-ui.js','/training-contract.js','/training-contract-data.js','/narrator-guide.js','/facilitator-speech.js']){const response=await fetch(base+path);assert.equal(response.status,200,path);assert.ok((await response.text()).length>1000);}
  const root=await fetch(base+'/');assert.equal(await root.text(),read('public/index.html'));
 });
 test('offline episode is self-contained, syntax-valid, isolated, and its manifest matches exact bytes',()=>{

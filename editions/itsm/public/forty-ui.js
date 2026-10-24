@@ -1,5 +1,7 @@
 import { ROLES, ACTIONS, createEpisode, dispatch, advance, getOutcome, getAvailableActions } from './forty-engine.js';
 import { principles, improvementSteps } from './teaching-panels.js';
+import { getPublicBriefing, getRoleBriefing, trainingContract } from './training-contract.js';
+import { createPublicNarrator } from './narrator-guide.js';
 
 const $ = selector => document.querySelector(selector);
 const e = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -18,7 +20,24 @@ let activeDescriptor = null;
 let tickCarry = 0;
 let resumeAfterDialog = false;
 let modalPhase = null;
+let guideSession = 1;
+const narrator = createPublicNarrator({
+ onMessage:message=>{$('#guide-transcript').textContent=message.text;},
+ onStatus:info=>{
+  const modeText=info.mode==='human'?'Anlatım eğitmende.':info.mode==='paused'?'Anlatım susturuldu.':'Rehber hazır.';
+  const voiceText=info.voiceEnabled?'Cihaz sesi açık.':info.hasLocalVoice?'Yalnız metin.':'Bu cihazda yerel Türkçe ses bulunamadı; metinle devam edin.';
+  $('#guide-status').textContent=`${modeText} ${voiceText} Oyun saati ayrı yönetilir.`;
+  $('#guide-voice').textContent=info.voiceEnabled?'Sesi kapat':'Cihaz sesini aç';
+  $('#guide-voice').disabled=!info.voiceEnabled&&!info.hasLocalVoice;
+  $('#guide-repeat').disabled=!info.canRepeat;
+  if(info.note.startsWith('Cihaz sesi kullanılamadı')){$('#guide-error').textContent=info.note;$('#guide-error').hidden=false;}
+ }
+});
+function syncNarrator(){narrator.sync({sessionKey:`local-${guideSession}`,roleId:activeRole,phase:state.phase,paused:state.paused,welfareHeld:state.welfare.held,semanticRevision:state.nextLogId});}
+function guideAction(action){$('#guide-error').hidden=true;try{syncNarrator();action();}catch(error){$('#guide-error').textContent=({HUMAN_RESUME_REQUIRED:'Önce “Rehbere dön”ü seçin; eski anlatım kendiliğinden başlamaz.',NO_CURRENT_REPEAT:'Durum değişti. Tekrarlamak için güncel bir başlık seçin.',WELFARE_HOLD_ACTIVE:'Refah durdurması sürüyor. Önce yetkili bakım rolü devam koşulunu doğrulasın.',LOCAL_TURKISH_VOICE_UNAVAILABLE:'Yerel Türkçe ses yok; metni okuyarak devam edebilirsiniz.'})[error.message]||'Anlatım kullanılamadı; metinle ve eğitmenle devam edin.';$('#guide-error').hidden=false;}}
 
+
+// Role-local facts remain separate from the shared public training contract.
 const envelopes = {
  R1:{name:'Hizmet sahibi',points:['Toplam 20 kredi var. Bir işi yetkilendirmek harcama değildir; iş gerçekten başladığında bedeli düşer. Başlamış iş iptal edilirse bedeli geri gelmez.','İlk 40 ziyaretçinin mevcut sözü korunmalı. Sonraki 80 kişi için ek atölye 10 kredidir. Henüz o ek hizmete söz verilmedi.','Bütçe ve kapsamı sen yönetirsin. Teknik tamamlanma, öğretmenin ve ziyaretçinin kabulü yerine geçmez.'],question:'Hangi değeri koruyorsun, hangi isteğe henüz söz vermedin?'},
  R2:{name:'Hizmet masası ve müşteri',points:['Öğretmenin ilk 40 kişi için sözü: T10–T12 arasında iki dakikalık Mümtaz gözlemi. Öğrenme amacı Mümtaz’ın doğal davranışını gözlemek.','Zamanı veya içeriği değiştiriyorsanız öğretmenin açık kabulünü al. Korsan canlı gözlemdir ama Mümtaz içeriğine eşdeğer değildir; farklı içerik olarak ikame ya da yalnız ek etkinlik olabilir.','Sponsor T7’de ayrılır; fotoğraf ve T8’de duyuru ister. İstek kabul edilene kadar söz değildir. Sınıf fotoğrafı için ayrıca izin gerekir. Sessiz gözlemle çakışacak bir duyurunun saatini de açıkça müzakere et.'],question:'Bir tarafın isteği, diğerine verdiğimiz sözü değiştirmiş sayılır mı?'},
@@ -94,8 +113,10 @@ function drawTimeline(){
  $('#timeline').innerHTML=`<div class="timeline"><div class="time-ruler"><span class="lane-label">Bölüm dakikası</span><div class="ruler-ticks">${[0,2,4,6,8,10,12].map(x=>`<span>${x}</span>`).join('')}</div></div>${lanes.map(l=>`<div class="time-lane"><div class="lane-label">${e(l.label)}</div><div class="lane-track">${bars(l.items)}</div></div>`).join('')}<div class="timeline-legend"><span>İlk söz</span><span>İstek / müzakere</span><span>Gerçek iş süresi</span></div><p class="muted" style="margin:10px 0 0">Kesikli sıradaki işler henüz harcama değildir. Geç başlangıç, bitişi de ileri taşır.</p></div>`;
 }
 function drawEnvelope(){
- const env=envelopes[activeRole]||envelopes.trainer;
- $('#role-envelope').innerHTML=envelopeOpen?`<div class="role-envelope"><div class="envelope-content"><h3>${e(activeRole==='trainer'?'Eğitmen':activeRole)} · ${e(env.name)}</h3><ul>${env.points.map(p=>`<li>${e(p)}</li>`).join('')}</ul><div class="envelope-question">${e(env.question)}</div><button class="text-button envelope-close" id="close-envelope">Zarfı kapat</button></div></div>`:`<div class="role-envelope"><div class="envelope-closed"><div class="role-stamp">${e(activeRole==='trainer'?'E':activeRole)}</div><h3>${e(env.name)}</h3><p>Bu rolün bildikleri, ekibin bütünü değil.</p><button class="button" id="open-envelope">Rol zarfını aç</button></div></div>`;
+ const privateEnvelope=envelopes[activeRole]||envelopes.trainer,brief=getRoleBriefing('forty-visitors',activeRole);
+ const env={...privateEnvelope,name:brief.title};
+ const identity=`<p class="muted"><b>Katılımcı:</b> ${e(activeRole==='trainer'?'Eğitmen':activeRole)} · ${e(brief.personTitle)}<br><b>Bu bölümdeki görev:</b> ${e(brief.title)}</p>`;
+ $('#role-envelope').innerHTML=envelopeOpen?`<div class="role-envelope"><div class="envelope-content"><h3>${e(activeRole==='trainer'?'Eğitmen':activeRole)} · ${e(env.name)}</h3>${identity}<p><b>İlk adımın:</b> ${e(brief.firstAction)}</p><ul>${env.points.map(p=>`<li>${e(p)}</li>`).join('')}</ul><div class="envelope-question">${e(env.question)}</div><details><summary>Görevim ve yetki sınırım</summary><p>${e(brief.publicAuthorityBoundary)}</p><p>${e(trainingContract.identity.processHat)}</p>${brief.ownedCiIds.length?`<p>42 dakikalık ana eğitimdeki sahiplik kartların: ${e(brief.ownedCiIds.join(' · '))}. Bu kısa bölüm bu kartlar için ayrıca takip işlemi açmaz.</p>`:''}</details><button class="text-button envelope-close" id="close-envelope">Zarfı kapat</button></div></div>`:`<div class="role-envelope"><div class="envelope-closed"><div class="role-stamp">${e(activeRole==='trainer'?'E':activeRole)}</div><h3>${e(env.name)}</h3>${identity}<p>Bu rolün bildikleri, ekibin bütünü değil.</p><button class="button" id="open-envelope">Rol zarfını aç</button></div></div>`;
  $('#open-envelope')?.addEventListener('click',()=>{envelopeOpen=true;drawEnvelope();});
  $('#close-envelope')?.addEventListener('click',()=>{envelopeOpen=false;drawEnvelope();});
 }
@@ -118,6 +139,7 @@ function drawLog(){
  $('#event-log').innerHTML=logs.length?logs.map(l=>`<li><time>${mm(l.time??l.at??0)}</time><div><strong>${e(roleName(l.role))}</strong><p>${e(l.text||l.message||l.type)}</p>${l.note?`<p>${e(l.note)}</p>`:''}</div></li>`).join(''):'<li class="empty">Henüz karar yok. Rol bilgilerini paylaşın; ilk hamle zaman tahtasında iz bırakacak.</li>';
 }
 function render(){
+ syncNarrator();
  $('#clock').textContent=mm(state.phase==='play'?state.clock:state.debriefClock??state.debriefElapsed??0);
  $('#clock-label').textContent=state.phase==='play'?'YEREL BÖLÜM SAATİ':'DEĞERLENDİRME SAATİ';
  $('#phase').textContent=state.phase==='complete'?'Tamamlandı':state.phase!=='play'?'Değerlendirme':state.paused?(state.clock===0?'Hazır':'Duraklatıldı'):'Çalışıyor';
@@ -137,7 +159,7 @@ function render(){
  }
  renderedPhase=state.phase;
 }
-function openModal(content){resumeAfterDialog=!state.paused&&state.phase!=='complete';modalPhase=state.phase;if(resumeAfterDialog){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();}$('#modal-content').innerHTML=`<div class="modal-inner">${content}</div>`;$('#modal').showModal();$('#modal-content').querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#modal').close()));}
+function openModal(content){narrator.interrupt('Pencere açıldı; anlatım kesildi.');resumeAfterDialog=!state.paused&&state.phase!=='complete';modalPhase=state.phase;if(resumeAfterDialog){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();}$('#modal-content').innerHTML=`<div class="modal-inner">${content}</div>`;$('#modal').showModal();$('#modal-content').querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#modal').close()));}
 function modalTop(title){return `<div class="modal-top"><h2 id="modal-title">${e(title)}</h2><button class="close-button" data-close aria-label="Pencereyi kapat">×</button></div>`;}
 function renderField(f){
  const selected=f.default??'';
@@ -149,7 +171,7 @@ function renderField(f){
 }
 function openAction(a){
  activeDescriptor=a;
- openModal(`${modalTop(a.label)}<p>${e(a.description||'Kararını kaydet ve etkisini ortak tahtada izle.')}</p><div class="callout">${e(activeRole==='trainer'?'Bağımsız eğitmen kararı':`${activeRole} · ${envelopes[activeRole]?.name||roleName(activeRole)}`)} · Pencere açıkken saat durur; kapanınca önceki duruma döner.</div><form id="action-form"><div class="form-fields">${(a.fields||[]).map(renderField).join('')}</div><div id="action-error" hidden class="form-error" role="alert"></div><p class="privacy-note">Yalnız kurgusal oyun bilgisi kullanın. Gerçek kişi bilgisi girmeyin.</p><div class="modal-buttons"><button type="button" class="button" data-close>Vazgeç</button><button type="submit" class="button primary">Kararı uygula</button></div></form>`);
+ openModal(`${modalTop(a.label)}<p>${e(a.description||'Kararını kaydet ve etkisini ortak tahtada izle.')}</p><div class="callout">${e(activeRole==='trainer'?'Bağımsız eğitmen kararı':`${activeRole} · ${roleName(activeRole)}`)} · Pencere açıkken saat durur; kapanınca önceki duruma döner.</div><form id="action-form"><div class="form-fields">${(a.fields||[]).map(renderField).join('')}</div><div id="action-error" hidden class="form-error" role="alert"></div><p class="privacy-note">Yalnız kurgusal oyun bilgisi kullanın. Gerçek kişi bilgisi girmeyin.</p><div class="modal-buttons"><button type="button" class="button" data-close>Vazgeç</button><button type="submit" class="button primary">Kararı uygula</button></div></form>`);
  $('#action-form').addEventListener('submit',event=>{
   event.preventDefault();
   if(!activeDescriptor)return;
@@ -160,9 +182,13 @@ function openAction(a){
   catch(error){$('#action-error').hidden=false;$('#action-error').textContent=error.message;}
  });
 }
-function help(){openModal(`${modalTop('Hizmeti birlikte kurun')}<p>12 dakikada, ilk 40 kişiye verilen sözü ve kaynakları birlikte yönetin. Tek bir doğru yol seçmeniz istenmiyor; kararlarınızın sonuçlarını yaşayacaksınız.</p><ol><li>Bir rol seçin, zarfını açın. Ekipçe oynuyorsanız o rolün sahibi bilgiyi masaya getirsin.</li><li>Üstteki saati başlatın. Bir işi sıraya almak, onaylamak, bitirmek ve hizmeti kabul etmek aynı şey değildir.</li><li>Diğer rollerle anlaşın; doğru role geçip ilgili işlemi uygulayın. Bütün işlemler tek cihazda simüle edilir.</li><li>1× gerçek zamanla oynayın veya prova için +15 sn / +30 sn kullanın. Saati ileri almak son tarihleri de ilerletir. Karar ve bilgi pencereleri açıkken saat durur; kapatınca önceki durumuna döner.</li><li>Bölüm bitince 3 dakikalık değerlendirmede sonuçların nedenlerine bakın. İnsanlara puan verilmez.</li></ol><div class="callout">Sağdaki rol değişimi güvenli kullanıcı hesabı değildir. Zarflar aynı ekranda bilerek açılır. Sekme gizlenirse oyun otomatik duraklar; sayfa yenilenirse ilerleme kaybolur.</div><div class="modal-buttons"><button class="button primary" data-close>Anladım</button></div>`);}
+function trainingIntro(){
+ const b=getPublicBriefing('forty-visitors');
+ return `<div data-training-contract="${e(b.version)}"><p>${e(b.fiction)}</p><p><b>İlk işimiz:</b> ${e(b.firstAction)}</p><details><summary>${b.rules.length} kısa kural</summary><ol>${b.rules.map(rule=>`<li>${e(rule)}</li>`).join('')}</ol>${b.conditions.map(line=>`<p>${e(line)}</p>`).join('')}<p>${e(b.identity.transition)}</p></details></div>`;
+}
+function help(){openModal(`${modalTop('Hizmeti birlikte kurun')}${trainingIntro()}<p>1× gerçek zamanla oynayın veya prova için +15 sn / +30 sn kullanın. Saati ileri almak son tarihleri de ilerletir. Karar ve bilgi pencereleri açıkken saat durur; kapatınca önceki durumuna döner.</p><div class="callout">Sağdaki rol değişimi güvenli kullanıcı hesabı değildir. Zarflar aynı ekranda bilerek açılır. Sekme gizlenirse oyun otomatik duraklar; sayfa yenilenirse ilerleme kaybolur.</div><div class="modal-buttons"><button class="button primary" data-close>Anladım</button></div>`);}
 function confirmEnd(){openModal(`${modalTop('Bölümü burada bitir?')}<p>Devam eden işler ve gözlemler tamamlanmış sayılmaz. Şu ana kadarki kararlarla değerlendirmeye geçilir; oyun saati geri alınmaz.</p><div class="modal-buttons"><button class="button" data-close>Devam et</button><button class="button primary" id="confirm-end">Bitir ve değerlendir</button></div>`);$('#confirm-end').addEventListener('click',()=>{if(send({type:'END_SESSION',role:'trainer'}))$('#modal').close();});}
-function confirmReset(){openModal(`${modalTop('Yeni bir prova başlat?')}<p>Bu açık sekmedeki kararlar silinir ve bütçe yeniden 20 kredi olur. Saklamak istersen önce karar kaydını indir.</p><div class="modal-buttons"><button class="button" data-close>Vazgeç</button><button class="button primary" id="confirm-reset">Sıfırla ve yeniden başla</button></div>`);$('#confirm-reset').addEventListener('click',()=>{resumeAfterDialog=false;tickCarry=0;state=createEpisode();activeRole='R1';envelopeOpen=false;activeDescriptor=null;speed=1;$('#speed').value='1';$('#role').value='R1';renderedPhase='play';lastTick=performance.now();$('#modal').close();drawEnvelope();setNotice('Yeni prova hazır. Önceki kararlar bu sekmeden temizlendi.');render();window.scrollTo({top:0,behavior:'smooth'});});}
+function confirmReset(){openModal(`${modalTop('Yeni bir prova başlat?')}<p>Bu açık sekmedeki kararlar silinir ve bütçe yeniden 20 kredi olur. Saklamak istersen önce karar kaydını indir.</p><div class="modal-buttons"><button class="button" data-close>Vazgeç</button><button class="button primary" id="confirm-reset">Sıfırla ve yeniden başla</button></div>`);$('#confirm-reset').addEventListener('click',()=>{resumeAfterDialog=false;tickCarry=0;narrator.reset();guideSession++;state=createEpisode();activeRole='R1';envelopeOpen=false;activeDescriptor=null;speed=1;$('#speed').value='1';$('#role').value='R1';renderedPhase='play';lastTick=performance.now();$('#modal').close();drawEnvelope();setNotice('Yeni prova hazır. Önceki kararlar bu sekmeden temizlendi.');render();window.scrollTo({top:0,behavior:'smooth'});});}
 function exportLog(){
  const output={episode:'Kırk Kişilik Söz',version:'1.0.0',mode:'single_device_offline_simulation_not_multiplayer',exportedAt:new Date().toISOString(),state,outcome:getOutcome(state),limitations:['Tek cihaz, rol değişimi simülasyonu; gerçek kimlik doğrulama yok.','İnsan öğrenmesi veya performansı ölçülmez.','Niles veya başka bir sistemle bağlantı yok.']};
  const blob=new Blob([JSON.stringify(output,null,2)],{type:'application/json;charset=utf-8'});
@@ -183,9 +209,18 @@ function reference(kind){
  $('#modal').classList.add('reference-dialog');
 }
 
+for(const kind of ['opening','role','conditions','rules'])$(`#guide-${kind}`).addEventListener('click',()=>guideAction(()=>narrator.speak(kind)));
+$('#guide-pause').addEventListener('click',()=>guideAction(()=>narrator.pause()));
+$('#guide-takeover').addEventListener('click',()=>guideAction(()=>narrator.takeover()));
+$('#guide-resume').addEventListener('click',()=>guideAction(()=>narrator.resume()));
+$('#guide-repeat').addEventListener('click',()=>guideAction(()=>narrator.repeat()));
+$('#guide-voice').addEventListener('click',()=>guideAction(()=>narrator.inspect().voiceEnabled?narrator.disableVoice():narrator.enableVoice()));
+if(globalThis.speechSynthesis?.addEventListener)globalThis.speechSynthesis.addEventListener('voiceschanged',()=>narrator.refreshVoices());
+if(globalThis.addEventListener)globalThis.addEventListener('pagehide',()=>narrator.pause());
+$('#training-intro').innerHTML=trainingIntro();
 $('#role').innerHTML=ROLES.map(r=>`<option value="${e(r.id)}">${e(r.id==='trainer'?'Eğitmen':r.id)} · ${e(r.name)}</option>`).join('');
 $('#role').value=activeRole;
-$('#role').addEventListener('change',event=>{activeRole=event.target.value;envelopeOpen=false;activeDescriptor=null;if($('#modal').open)$('#modal').close();drawEnvelope();drawActions();});
+$('#role').addEventListener('change',event=>{narrator.interrupt('Rol değişti; önceki anlatım kesildi.');activeRole=event.target.value;envelopeOpen=false;activeDescriptor=null;if($('#modal').open)$('#modal').close();drawEnvelope();drawActions();syncNarrator();});
 $('#toggle-clock').addEventListener('click',()=>{send({type:state.paused?'RESUME':'PAUSE',role:'trainer'});lastTick=performance.now();});
 document.querySelectorAll('[data-step]').forEach(button=>button.addEventListener('click',()=>{
  try{const wasPaused=state.paused;if(wasPaused)state=dispatch(state,{type:'RESUME',role:'trainer'});state=advance(state,Number(button.dataset.step));if(wasPaused&&!state.paused&&state.phase!=='complete')state=dispatch(state,{type:'PAUSE',role:'trainer'});lastTick=performance.now();render();setNotice(`Bölüm saati ${button.dataset.step} saniye ilerletildi. Son tarihler ve kaynak işleri de ilerledi.`);}
@@ -195,7 +230,7 @@ $('#speed').addEventListener('change',event=>{speed=Number(event.target.value);l
 $('#help').addEventListener('click',help);document.querySelectorAll('[data-reference]').forEach(b=>b.addEventListener('click',()=>reference(b.dataset.reference)));$('#end').addEventListener('click',confirmEnd);$('#reset').addEventListener('click',confirmReset);$('#export').addEventListener('click',exportLog);
 $('#modal').addEventListener('close',()=>{$('#modal').classList.remove('reference-dialog');activeDescriptor=null;if(resumeAfterDialog&&state.paused&&state.phase===modalPhase&&state.phase!=='complete'){state=dispatch(state,{type:'RESUME',role:'trainer'});render();}resumeAfterDialog=false;modalPhase=null;tickCarry=0;lastTick=performance.now();});
 $('#modal').addEventListener('click',event=>{if(event.target===$('#modal')){const r=$('#modal').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('#modal').close();}});
-document.addEventListener('visibilitychange',()=>{lastTick=performance.now();if(document.hidden&&!state.paused&&state.phase!=='complete'){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();setNotice('Sekme görünür olmadığı için saat duraklatıldı. Hazır olduğunuzda sürdürün.');}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)narrator.pause();lastTick=performance.now();if(document.hidden&&!state.paused&&state.phase!=='complete'){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();setNotice('Sekme görünür olmadığı için saat duraklatıldı. Hazır olduğunuzda sürdürün.');}});
 setInterval(()=>{const now=performance.now();const elapsed=Math.min(2,(now-lastTick)/1000);lastTick=now;if(state.paused||state.phase==='complete'||document.hidden){tickCarry=0;return;}tickCarry+=elapsed*speed;const seconds=Math.floor(tickCarry);if(!seconds)return;tickCarry-=seconds;try{state=advance(state,seconds);render();}catch(error){if(!state.paused)state=dispatch(state,{type:'PAUSE',role:'trainer'});setNotice(error.message,'error');render();}},250);
 // Explicit test seam: synthetic tests can inspect state; no network, account or persistent storage.
 export function inspectEpisode(){return structuredClone(state);}

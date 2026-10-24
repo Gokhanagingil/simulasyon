@@ -21,6 +21,10 @@ Zamanı erkene çekmek, farklı Korsan içeriğine geçmek, sponsor duyurusunun 
 
 İş hazırlığı, bağımsız onay, 30 saniyelik saha teyidi, iki dakikalık kesintisiz gözlem, ziyaretçi kabulü ve öğretmen kabulü birbirine karıştırılmaz. T12’de biten gözlemin açık kabulleri, oyun sonu duraklatılmış değerlendirme aşamasında kaydedilebilir.
 
+## Sade başlangıç ve yerel sesli rehber
+
+Başlangıç kurgusu, ilk iş, beş kural ve ortak rol görevleri aynı sürümlü [eğitim kaynağından](TRAINING-CONTRACT-TR.md) gelir. İsteğe bağlı Türkçe cihaz sesi bu metni okuyabilir; metin her zaman kullanılabilir. Bu deterministik rehber canlı AI değildir, mikrofon veya harici sağlayıcı kullanmaz. [Ses ve devralma kontrolleri](NARRATOR-INTEGRATION-TR.md).
+
 ## Saat ve yardım pencereleri
 
 - Rol zarflarının açılması saati durdurmaz.

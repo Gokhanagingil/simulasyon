@@ -17,6 +17,8 @@ for (const file of ["server", "public", "test", "scripts"]
   });
   if (result.status !== 0) process.exit(result.status || 1);
 }
+const contractCheck = spawnSync(process.execPath, ["scripts/build-training-contract.mjs", "--check"], {stdio:"inherit"});
+if (contractCheck.status !== 0) process.exit(contractCheck.status || 1);
 const scenario = loadScenario();
 console.log(
   `JavaScript syntax OK. Scenario: ${scenario.roles.length} roles, ${scenario.zones.length} zones, ${scenario.phases.reduce((n, p) => n + p.minutes, 0)} minutes.`,

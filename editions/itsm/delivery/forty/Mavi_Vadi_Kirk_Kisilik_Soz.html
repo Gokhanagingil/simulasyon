@@ -11,6 +11,9 @@
 /* Operational instructions remain readable on a shared screen and narrow phone. */
 .action-card p,.action-reason,.situation,.commitment,.event-log li,.event-log p{font-size:12px}.action-card h3{font-size:14px}.role-footnote,.privacy-note,.footer,.metric-note{font-size:11px!important}.envelope-closed p{font-size:12px}.action-meta span,.metric-label,.select-role,.lane-label,.timeline-legend{font-size:11px}.action-card .button{font-size:12px;min-height:42px}.mode-pill,.text-button{font-size:12px}.notice{font-size:13px}.envelope-content ul{font-size:13px}.situation b,.commitment b{font-size:13px}.event-log strong{font-size:12px}.park-badge{font-size:11px}.timeline .muted{font-size:11px}.control-deck .text-button{font-size:11px}.speed-control{font-size:11px}.control-end{min-width:92px}@media(max-width:600px){.hero .eyebrow{font-size:9px}.hero p{font-size:12px}.hero-mark{display:none}.hero-copy{max-width:none}.notice{font-size:12px}.metric-note{font-size:10px!important}.metric-label{font-size:10px}.situation{font-size:11px}.situation b{font-size:12px}.lane-label{font-size:10px}.time-lane,.time-ruler{grid-template-columns:78px 1fr}.timeline-legend{font-size:10px}.park-badge{font-size:10px}.control-end{margin-left:0;flex:1;justify-content:flex-end;min-width:0}.control-end .text-button{font-size:10px}.speed-control{font-size:10px}.control-deck{column-gap:12px}.footer{font-size:10px!important}}
 .reference-nav{margin:0 42px 21px;display:flex;align-items:center;gap:11px;flex-wrap:wrap}.reference-nav>span{font-size:9px;font-weight:800;letter-spacing:.09em;color:var(--ink-soft);margin-right:4px}.reference-nav button{border:1px solid #b8c6a7;border-radius:30px;background:transparent;padding:8px 13px;min-height:38px;font-size:12px}.reference-nav button:hover{background:#e5edcf}.reference-dialog{width:min(960px,calc(100vw - 28px))}.reference-center{padding:18px 20px;background:#163f36;color:#eaf3d4;border-radius:9px;margin:22px 0;font-size:12px;font-weight:750;letter-spacing:.08em;text-align:center}.reference-grid{padding:0!important;margin:0;list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:13px}.reference-grid li{display:flex;gap:14px;border:1px solid #cdd7bd;border-radius:9px;padding:18px;margin:0!important;background:#f5f6e9}.reference-grid li:last-child{grid-column:1/-1}.reference-number{font-family:Georgia,serif;font-size:28px;color:#78975a;line-height:1.1}.reference-grid h3{font-size:15px;margin:0 0 4px;color:var(--ink);line-height:1.4}.reference-grid small{font-size:10px;color:#6a8064;display:block}.reference-grid p{font-size:12px!important;margin:8px 0 0;line-height:1.65!important}.reference-grid .reference-example{font-size:11px!important;border-top:1px solid #dfe5ce;padding-top:8px}.reference-loop{margin:15px 0;padding:14px 18px;border:1px dashed #92a77b;border-radius:8px;color:#5b7546;font-size:12px}.debrief-causes{border-top:1px solid var(--line);padding-top:15px}.debrief-causes h3{font-size:14px}.debrief-causes li{font-size:12px;line-height:1.8;margin:6px 0}.outcome-card .tag{display:inline-block;padding:4px 7px;background:#e6eccf;border-radius:5px;font-size:10px;margin-top:12px}@media(max-width:1100px){.reference-nav{margin-left:25px;margin-right:25px}}@media(max-width:600px){.reference-nav{margin-left:18px;margin-right:18px;gap:8px;margin-bottom:18px}.reference-nav>span{display:block;width:100%;font-size:8px}.reference-nav button{font-size:11px;padding:7px 10px}.reference-grid{grid-template-columns:1fr}.reference-grid li:last-child{grid-column:auto}.reference-grid li{padding:15px;gap:11px}.reference-grid h3{font-size:14px}.reference-center{font-size:10px;padding:14px 12px}}
+
+/* Public deterministic narrator; no new modal or mandatory lecture. */
+.narrator-preview{margin:14px 0 18px;padding:18px 22px;border:1px solid var(--border,#d5dfd0);border-radius:14px;background:#f7faf2}.narrator-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.narrator-heading h2{font-size:19px;margin:3px 0}.narrator-caption{font-size:12px;color:#596c5e;margin:8px 0 12px}.narrator-buttons,.narrator-controls{display:flex;flex-wrap:wrap;gap:8px}.narrator-transcript{font-size:15px;line-height:1.65;margin:12px 0;padding:12px 14px;background:#fff;border-left:3px solid #9fb59a;border-radius:3px;min-height:50px}.narrator-controls{gap:16px}.narrator-error{color:#8c3429;font-size:13px;margin:8px 0 0}.narrator-preview button:disabled{opacity:.5;cursor:not-allowed}@media(max-width:600px){.narrator-preview{padding:15px}.narrator-heading{align-items:flex-start}.narrator-buttons .button{flex:1 0 42%}.narrator-controls{column-gap:12px;row-gap:5px}.narrator-controls button{min-height:40px}}
 </style>
 </head>
 <body>
@@ -22,10 +25,18 @@
 </header>
 <main>
 <section class="hero" aria-labelledby="episode-title">
-<div class="hero-copy"><div class="eyebrow">BÖLÜM 01 · 12 DAKİKA OYUN + 3 DAKİKA DEĞERLENDİRME</div><h1 id="episode-title">Kırk Kişilik Söz<span>Bir söz. Bir ekip. Daralan zaman.</span></h1><p>Öğretmen Mümtaz’ı gözlemlemek için geldi. Sponsor erken ayrılacak. Sekiz rolün bilgisi, aynı hizmetin farklı parçalarını taşıyor.</p></div>
+<div class="hero-copy"><div class="eyebrow">BÖLÜM 01 · 12 DAKİKA OYUN + 3 DAKİKA DEĞERLENDİRME</div><h1 id="episode-title">Kırk Kişilik Söz<span>Bir söz. Bir ekip. Daralan zaman.</span></h1><div id="training-intro"></div></div>
 <div class="hero-mark" aria-hidden="true"><span>40</span><small>İLK ZİYARETÇİ<br>AYNI HİZMET SÖZÜ</small></div>
 </section>
 <nav class="reference-nav" aria-label="Tek tık öğrenme başvuruları"><span>OYUNU TERK ETMEDEN</span><button data-reference="principles" aria-haspopup="dialog">7 Yol Gösterici İlke ↗</button><button data-reference="improvement" aria-haspopup="dialog">Sürekli İyileştirme ↗</button></nav>
+<section class="narrator-preview" aria-labelledby="guide-title">
+<div class="narrator-heading"><div><span class="eyebrow">SABİT METİN · CANLI AI DEĞİL</span><h2 id="guide-title">Sesli rehber önizlemesi</h2></div><button class="button small" id="guide-voice">Cihaz sesini aç</button></div>
+<p class="narrator-caption" id="guide-status" role="status">Metinle hazır. Mikrofon kullanılmaz; oyun saati ayrı yönetilir.</p>
+<div class="narrator-buttons" aria-label="Kısa rehber anlatımı"><button class="button small" id="guide-opening">Açılış</button><button class="button small" id="guide-role">Rolümü anlat</button><button class="button small" id="guide-conditions">Koşullar</button><button class="button small" id="guide-rules">5 kısa kural</button></div>
+<p class="narrator-transcript" id="guide-transcript" aria-live="polite">Okumak veya dinlemek için bir başlık seçin. Yalnız ortak görev bilgisi anlatılır; özel rol zarfı okunmaz.</p>
+<div class="narrator-controls"><button class="text-button" id="guide-pause">Sustur</button><button class="text-button" id="guide-repeat">Tekrar</button><button class="text-button" id="guide-takeover">Ben devralıyorum</button><button class="text-button" id="guide-resume">Rehbere dön</button></div>
+<p id="guide-error" class="narrator-error" role="alert" hidden></p>
+</section>
 <section class="control-deck" aria-label="Bölüm kontrolleri">
 <div class="clock-panel"><span class="eyebrow" id="clock-label">YEREL BÖLÜM SAATİ</span><div><strong id="clock">00:00</strong><span id="phase" class="status-tag">Hazır</span></div><span id="time-remaining">12:00 oyun süresi</span></div>
 <div class="play-controls"><button class="button primary" id="toggle-clock">Oyunu başlat</button><div class="step-controls" aria-label="Elle süre ilerlet"><button class="button small" data-step="15">+15 sn</button><button class="button small" data-step="30">+30 sn</button><button class="button small" data-step="60">+1 dk</button></div></div>
@@ -52,18 +63,443 @@
 </div>
 <dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
 <script>'use strict';
-const Engine=(()=>{/** Pure offline rehearsal. Role selection is not multiuser authentication. */
-const ROLES = Object.freeze([
-    { id: 'R1', name: 'Hizmet sahibi', summary: '20 kredi ve kapsam yetkisi.' },
-    { id: 'R2', name: 'Öğretmen ve müşteri ilişkileri', summary: 'Amaç, rıza, açık müşteri kabulü ve sponsor müzakeresi.' },
-    { id: 'R3', name: 'Saha sorumlusu', summary: '30 saniyelik nitelikli saha teyidi.' },
-    { id: 'R4', name: 'Teknik ekip', summary: 'Sessiz PA hazırlığı; Korsan ile bir ortak teknisyen.' },
-    { id: 'R5', name: 'Alternatif ve atölye koordinasyonu', summary: 'Korsan farklı içeriktir; ek 80 kişi yeni kapsamdır.' },
-    { id: 'R6', name: 'Değişiklik sahibi', summary: 'PA önerisi; kendi değişikliğini onaylayamaz.' },
-    { id: 'R7', name: 'Nitelikli bakım sorumlusu', summary: 'Güvenli erken devir, refah durdurması ve bakım izni.' },
-    { id: 'R8', name: 'Ziyaretçi akışı ve kabul', summary: 'En fazla 40 kişi; iki dakika kesintisiz, zorlamasız gözlem.' },
-    { id: 'trainer', name: 'Bağımsız eğitmen', summary: 'Saati kolaylaştırır ve bağımsız onay verir; katılımcı kararlarını üstlenmez.' }
-]);
+const Training=(()=>{// Generated by scripts/build-training-contract.mjs. Edit content/training-contract-v1.json, not this file.
+const trainingContractData = {
+  "schema": "mavi-vadi-training-contract/1",
+  "id": "mavi-vadi-training",
+  "version": "1.0.0",
+  "language": "tr",
+  "status": "local_candidate_not_human_validated",
+  "scope": {
+    "moduleIds": [
+      "forty-visitors",
+      "mavi-vadi-next-vertical-slice"
+    ],
+    "legacy240MinutePilotChanged": false,
+    "grcChanged": false,
+    "realWorldAuthority": false
+  },
+  "identity": {
+    "participantSlot": "R1–R8 aynı katılımcıyı gösterir; bölüm değişince kişi değişmez.",
+    "ciOwnership": "CI, hizmeti oluşturan bir hayvanın, aracın veya hizmet kaydının takip kartıdır. Sahibi bilgiyi ve takibi koordine eder.",
+    "processHat": "Bu bölümdeki görev şapkan neyi yapabileceğini söyler. CI sahipliği tek başına uygulama, değişiklik onayı, risk kabulü veya bağımsız kabul yetkisi vermez.",
+    "localRoleSelection": "Tek cihazda rol seçmek kimlik doğrulama veya kişiye özel gizlilik sağlamaz.",
+    "transition": "Eğitmen bölüm değişimini duyurur. Aynı R numaranı koru ve yeni bölümdeki görevini oku; önceki bölümün bütçesi, sonucu ve işlem yetkisi yeni bölüme taşınmaz."
+  },
+  "roles": [
+    {
+      "id": "R1",
+      "title": "Hizmet sahibi",
+      "ownedCiIds": [
+        "CI-ATLAS",
+        "CI-CATALOG"
+      ]
+    },
+    {
+      "id": "R2",
+      "title": "Hizmet masası",
+      "ownedCiIds": [
+        "CI-KORSAN",
+        "CI-PORTAL"
+      ]
+    },
+    {
+      "id": "R3",
+      "title": "Saha ve hayvan bakım",
+      "ownedCiIds": [
+        "CI-HIPPO",
+        "CI-HABITAT"
+      ]
+    },
+    {
+      "id": "R4",
+      "title": "Teknik bakım",
+      "ownedCiIds": [
+        "CI-P1",
+        "CI-NET"
+      ]
+    },
+    {
+      "id": "R5",
+      "title": "Problem ve bilgi",
+      "ownedCiIds": [
+        "CI-P2",
+        "CI-MAP"
+      ]
+    },
+    {
+      "id": "R6",
+      "title": "Değişiklik yetkilisi",
+      "ownedCiIds": [
+        "CI-CAM-GW",
+        "CI-PA"
+      ]
+    },
+    {
+      "id": "R7",
+      "title": "Tedarik ve süreklilik",
+      "ownedCiIds": [
+        "CI-CARE-SCHEDULE",
+        "CI-B1"
+      ]
+    },
+    {
+      "id": "R8",
+      "title": "Hizmet düzeyleri",
+      "ownedCiIds": [
+        "CI-EDU-CAPACITY",
+        "CI-MONITOR"
+      ]
+    }
+  ],
+  "modules": {
+    "forty-visitors": {
+      "title": "Kırk Kişilik Söz",
+      "durationMinutes": 12,
+      "debriefMinutes": 3,
+      "fiction": "Öğretmen ilk 40 ziyaretçiyle Mümtaz’ı gözlemlemeye geldi. Sponsor erken ayrılacak ve yeni istekleri var. Sekiz kişilik ekip, verdiği sözü güvenli biçimde yerine getirmek için bilgilerini birleştiriyor.",
+      "firstAction": "Rolünü seç, zarfını aç ve bildiğini ekibe anlat. R2 öğretmenin amacını teyit etsin; sonra eğitmen saati başlatsın.",
+      "rules": [
+        "Yalnız kendi rolünün işlemini yap; eksik bilgiyi ilgili rolden iste.",
+        "Yeni istek, açıkça kabul edilene kadar verilmiş bir söz değildir.",
+        "Hayvan refahı ve güvenlik hazır değilse dur; kredi bu koşulları satın alamaz.",
+        "İşin bitmesi, saha teyidi ve müşteri kabulü ayrı adımlardır.",
+        "Kararının sonucunu kaydet; bölüm sonunda nedenini birlikte konuşun."
+      ],
+      "conditions": [
+        "12 dakika oyun, ardından 3 dakika değerlendirme.",
+        "20 kredi ve 1 ortak teknisyen var. Bir gözlem en fazla 40 kişidir.",
+        "İlerleme yalnız açık sekmede tutulur. Bu tek cihaz provası gerçek kullanıcı hesapları değildir."
+      ],
+      "resources": {
+        "normalBudget": 20,
+        "recoveryReserve": 0,
+        "technicians": 1
+      },
+      "portfolioActive": false,
+      "roleHats": {
+        "R1": {
+          "title": "Hizmet sahibi",
+          "publicMission": "20 kredi ve kapsam yetkisi.",
+          "firstAction": "R2’ye ilk gruba verilen sözü sor; bütçeyi harcamadan kapsamı netleştir.",
+          "publicAuthorityBoundary": "Bütçe ve kapsamı yönetirsin; teknik değişikliği veya müşteri kabulünü onaylamazsın.",
+          "can": "20 kredi ve kapsam yetkisi.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R2": {
+          "title": "Öğretmen ve müşteri ilişkileri",
+          "publicMission": "Amaç, rıza, açık müşteri kabulü ve sponsor müzakeresi.",
+          "firstAction": "Öğretmenin öğrenme amacını sor ve “Öğretmenin amacını teyit et” işlemiyle kaydet.",
+          "publicAuthorityBoundary": "Müşteri amacı, kapsam, rıza ve öğretmen kabulü sende. Saha teyidi R3, ziyaretçi kabulü R8’dedir.",
+          "can": "Amaç, rıza, açık müşteri kabulü ve sponsor müzakeresi.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R3": {
+          "title": "Saha sorumlusu",
+          "publicMission": "30 saniyelik nitelikli saha teyidi.",
+          "firstAction": "Saha zarfını oku; alanı açmadan hangi güncel koşulları doğrulaman gerektiğini söyle.",
+          "publicAuthorityBoundary": "Güncel saha teyidi sende; değişiklik onayı ve müşteri kabulü sende değildir.",
+          "can": "30 saniyelik nitelikli saha teyidi.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R4": {
+          "title": "Teknik ekip",
+          "publicMission": "Sessiz PA hazırlığı; Korsan ile bir ortak teknisyen.",
+          "firstAction": "Teknik zarfını oku; bir iş başlatmadan gerekli yetkiyi ve ortak kaynağı kontrol et.",
+          "publicAuthorityBoundary": "PA uygulaması sende; kendi değişiklik onayını veya saha kabulünü vermezsin.",
+          "can": "Sessiz PA hazırlığı; Korsan ile bir ortak teknisyen.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R5": {
+          "title": "Alternatif ve atölye koordinasyonu",
+          "publicMission": "Korsan farklı içeriktir; ek 80 kişi yeni kapsamdır.",
+          "firstAction": "Alternatifin hangi ihtiyacı karşılayacağını R2 ile konuş; kabul edilmeden söz verme.",
+          "publicAuthorityBoundary": "Alternatif ve gelecek atölye işini koordine edersin; müşteri kabulü R2’dedir.",
+          "can": "Korsan farklı içeriktir; ek 80 kişi yeni kapsamdır.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R6": {
+          "title": "Değişiklik sahibi",
+          "publicMission": "PA önerisi; kendi değişikliğini onaylayamaz.",
+          "firstAction": "Değişiklik zarfını oku; öneri ile bağımsız onayı kimin vereceğini ekibe söyle.",
+          "publicAuthorityBoundary": "PA değişikliğini önerirsin. Kendi önerine bağımsız onay veremezsin; onay eğitmendedir.",
+          "can": "PA önerisi; kendi değişikliğini onaylayamaz.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R7": {
+          "title": "Nitelikli bakım sorumlusu",
+          "publicMission": "Güvenli erken devir, refah durdurması ve bakım izni.",
+          "firstAction": "Bakım zarfını oku; güvenli devir koşullarını ekibe bildir.",
+          "publicAuthorityBoundary": "Yetkin bakım, refah durdurması ve bakım devam izni sende; güncel saha teyidi yine R3’tedir.",
+          "can": "Güvenli erken devir, refah durdurması ve bakım izni.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "R8": {
+          "title": "Ziyaretçi akışı ve kabul",
+          "publicMission": "En fazla 40 kişi; iki dakika kesintisiz, zorlamasız gözlem.",
+          "firstAction": "Ziyaret zarfını oku; hazırlık ile gerçekten yaşanan deneyimi nasıl ayıracağını söyle.",
+          "publicAuthorityBoundary": "Ziyaretçi akışı ve gerçekleşen gözlemin kabulü sende; öğretmenin kabulü ayrıca R2’dedir.",
+          "can": "En fazla 40 kişi; iki dakika kesintisiz, zorlamasız gözlem.",
+          "partner": "İhtiyacın olan bilgiyi ilgili rolün sahibinden iste."
+        },
+        "trainer": {
+          "title": "Bağımsız eğitmen",
+          "publicMission": "Saati kolaylaştırır ve bağımsız onay verir; katılımcı kararlarını üstlenmez.",
+          "firstAction": "Görevleri ve kısa kuralları oku; ekibin yerine karar vermeden saati yönet.",
+          "publicAuthorityBoundary": "PA için bağımsız onay verirsin. Saat ve refah durdurma kontrollerin katılımcıların karar yetkisini sana devretmez.",
+          "can": "Saati kolaylaştırır ve bağımsız onay verir; katılımcı kararlarını üstlenmez.",
+          "partner": "Katılımcı rolleri kendi kararlarını verir."
+        }
+      },
+      "authority": {
+        "changeProposal": {
+          "pa": "R6"
+        },
+        "changeApproval": {
+          "pa": "trainer"
+        },
+        "budget": "R1",
+        "technicalImplementation": "R4",
+        "fieldValidation": "R3",
+        "customerConfirmation": "R2",
+        "visitorAcceptance": "R8",
+        "qualifiedCare": "R7",
+        "riskAcceptance": null
+      }
+    },
+    "mavi-vadi-next-vertical-slice": {
+      "title": "Yoğun Ziyaret Günü",
+      "durationMinutes": 42,
+      "debriefMinutes": 0,
+      "fiction": "Mavi Vadi yoğun bir ziyaret gününe hazırlanıyor. Ziyaretçilere verdiğiniz sözü, hayvan refahını ve çalışan hizmetleri birlikte koruyacaksınız. Herkes iki hizmet kartının takibini üstlenir; yeni olaylar geldikçe bilgileri birleştirip karar verirsiniz.",
+      "firstAction": "Kendi iki CI kartını oku. Ekibe neyin takibini üstlendiğini ve ilk bilgiyi kimden isteyeceğini söyle; ilk olay T+5’te gelir.",
+      "rules": [
+        "Kendi rolünün işlemini yap; bilmediğin ayrıntıyı ilgili kişiden sor.",
+        "Kartın sahibi olmak her kararı verme yetkisi değildir; onayı doğru kişiden al.",
+        "İşin bitmesi, sahada doğrulama ve müşterinin kabulü ayrı adımlardır.",
+        "Yeni bir isteğe söz vermeden kapsamı, zamanı ve kaynakları konuş.",
+        "Gördüğün kanıtı ve sonraki adımı kaydet; eksik kanıtı tamamlanmış sayma."
+      ],
+      "conditions": [
+        "42 dakika oyun, 8 rol ve her rolde 2 CI kartı.",
+        "40 kredi normal bütçe ve 2 teknisyen var. Ek 20 kredi kurtarma rezervini yalnız eğitmen açabilir.",
+        "Eğitim molası oyun hedeflerini durdurur; varsa lisansın gerçek zamanlı süresi işlemeye devam eder."
+      ],
+      "resources": {
+        "normalBudget": 40,
+        "recoveryReserve": 20,
+        "technicians": 2
+      },
+      "portfolioActive": true,
+      "roleHats": {
+        "R1": {
+          "title": "Hizmet sahibi",
+          "publicMission": "Ziyaretçiye verilen sözü, hizmet kapsamını ve bütçeyi birlikte yönet.",
+          "firstAction": "İki CI kartını incele. Ekibe bugün hangi ziyaret deneyimini koruduğunuzu söyle.",
+          "publicAuthorityBoundary": "Bütçe onayı teknik değişiklik onayı değildir. Kendi başına risk kabul edemezsin.",
+          "can": "Kapsamı tanımlar, iş bütçesini onaylar ve kendi CI takibini yaparsın.",
+          "partner": "R2 ile müşteri sözü; R3 ile güvenli hizmet koşulu."
+        },
+        "R2": {
+          "title": "Hizmet masası",
+          "publicMission": "Dağınık bildirimleri anlamlı bir hizmet durumuna dönüştür; müşterinin neyi kabul ettiğini kaydet.",
+          "firstAction": "Müşteri taahhüdünü oku. Bir bildirimde etkiyi ve sonraki güncellemeyi nasıl anlatacağını hazırla.",
+          "publicAuthorityBoundary": "Müşteri kabulü saha doğrulamasının yerini tutmaz. Teknik değişiklik onaylayamazsın.",
+          "can": "Talep kararını ve müşteri kabulünü kaydeder, anlamlı durum güncellemesi yaparsın.",
+          "partner": "R1 ile kapsam; R3 ile güncel saha kanıtı; R7 ile koordinasyon."
+        },
+        "R3": {
+          "title": "Saha ve hayvan bakım",
+          "publicMission": "Mümtazın refahını ve ziyaretin sahada gerçekten güvenli olmasını koru.",
+          "firstAction": "Mümtaz ve habitat kartlarını incele. Hizmetin hazır olduğunu hangi gözlemle kanıtlayacağını belirle.",
+          "publicAuthorityBoundary": "Teknik işin bitmesi otomatik saha kabulü değildir. Risk kabulü veya teknik değişiklik onayı veremezsin.",
+          "can": "Yetkin saha kontrolünü yürütür, güncel saha kabulünü ve güvenli rotayı kaydedersin.",
+          "partner": "R4 ile teknik sonuç; R7 ile bakım düzeni; R2 ile müşteri kabulü."
+        },
+        "R4": {
+          "title": "Teknik bakım",
+          "publicMission": "Kısıtlı teknisyen kapasitesiyle doğru işi doğru zamanda uygula; sonucunu kanıtla.",
+          "firstAction": "İki CI kartının bağımlılıklarını oku. İşin süresi, kredisi ve teknisyen ihtiyacını başlamadan karşılaştır.",
+          "publicAuthorityBoundary": "CI sahibi olmak onay gerektiren değişikliği kendin onaylamana izin vermez. İşin bitmesi müşteri kabulü değildir.",
+          "can": "Yetkili teknik işleri başlatır, yerel bağımlılık kanıtını ve kendi CI takibini kaydedersin.",
+          "partner": "R6 veya bağımsız vekille değişiklik; R1 ile bütçe; R3 ile saha testi."
+        },
+        "R5": {
+          "title": "Problem ve bilgi",
+          "publicMission": "Hizmeti geri getirmekle tekrarını önlemeyi ayır; işe yarayan bilgiyi yeniden kullanılabilir hale getir.",
+          "firstAction": "Kendi CI kartlarını incele. Bir varsayımı kanıtlamak için kimden hangi veriyi isteyeceğini düşün.",
+          "publicAuthorityBoundary": "Bir olayın kapanması kök nedenin giderildiğini kanıtlamaz. Kendi bilgi taslağının bağımsız inceleyicisi değilsin.",
+          "can": "Bağımlılık kanıtını paylaşır, bilgi taslağı ve iyileştirme kanıtı üretirsin.",
+          "partner": "R4 ve diğer CI sahipleriyle kanıt; R8 ile bağımsız inceleme."
+        },
+        "R6": {
+          "title": "Değişiklik yetkilisi",
+          "publicMission": "Değişikliğin hizmet etkisini, geri dönüşünü ve sahiplik takibini görünür kıl.",
+          "firstAction": "Kendi iki CI kartını incele. Sahip olduğun CI üzerinde karar verirken bağımsız onay sınırını kontrol et.",
+          "publicAuthorityBoundary": "Kendi CI değişikliklerinde bağımsız vekil gerekir. Değişiklik onayı artık riski kabul etme yetkisi vermez.",
+          "can": "Yetki kapsamındaki değişiklikleri değerlendirir; kendi CI bulgusunun eylem sorumlusu ve takibini koordine edersin.",
+          "partner": "R4 ile uygulama; R8 ile kanıt; eğitmenin bağımsız vekiliyle çıkar çatışması."
+        },
+        "R7": {
+          "title": "Tedarik ve süreklilik",
+          "publicMission": "Bakım düzenini, dış desteği ve hizmetin devam etmesi için gereken koordinasyonu sahiplen.",
+          "firstAction": "Bakım düzeni ve güç panosu kartlarını incele. Hizmet koşullarını hangi rolün doğrulayacağını netleştir.",
+          "publicAuthorityBoundary": "Tedarikçiden gelen bilgi değişiklik onayı değildir. Teknik erişim veya sınırsız risk kabul yetkin yoktur.",
+          "can": "Koordinasyon işlerini yürütür, kendi bağımlılık kanıtını ve takip planını kaydedersin.",
+          "partner": "R3 ile bakım; R2 ile ziyaret koordinasyonu; R4 ile teknik bağımlılıklar."
+        },
+        "R8": {
+          "title": "Hizmet düzeyleri",
+          "publicMission": "Yeşil göstergenin arkasındaki gerçek hizmeti ve kanıtın yeterliliğini sorgula.",
+          "firstAction": "Kapasite ve izleme kartlarını incele. Bir kabul ölçütünün sınanabilir olup olmadığını nasıl anlayacağını belirle.",
+          "publicAuthorityBoundary": "Eksik veriyi tahminle tamamlayamazsın. Kanıt incelemesi risk kabulü veya teknik değişiklik onayı değildir.",
+          "can": "Kanıtı ve bilgi taslağını bağımsız inceler, devir örneklerini aynı ölçütle değerlendirirsin.",
+          "partner": "R2 ile hizmet sözü; R5 ile ölçüm ve öğrenme; CI sahipleriyle kapanış kanıtı."
+        }
+      },
+      "authority": {
+        "changeApproval": {
+          "quiet-pa": "trainer",
+          "camera-egress-control": "trainer",
+          "independent-power": "R6",
+          "controlled-test": "R6"
+        },
+        "budget": "R1",
+        "technicalImplementation": "R4",
+        "fieldValidation": "R3",
+        "customerConfirmation": "R2",
+        "independentEvidenceReview": "R8",
+        "riskAcceptance": "trainer",
+        "reserveRelease": "trainer"
+      }
+    }
+  }
+};
+
+
+function freeze(value) {
+ if(value&&typeof value==='object') {Object.values(value).forEach(freeze);Object.freeze(value);}
+ return value;
+}
+const trainingContract = freeze(trainingContractData);
+function moduleFor(moduleId) {
+ const trainingModule=Object.hasOwn(trainingContract.modules,moduleId)&&trainingContract.modules[moduleId];
+ if(!trainingModule)throw new Error('Unknown training module: '+moduleId);
+ return trainingModule;
+}
+// Explicit public allowlist: never accepts a session, event projection, envelope or private role facts.
+function getRoleBriefing(moduleId,roleId) {
+ const trainingModule=moduleFor(moduleId),hat=Object.hasOwn(trainingModule.roleHats,roleId)&&trainingModule.roleHats[roleId];
+ if(!hat)return null;
+ const person=trainingContract.roles.find(role=>role.id===roleId);
+ return {id:roleId,title:hat.title,personTitle:person?.title||'Eğitmen',ownedCiIds:[...(person?.ownedCiIds||[])],portfolioActive:trainingModule.portfolioActive,publicMission:hat.publicMission,firstAction:hat.firstAction,publicAuthorityBoundary:hat.publicAuthorityBoundary,can:hat.can,partner:hat.partner};
+}
+function getPublicBriefing(moduleId) {
+ const trainingModule=moduleFor(moduleId);
+ return {contractId:trainingContract.id,version:trainingContract.version,moduleId,title:trainingModule.title,durationMinutes:trainingModule.durationMinutes,debriefMinutes:trainingModule.debriefMinutes,fiction:trainingModule.fiction,firstAction:trainingModule.firstAction,rules:[...trainingModule.rules],conditions:[...trainingModule.conditions],resources:{...trainingModule.resources},identity:{...trainingContract.identity},authority:structuredClone(trainingModule.authority),roles:Object.keys(trainingModule.roleHats).map(id=>getRoleBriefing(moduleId,id))};
+}
+function changeAuthorityFor(moduleId,operation) {
+ const authority=moduleFor(moduleId).authority.changeApproval;
+ return Object.hasOwn(authority,operation)?authority[operation]:null;
+}
+// Public-only adapter for the audio/transcript facilitator. No actual learner facts or private evidence.
+function publicFacilitatorContract(moduleId) {
+ const briefing=getPublicBriefing(moduleId);
+ return {...briefing,mode:moduleId,roles:briefing.roles.map(role=>({id:role.id,title:role.title,publicMission:role.publicMission,publicAuthorityBoundary:role.publicAuthorityBoundary})),openingConditions:{durationMinutes:briefing.durationMinutes,normalBudget:briefing.resources.normalBudget,technicians:briefing.resources.technicians},audience:'shared_public'};
+}
+
+return {trainingContract,getPublicBriefing,getRoleBriefing,changeAuthorityFor,publicFacilitatorContract};})();
+const Narrator=(()=>{const {publicFacilitatorContract}=Training;
+// Optional deterministic device narration. No microphone and no provider API.
+// Only a browser-reported LOCAL Turkish voice may be selected. Browser/OS
+// behavior and naturalness still require device verification before classroom use.
+function localTurkishVoices(synth=globalThis.speechSynthesis){return synth?.getVoices?.().filter(v=>v.localService===true&&/^tr(?:-|_)/i.test(v.lang))||[];}
+function createLocalSpeech({synth=globalThis.speechSynthesis,Utterance=globalThis.SpeechSynthesisUtterance,onText=()=>{},onUnavailable=()=>{}}={}){
+ let enabled=false,voice=null,sequence=0,activeUtterance=null;
+ return {
+  enable(selected){if(!synth||!Utterance)throw new Error('TEXT_ONLY_NO_SPEECH_SUPPORT');if(!localTurkishVoices(synth).includes(selected))throw new Error('LOCAL_TURKISH_VOICE_REQUIRED');sequence++;activeUtterance=null;voice=selected;enabled=true;synth.cancel();},
+  disable(){sequence++;activeUtterance=null;enabled=false;voice=null;synth?.cancel();},
+  cancel(){sequence++;activeUtterance=null;synth?.cancel();},
+  publish(message){
+   const current=++sequence;onText(message);if(!enabled||sequence!==current)return;
+   if(!localTurkishVoices(synth).includes(voice)){enabled=false;activeUtterance=null;synth?.cancel();return;}
+   const u=new Utterance(message.text);u.voice=voice;u.lang=voice.lang;u.rate=1;
+   const unavailable=event=>{
+    // Cancellation and newer speech/voice choices supersede old callbacks.
+    // Only a still-current failed utterance can turn this output off.
+    if(!enabled||sequence!==current||activeUtterance!==u)return;
+    sequence++;activeUtterance=null;enabled=false;voice=null;synth.cancel();
+    onUnavailable({reason:'speech_error',error:typeof event?.error==='string'?event.error:'unknown'});
+   };
+   u.onerror=unavailable;
+   u.onend=()=>{if(sequence===current&&activeUtterance===u)activeUtterance=null;};
+   synth.cancel();
+   if(enabled&&sequence===current){activeUtterance=u;try{synth.speak(u);}catch{unavailable({error:'synthesis-failed'});}}
+  }
+ };
+}
+
+
+// Shared-room preview: only the canonical PUBLIC briefing can become speech.
+// It receives no engine state, role envelope, free text, microphone, or provider.
+function createPublicNarrator({onMessage=()=>{},onStatus=()=>{},synth=globalThis.speechSynthesis,Utterance=globalThis.SpeechSynthesisUtterance}={}) {
+ const briefing=publicFacilitatorContract('forty-visitors');
+ let context=null,contextKey='',contextValid=false,mode='ready',last=null,voiceEnabled=false,selectedVoice=null,serial=0;
+ const output=createLocalSpeech({synth,Utterance,onText:message=>onMessage(message),onUnavailable:()=>{voiceEnabled=false;selectedVoice=null;status('Cihaz sesi kullanılamadı. Metinle devam edin; sesi yeniden açmayı deneyebilirsiniz.');}});
+ function status(note=''){onStatus({mode,voiceEnabled,note,canRepeat:!!last&&last.contextKey===contextKey&&mode==='ready',hasLocalVoice:localTurkishVoices(synth).length>0});}
+ function cancel(note=''){serial++;output.cancel();status(note);}
+ function reconcileVoice(){if(voiceEnabled&&!localTurkishVoices(synth).includes(selectedVoice)){voiceEnabled=false;selectedVoice=null;output.disable();}}
+ function line(kind){
+  if(kind==='opening')return `${briefing.fiction} ${briefing.firstAction}`;
+  if(kind==='conditions')return briefing.conditions.join(' ');
+  if(kind==='rules')return briefing.rules.map((text,index)=>`${index+1}. ${text}`).join(' ');
+  if(kind==='role'){
+   const role=briefing.roles.find(role=>role.id===context?.roleId);
+   if(role)return `${role.id==='trainer'?'Eğitmen':role.id}: ${role.title}. ${role.publicMission} ${role.publicAuthorityBoundary}`;
+  }
+  throw new Error('UNKNOWN_PUBLIC_SCRIPT');
+ }
+ function publish(kind,text){
+  if(mode!=='ready')throw new Error('HUMAN_RESUME_REQUIRED');
+  if(!context||!contextValid)throw new Error('NARRATOR_CONTEXT_REQUIRED');
+  const id=++serial,message=Object.freeze({kind,text,audience:'shared_public',contractVersion:briefing.version,liveAI:false});
+  // Cancel previous utterance; never queue rapid clicks or resurrect old output.
+  reconcileVoice();output.cancel();output.publish(message);reconcileVoice();
+  if(id===serial&&mode==='ready')last={kind,text,contextKey};
+  status('Metin hazır.');return message;
+ }
+ return {
+  sync(view){
+   if(!view||!['play','debrief','complete'].includes(view.phase)||!briefing.roles.some(r=>r.id===view.roleId)||typeof view.sessionKey!=='string'||!view.sessionKey||typeof view.paused!=='boolean'||typeof view.welfareHeld!=='boolean'||!Number.isSafeInteger(view.semanticRevision)||view.semanticRevision<0||(context?.sessionKey===view.sessionKey&&view.semanticRevision<context.semanticRevision)){
+    contextValid=false;mode='paused';last=null;cancel('Oyun bağlamı doğrulanamadı; anlatım susturuldu.');throw new Error('INVALID_NARRATOR_CONTEXT');
+   }
+   const next={sessionKey:view.sessionKey,roleId:view.roleId,phase:view.phase,paused:view.paused,welfareHeld:view.welfareHeld,semanticRevision:view.semanticRevision};
+   const nextKey=JSON.stringify(next);
+   const changed=!!contextKey&&nextKey!==contextKey,handover=next.welfareHeld&&mode==='ready';
+   // Commit the context and safety state before emitting any callback. A
+   // callback must never see or restart speech under the superseded context.
+   context=next;contextKey=nextKey;contextValid=true;if(handover)mode='human';
+   if(changed||handover){last=null;cancel(handover?'Oyun bağlamı değişti; refah durdurması nedeniyle anlatım eğitmende.':'Oyun bağlamı değişti; önceki anlatım kesildi.');}
+   status();
+  },
+  speak(kind){return publish(kind,line(kind));},
+  repeat(){if(!last||last.contextKey!==contextKey)throw new Error('NO_CURRENT_REPEAT');return publish(last.kind,last.text);},
+  pause(){mode='paused';cancel('Anlatım susturuldu. Oyun saati değişmedi.');},
+  takeover(){mode='human';last=null;cancel('Anlatım eğitmende. Oyun saati değişmedi.');},
+  resume(){if(!context||!contextValid)throw new Error('NARRATOR_CONTEXT_REQUIRED');if(context.welfareHeld)throw new Error('WELFARE_HOLD_ACTIVE');mode='ready';status('Hazır. Okunacak metni seçin.');},
+  interrupt(note='Anlatım kesildi.'){last=null;cancel(note);},
+  enableVoice(){const voice=localTurkishVoices(synth)[0];if(!voice)throw new Error('LOCAL_TURKISH_VOICE_UNAVAILABLE');output.enable(voice);selectedVoice=voice;voiceEnabled=true;status('Cihaz sesi açık; okunacak metni seçin.');},
+  disableVoice(){voiceEnabled=false;selectedVoice=null;output.disable();status('Yalnız metin.');},
+  refreshVoices(){reconcileVoice();status();},
+  reset(){serial++;mode='ready';last=null;context=null;contextKey='';voiceEnabled=false;output.disable();status('Yeni prova; ses kapalı.');},
+  inspect(){return {mode,voiceEnabled,context:context?{...context}:null,canRepeat:!!last&&last.contextKey===contextKey&&mode==='ready'};}
+ };
+}
+
+return {createPublicNarrator};})();
+const Engine=(()=>{const {getPublicBriefing,changeAuthorityFor}=Training;
+/** Pure offline rehearsal. Role selection is not multiuser authentication. */
+const ROLES = Object.freeze(getPublicBriefing('forty-visitors').roles.map(role=>({id:role.id,name:role.title,summary:role.publicMission})));
 const JOBS = {
     pa: { label: 'Sessiz PA hazırlığı', cost: 10, duration: 180, owner: 'R4', resource: 'technician' },
     keeper: { label: 'Güvenli erken bakım devri', cost: 5, duration: 120, owner: 'R7', resource: 'qualifiedCare' },
@@ -83,7 +519,7 @@ const ACTIONS = Object.freeze([
         meta(`cancel_${job}`, 'CANCEL_JOB', `${s.label}: iptal et`, ['R1', s.owner], 'Başlamış işin kredisi iade edilmez. İptal edilen iş yeniden başlatılamaz.', { job }, [NOTE])
     ]),
     meta('propose_pa', 'PROPOSE_PA_CHANGE', 'PA değişikliğini öner', ['R6'], 'R6 değişiklik sahibidir; bağımsız eğitmen onayı gerekir.', {}, [NOTE]),
-    meta('approve_pa', 'APPROVE_PA_CHANGE', 'PA değişikliğini bağımsız onayla', ['trainer'], 'Bütçe ve uygulama katılımcı rollerinde kalır.', {}, [NOTE]),
+    meta('approve_pa', 'APPROVE_PA_CHANGE', 'PA değişikliğini bağımsız onayla', [changeAuthorityFor('forty-visitors','pa')], 'Bütçe ve uygulama katılımcı rollerinde kalır.', {}, [NOTE]),
     meta('alternative_substitute', 'ACCEPT_ALTERNATIVE', 'Korsan’ı ikame olarak kabul et', ['R2'], 'Öğretmen farklı içerik ve erken zamanlamayı açıkça kabul eder; Mümtaz sözü anlaşmayla değiştirilir.', { mode: 'substitute' }, [NOTE]),
     meta('alternative_additional', 'ACCEPT_ALTERNATIVE', 'Korsan’ı ek deneyim olarak kabul et', ['R2'], 'Korsan ek içeriktir; Mümtaz sözü devam eder.', { mode: 'additional' }, [NOTE]),
     meta('offer_addon', 'OFFER_ADDON', 'Ek 80 kişilik kapsamı teklif et', ['R1'], 'Mevcut 80 kişilik program korunur. Yeni 10 kredilik atölye planı teklifi; henüz söz verilmiş değildir.', {}, [NOTE]),
@@ -804,7 +1240,7 @@ function serviceOrientation(state, compact=false) {
 }
 
 return {principles,improvementSteps};})();
-(()=>{const {ROLES,ACTIONS,createEpisode,dispatch,advance,getOutcome,getAvailableActions}=Engine;const {principles,improvementSteps}=Teaching;
+(()=>{const {ROLES,ACTIONS,createEpisode,dispatch,advance,getOutcome,getAvailableActions}=Engine;const {principles,improvementSteps}=Teaching;const {getPublicBriefing,getRoleBriefing,trainingContract}=Training;const {createPublicNarrator}=Narrator;
 
 const $ = selector => document.querySelector(selector);
 const e = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
@@ -823,7 +1259,24 @@ let activeDescriptor = null;
 let tickCarry = 0;
 let resumeAfterDialog = false;
 let modalPhase = null;
+let guideSession = 1;
+const narrator = createPublicNarrator({
+ onMessage:message=>{$('#guide-transcript').textContent=message.text;},
+ onStatus:info=>{
+  const modeText=info.mode==='human'?'Anlatım eğitmende.':info.mode==='paused'?'Anlatım susturuldu.':'Rehber hazır.';
+  const voiceText=info.voiceEnabled?'Cihaz sesi açık.':info.hasLocalVoice?'Yalnız metin.':'Bu cihazda yerel Türkçe ses bulunamadı; metinle devam edin.';
+  $('#guide-status').textContent=`${modeText} ${voiceText} Oyun saati ayrı yönetilir.`;
+  $('#guide-voice').textContent=info.voiceEnabled?'Sesi kapat':'Cihaz sesini aç';
+  $('#guide-voice').disabled=!info.voiceEnabled&&!info.hasLocalVoice;
+  $('#guide-repeat').disabled=!info.canRepeat;
+  if(info.note.startsWith('Cihaz sesi kullanılamadı')){$('#guide-error').textContent=info.note;$('#guide-error').hidden=false;}
+ }
+});
+function syncNarrator(){narrator.sync({sessionKey:`local-${guideSession}`,roleId:activeRole,phase:state.phase,paused:state.paused,welfareHeld:state.welfare.held,semanticRevision:state.nextLogId});}
+function guideAction(action){$('#guide-error').hidden=true;try{syncNarrator();action();}catch(error){$('#guide-error').textContent=({HUMAN_RESUME_REQUIRED:'Önce “Rehbere dön”ü seçin; eski anlatım kendiliğinden başlamaz.',NO_CURRENT_REPEAT:'Durum değişti. Tekrarlamak için güncel bir başlık seçin.',WELFARE_HOLD_ACTIVE:'Refah durdurması sürüyor. Önce yetkili bakım rolü devam koşulunu doğrulasın.',LOCAL_TURKISH_VOICE_UNAVAILABLE:'Yerel Türkçe ses yok; metni okuyarak devam edebilirsiniz.'})[error.message]||'Anlatım kullanılamadı; metinle ve eğitmenle devam edin.';$('#guide-error').hidden=false;}}
 
+
+// Role-local facts remain separate from the shared public training contract.
 const envelopes = {
  R1:{name:'Hizmet sahibi',points:['Toplam 20 kredi var. Bir işi yetkilendirmek harcama değildir; iş gerçekten başladığında bedeli düşer. Başlamış iş iptal edilirse bedeli geri gelmez.','İlk 40 ziyaretçinin mevcut sözü korunmalı. Sonraki 80 kişi için ek atölye 10 kredidir. Henüz o ek hizmete söz verilmedi.','Bütçe ve kapsamı sen yönetirsin. Teknik tamamlanma, öğretmenin ve ziyaretçinin kabulü yerine geçmez.'],question:'Hangi değeri koruyorsun, hangi isteğe henüz söz vermedin?'},
  R2:{name:'Hizmet masası ve müşteri',points:['Öğretmenin ilk 40 kişi için sözü: T10–T12 arasında iki dakikalık Mümtaz gözlemi. Öğrenme amacı Mümtaz’ın doğal davranışını gözlemek.','Zamanı veya içeriği değiştiriyorsanız öğretmenin açık kabulünü al. Korsan canlı gözlemdir ama Mümtaz içeriğine eşdeğer değildir; farklı içerik olarak ikame ya da yalnız ek etkinlik olabilir.','Sponsor T7’de ayrılır; fotoğraf ve T8’de duyuru ister. İstek kabul edilene kadar söz değildir. Sınıf fotoğrafı için ayrıca izin gerekir. Sessiz gözlemle çakışacak bir duyurunun saatini de açıkça müzakere et.'],question:'Bir tarafın isteği, diğerine verdiğimiz sözü değiştirmiş sayılır mı?'},
@@ -899,8 +1352,10 @@ function drawTimeline(){
  $('#timeline').innerHTML=`<div class="timeline"><div class="time-ruler"><span class="lane-label">Bölüm dakikası</span><div class="ruler-ticks">${[0,2,4,6,8,10,12].map(x=>`<span>${x}</span>`).join('')}</div></div>${lanes.map(l=>`<div class="time-lane"><div class="lane-label">${e(l.label)}</div><div class="lane-track">${bars(l.items)}</div></div>`).join('')}<div class="timeline-legend"><span>İlk söz</span><span>İstek / müzakere</span><span>Gerçek iş süresi</span></div><p class="muted" style="margin:10px 0 0">Kesikli sıradaki işler henüz harcama değildir. Geç başlangıç, bitişi de ileri taşır.</p></div>`;
 }
 function drawEnvelope(){
- const env=envelopes[activeRole]||envelopes.trainer;
- $('#role-envelope').innerHTML=envelopeOpen?`<div class="role-envelope"><div class="envelope-content"><h3>${e(activeRole==='trainer'?'Eğitmen':activeRole)} · ${e(env.name)}</h3><ul>${env.points.map(p=>`<li>${e(p)}</li>`).join('')}</ul><div class="envelope-question">${e(env.question)}</div><button class="text-button envelope-close" id="close-envelope">Zarfı kapat</button></div></div>`:`<div class="role-envelope"><div class="envelope-closed"><div class="role-stamp">${e(activeRole==='trainer'?'E':activeRole)}</div><h3>${e(env.name)}</h3><p>Bu rolün bildikleri, ekibin bütünü değil.</p><button class="button" id="open-envelope">Rol zarfını aç</button></div></div>`;
+ const privateEnvelope=envelopes[activeRole]||envelopes.trainer,brief=getRoleBriefing('forty-visitors',activeRole);
+ const env={...privateEnvelope,name:brief.title};
+ const identity=`<p class="muted"><b>Katılımcı:</b> ${e(activeRole==='trainer'?'Eğitmen':activeRole)} · ${e(brief.personTitle)}<br><b>Bu bölümdeki görev:</b> ${e(brief.title)}</p>`;
+ $('#role-envelope').innerHTML=envelopeOpen?`<div class="role-envelope"><div class="envelope-content"><h3>${e(activeRole==='trainer'?'Eğitmen':activeRole)} · ${e(env.name)}</h3>${identity}<p><b>İlk adımın:</b> ${e(brief.firstAction)}</p><ul>${env.points.map(p=>`<li>${e(p)}</li>`).join('')}</ul><div class="envelope-question">${e(env.question)}</div><details><summary>Görevim ve yetki sınırım</summary><p>${e(brief.publicAuthorityBoundary)}</p><p>${e(trainingContract.identity.processHat)}</p>${brief.ownedCiIds.length?`<p>42 dakikalık ana eğitimdeki sahiplik kartların: ${e(brief.ownedCiIds.join(' · '))}. Bu kısa bölüm bu kartlar için ayrıca takip işlemi açmaz.</p>`:''}</details><button class="text-button envelope-close" id="close-envelope">Zarfı kapat</button></div></div>`:`<div class="role-envelope"><div class="envelope-closed"><div class="role-stamp">${e(activeRole==='trainer'?'E':activeRole)}</div><h3>${e(env.name)}</h3>${identity}<p>Bu rolün bildikleri, ekibin bütünü değil.</p><button class="button" id="open-envelope">Rol zarfını aç</button></div></div>`;
  $('#open-envelope')?.addEventListener('click',()=>{envelopeOpen=true;drawEnvelope();});
  $('#close-envelope')?.addEventListener('click',()=>{envelopeOpen=false;drawEnvelope();});
 }
@@ -923,6 +1378,7 @@ function drawLog(){
  $('#event-log').innerHTML=logs.length?logs.map(l=>`<li><time>${mm(l.time??l.at??0)}</time><div><strong>${e(roleName(l.role))}</strong><p>${e(l.text||l.message||l.type)}</p>${l.note?`<p>${e(l.note)}</p>`:''}</div></li>`).join(''):'<li class="empty">Henüz karar yok. Rol bilgilerini paylaşın; ilk hamle zaman tahtasında iz bırakacak.</li>';
 }
 function render(){
+ syncNarrator();
  $('#clock').textContent=mm(state.phase==='play'?state.clock:state.debriefClock??state.debriefElapsed??0);
  $('#clock-label').textContent=state.phase==='play'?'YEREL BÖLÜM SAATİ':'DEĞERLENDİRME SAATİ';
  $('#phase').textContent=state.phase==='complete'?'Tamamlandı':state.phase!=='play'?'Değerlendirme':state.paused?(state.clock===0?'Hazır':'Duraklatıldı'):'Çalışıyor';
@@ -942,7 +1398,7 @@ function render(){
  }
  renderedPhase=state.phase;
 }
-function openModal(content){resumeAfterDialog=!state.paused&&state.phase!=='complete';modalPhase=state.phase;if(resumeAfterDialog){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();}$('#modal-content').innerHTML=`<div class="modal-inner">${content}</div>`;$('#modal').showModal();$('#modal-content').querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#modal').close()));}
+function openModal(content){narrator.interrupt('Pencere açıldı; anlatım kesildi.');resumeAfterDialog=!state.paused&&state.phase!=='complete';modalPhase=state.phase;if(resumeAfterDialog){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();}$('#modal-content').innerHTML=`<div class="modal-inner">${content}</div>`;$('#modal').showModal();$('#modal-content').querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>$('#modal').close()));}
 function modalTop(title){return `<div class="modal-top"><h2 id="modal-title">${e(title)}</h2><button class="close-button" data-close aria-label="Pencereyi kapat">×</button></div>`;}
 function renderField(f){
  const selected=f.default??'';
@@ -954,7 +1410,7 @@ function renderField(f){
 }
 function openAction(a){
  activeDescriptor=a;
- openModal(`${modalTop(a.label)}<p>${e(a.description||'Kararını kaydet ve etkisini ortak tahtada izle.')}</p><div class="callout">${e(activeRole==='trainer'?'Bağımsız eğitmen kararı':`${activeRole} · ${envelopes[activeRole]?.name||roleName(activeRole)}`)} · Pencere açıkken saat durur; kapanınca önceki duruma döner.</div><form id="action-form"><div class="form-fields">${(a.fields||[]).map(renderField).join('')}</div><div id="action-error" hidden class="form-error" role="alert"></div><p class="privacy-note">Yalnız kurgusal oyun bilgisi kullanın. Gerçek kişi bilgisi girmeyin.</p><div class="modal-buttons"><button type="button" class="button" data-close>Vazgeç</button><button type="submit" class="button primary">Kararı uygula</button></div></form>`);
+ openModal(`${modalTop(a.label)}<p>${e(a.description||'Kararını kaydet ve etkisini ortak tahtada izle.')}</p><div class="callout">${e(activeRole==='trainer'?'Bağımsız eğitmen kararı':`${activeRole} · ${roleName(activeRole)}`)} · Pencere açıkken saat durur; kapanınca önceki duruma döner.</div><form id="action-form"><div class="form-fields">${(a.fields||[]).map(renderField).join('')}</div><div id="action-error" hidden class="form-error" role="alert"></div><p class="privacy-note">Yalnız kurgusal oyun bilgisi kullanın. Gerçek kişi bilgisi girmeyin.</p><div class="modal-buttons"><button type="button" class="button" data-close>Vazgeç</button><button type="submit" class="button primary">Kararı uygula</button></div></form>`);
  $('#action-form').addEventListener('submit',event=>{
   event.preventDefault();
   if(!activeDescriptor)return;
@@ -965,9 +1421,13 @@ function openAction(a){
   catch(error){$('#action-error').hidden=false;$('#action-error').textContent=error.message;}
  });
 }
-function help(){openModal(`${modalTop('Hizmeti birlikte kurun')}<p>12 dakikada, ilk 40 kişiye verilen sözü ve kaynakları birlikte yönetin. Tek bir doğru yol seçmeniz istenmiyor; kararlarınızın sonuçlarını yaşayacaksınız.</p><ol><li>Bir rol seçin, zarfını açın. Ekipçe oynuyorsanız o rolün sahibi bilgiyi masaya getirsin.</li><li>Üstteki saati başlatın. Bir işi sıraya almak, onaylamak, bitirmek ve hizmeti kabul etmek aynı şey değildir.</li><li>Diğer rollerle anlaşın; doğru role geçip ilgili işlemi uygulayın. Bütün işlemler tek cihazda simüle edilir.</li><li>1× gerçek zamanla oynayın veya prova için +15 sn / +30 sn kullanın. Saati ileri almak son tarihleri de ilerletir. Karar ve bilgi pencereleri açıkken saat durur; kapatınca önceki durumuna döner.</li><li>Bölüm bitince 3 dakikalık değerlendirmede sonuçların nedenlerine bakın. İnsanlara puan verilmez.</li></ol><div class="callout">Sağdaki rol değişimi güvenli kullanıcı hesabı değildir. Zarflar aynı ekranda bilerek açılır. Sekme gizlenirse oyun otomatik duraklar; sayfa yenilenirse ilerleme kaybolur.</div><div class="modal-buttons"><button class="button primary" data-close>Anladım</button></div>`);}
+function trainingIntro(){
+ const b=getPublicBriefing('forty-visitors');
+ return `<div data-training-contract="${e(b.version)}"><p>${e(b.fiction)}</p><p><b>İlk işimiz:</b> ${e(b.firstAction)}</p><details><summary>${b.rules.length} kısa kural</summary><ol>${b.rules.map(rule=>`<li>${e(rule)}</li>`).join('')}</ol>${b.conditions.map(line=>`<p>${e(line)}</p>`).join('')}<p>${e(b.identity.transition)}</p></details></div>`;
+}
+function help(){openModal(`${modalTop('Hizmeti birlikte kurun')}${trainingIntro()}<p>1× gerçek zamanla oynayın veya prova için +15 sn / +30 sn kullanın. Saati ileri almak son tarihleri de ilerletir. Karar ve bilgi pencereleri açıkken saat durur; kapatınca önceki durumuna döner.</p><div class="callout">Sağdaki rol değişimi güvenli kullanıcı hesabı değildir. Zarflar aynı ekranda bilerek açılır. Sekme gizlenirse oyun otomatik duraklar; sayfa yenilenirse ilerleme kaybolur.</div><div class="modal-buttons"><button class="button primary" data-close>Anladım</button></div>`);}
 function confirmEnd(){openModal(`${modalTop('Bölümü burada bitir?')}<p>Devam eden işler ve gözlemler tamamlanmış sayılmaz. Şu ana kadarki kararlarla değerlendirmeye geçilir; oyun saati geri alınmaz.</p><div class="modal-buttons"><button class="button" data-close>Devam et</button><button class="button primary" id="confirm-end">Bitir ve değerlendir</button></div>`);$('#confirm-end').addEventListener('click',()=>{if(send({type:'END_SESSION',role:'trainer'}))$('#modal').close();});}
-function confirmReset(){openModal(`${modalTop('Yeni bir prova başlat?')}<p>Bu açık sekmedeki kararlar silinir ve bütçe yeniden 20 kredi olur. Saklamak istersen önce karar kaydını indir.</p><div class="modal-buttons"><button class="button" data-close>Vazgeç</button><button class="button primary" id="confirm-reset">Sıfırla ve yeniden başla</button></div>`);$('#confirm-reset').addEventListener('click',()=>{resumeAfterDialog=false;tickCarry=0;state=createEpisode();activeRole='R1';envelopeOpen=false;activeDescriptor=null;speed=1;$('#speed').value='1';$('#role').value='R1';renderedPhase='play';lastTick=performance.now();$('#modal').close();drawEnvelope();setNotice('Yeni prova hazır. Önceki kararlar bu sekmeden temizlendi.');render();window.scrollTo({top:0,behavior:'smooth'});});}
+function confirmReset(){openModal(`${modalTop('Yeni bir prova başlat?')}<p>Bu açık sekmedeki kararlar silinir ve bütçe yeniden 20 kredi olur. Saklamak istersen önce karar kaydını indir.</p><div class="modal-buttons"><button class="button" data-close>Vazgeç</button><button class="button primary" id="confirm-reset">Sıfırla ve yeniden başla</button></div>`);$('#confirm-reset').addEventListener('click',()=>{resumeAfterDialog=false;tickCarry=0;narrator.reset();guideSession++;state=createEpisode();activeRole='R1';envelopeOpen=false;activeDescriptor=null;speed=1;$('#speed').value='1';$('#role').value='R1';renderedPhase='play';lastTick=performance.now();$('#modal').close();drawEnvelope();setNotice('Yeni prova hazır. Önceki kararlar bu sekmeden temizlendi.');render();window.scrollTo({top:0,behavior:'smooth'});});}
 function exportLog(){
  const output={episode:'Kırk Kişilik Söz',version:'1.0.0',mode:'single_device_offline_simulation_not_multiplayer',exportedAt:new Date().toISOString(),state,outcome:getOutcome(state),limitations:['Tek cihaz, rol değişimi simülasyonu; gerçek kimlik doğrulama yok.','İnsan öğrenmesi veya performansı ölçülmez.','Niles veya başka bir sistemle bağlantı yok.']};
  const blob=new Blob([JSON.stringify(output,null,2)],{type:'application/json;charset=utf-8'});
@@ -988,9 +1448,18 @@ function reference(kind){
  $('#modal').classList.add('reference-dialog');
 }
 
+for(const kind of ['opening','role','conditions','rules'])$(`#guide-${kind}`).addEventListener('click',()=>guideAction(()=>narrator.speak(kind)));
+$('#guide-pause').addEventListener('click',()=>guideAction(()=>narrator.pause()));
+$('#guide-takeover').addEventListener('click',()=>guideAction(()=>narrator.takeover()));
+$('#guide-resume').addEventListener('click',()=>guideAction(()=>narrator.resume()));
+$('#guide-repeat').addEventListener('click',()=>guideAction(()=>narrator.repeat()));
+$('#guide-voice').addEventListener('click',()=>guideAction(()=>narrator.inspect().voiceEnabled?narrator.disableVoice():narrator.enableVoice()));
+if(globalThis.speechSynthesis?.addEventListener)globalThis.speechSynthesis.addEventListener('voiceschanged',()=>narrator.refreshVoices());
+if(globalThis.addEventListener)globalThis.addEventListener('pagehide',()=>narrator.pause());
+$('#training-intro').innerHTML=trainingIntro();
 $('#role').innerHTML=ROLES.map(r=>`<option value="${e(r.id)}">${e(r.id==='trainer'?'Eğitmen':r.id)} · ${e(r.name)}</option>`).join('');
 $('#role').value=activeRole;
-$('#role').addEventListener('change',event=>{activeRole=event.target.value;envelopeOpen=false;activeDescriptor=null;if($('#modal').open)$('#modal').close();drawEnvelope();drawActions();});
+$('#role').addEventListener('change',event=>{narrator.interrupt('Rol değişti; önceki anlatım kesildi.');activeRole=event.target.value;envelopeOpen=false;activeDescriptor=null;if($('#modal').open)$('#modal').close();drawEnvelope();drawActions();syncNarrator();});
 $('#toggle-clock').addEventListener('click',()=>{send({type:state.paused?'RESUME':'PAUSE',role:'trainer'});lastTick=performance.now();});
 document.querySelectorAll('[data-step]').forEach(button=>button.addEventListener('click',()=>{
  try{const wasPaused=state.paused;if(wasPaused)state=dispatch(state,{type:'RESUME',role:'trainer'});state=advance(state,Number(button.dataset.step));if(wasPaused&&!state.paused&&state.phase!=='complete')state=dispatch(state,{type:'PAUSE',role:'trainer'});lastTick=performance.now();render();setNotice(`Bölüm saati ${button.dataset.step} saniye ilerletildi. Son tarihler ve kaynak işleri de ilerledi.`);}
@@ -1000,7 +1469,7 @@ $('#speed').addEventListener('change',event=>{speed=Number(event.target.value);l
 $('#help').addEventListener('click',help);document.querySelectorAll('[data-reference]').forEach(b=>b.addEventListener('click',()=>reference(b.dataset.reference)));$('#end').addEventListener('click',confirmEnd);$('#reset').addEventListener('click',confirmReset);$('#export').addEventListener('click',exportLog);
 $('#modal').addEventListener('close',()=>{$('#modal').classList.remove('reference-dialog');activeDescriptor=null;if(resumeAfterDialog&&state.paused&&state.phase===modalPhase&&state.phase!=='complete'){state=dispatch(state,{type:'RESUME',role:'trainer'});render();}resumeAfterDialog=false;modalPhase=null;tickCarry=0;lastTick=performance.now();});
 $('#modal').addEventListener('click',event=>{if(event.target===$('#modal')){const r=$('#modal').getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)$('#modal').close();}});
-document.addEventListener('visibilitychange',()=>{lastTick=performance.now();if(document.hidden&&!state.paused&&state.phase!=='complete'){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();setNotice('Sekme görünür olmadığı için saat duraklatıldı. Hazır olduğunuzda sürdürün.');}});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)narrator.pause();lastTick=performance.now();if(document.hidden&&!state.paused&&state.phase!=='complete'){state=dispatch(state,{type:'PAUSE',role:'trainer'});render();setNotice('Sekme görünür olmadığı için saat duraklatıldı. Hazır olduğunuzda sürdürün.');}});
 setInterval(()=>{const now=performance.now();const elapsed=Math.min(2,(now-lastTick)/1000);lastTick=now;if(state.paused||state.phase==='complete'||document.hidden){tickCarry=0;return;}tickCarry+=elapsed*speed;const seconds=Math.floor(tickCarry);if(!seconds)return;tickCarry-=seconds;try{state=advance(state,seconds);render();}catch(error){if(!state.paused)state=dispatch(state,{type:'PAUSE',role:'trainer'});setNotice(error.message,'error');render();}},250);
 // Explicit test seam: synthetic tests can inspect state; no network, account or persistent storage.
 function inspectEpisode(){return structuredClone(state);}

@@ -18,7 +18,10 @@
     "build:forty": "node scripts/build-forty-episode.mjs",
     "test:forty": "node --test test/forty-*.test.js",
     "test:forty:independent": "node --test test/independent-forty/*.test.mjs",
-    "replay:forty": "node scripts/replay-forty-scenarios.mjs"
+    "replay:forty": "node scripts/replay-forty-scenarios.mjs",
+    "build:training-contract": "node scripts/build-training-contract.mjs",
+    "test:training-contract": "node --test test/forty-training-contract.test.js",
+    "test:narrator": "node --test test/narrator-*.test.js"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",
