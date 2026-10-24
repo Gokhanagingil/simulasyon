@@ -1,5 +1,7 @@
 # Mavi Vadi · ITSM Operasyon Günü
 
+24 Ekim 2026: **Kırk Kişilik Söz**, önceki pilotun hesap, veritabanı ve çalışma akışını değiştirmeyen ayrı tek cihazlık eğitim bölümüdür. `/forty-visitors.html` veya `delivery/forty/Mavi_Vadi_Kirk_Kisilik_Soz.html` ile açılır. [Kullanım ve sınırlar](docs/FORTY-VISITORS-TR.md); [bu PR kaynağının doğrulaması](docs/FORTY-GITHUB-VALIDATION.md).
+
 Ayrı bir hayvanat bahçesi hizmet yönetimi atölyesi. Bu klasör GRC uygulamasının yerini almaz; kendi Site kimliği ve veritabanıyla çalışır.
 
 ## Kullanım

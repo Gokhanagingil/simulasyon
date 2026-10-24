@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Mavi Vadi: Kırk Kişilik Söz. 12 dakikalık rol ve hizmet kararı simülasyonu.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>Kırk Kişilik Söz · Mavi Vadi</title>
+<link rel="stylesheet" href="./forty-visitors.css">
+</head>
+<body>
+<a class="skip-link" href="#operations">Karar masasına geç</a>
+<div class="app-shell">
+<header class="masthead">
+<a href="#" class="brand" aria-label="Mavi Vadi başlangıç"><svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 29 15 10l8 13 6-9 7 15" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 34h28" stroke="currentColor" stroke-width="2"/></svg><span>MAVİ VADİ<small>HİZMET KARAR LABORATUVARI</small></span></a>
+<div class="masthead-right"><span class="mode-pill">Tek cihaz · çevrimdışı prova</span><button class="text-button" id="help">Nasıl oynanır?</button></div>
+</header>
+<main>
+<section class="hero" aria-labelledby="episode-title">
+<div class="hero-copy"><div class="eyebrow">BÖLÜM 01 · 12 DAKİKA OYUN + 3 DAKİKA DEĞERLENDİRME</div><h1 id="episode-title">Kırk Kişilik Söz<span>Bir söz. Bir ekip. Daralan zaman.</span></h1><p>Öğretmen Mümtaz’ı gözlemlemek için geldi. Sponsor erken ayrılacak. Sekiz rolün bilgisi, aynı hizmetin farklı parçalarını taşıyor.</p></div>
+<div class="hero-mark" aria-hidden="true"><span>40</span><small>İLK ZİYARETÇİ<br>AYNI HİZMET SÖZÜ</small></div>
+</section>
+<nav class="reference-nav" aria-label="Tek tık öğrenme başvuruları"><span>OYUNU TERK ETMEDEN</span><button data-reference="principles" aria-haspopup="dialog">7 Yol Gösterici İlke ↗</button><button data-reference="improvement" aria-haspopup="dialog">Sürekli İyileştirme ↗</button></nav>
+<section class="control-deck" aria-label="Bölüm kontrolleri">
+<div class="clock-panel"><span class="eyebrow" id="clock-label">YEREL BÖLÜM SAATİ</span><div><strong id="clock">00:00</strong><span id="phase" class="status-tag">Hazır</span></div><span id="time-remaining">12:00 oyun süresi</span></div>
+<div class="play-controls"><button class="button primary" id="toggle-clock">Oyunu başlat</button><div class="step-controls" aria-label="Elle süre ilerlet"><button class="button small" data-step="15">+15 sn</button><button class="button small" data-step="30">+30 sn</button><button class="button small" data-step="60">+1 dk</button></div></div>
+<label class="speed-control">Saat hızı<select id="speed"><option value="1">1× Gerçek zaman</option><option value="3">3× Prova</option><option value="6">6× Prova</option></select></label>
+<div class="control-end"><button class="text-button" id="end">Bölümü bitir</button><button class="text-button" id="reset">Yeniden başla</button></div>
+</section>
+<div id="announcement" class="notice" role="status" aria-live="polite">Bilgi rol zarflarında. Önce rolünü seç, sonra saati başlat. Ekipçe aynı ekranı paylaşabilir veya rolleri tek başına deneyebilirsin.</div>
+<section class="metrics-grid" aria-label="Anlık kaynaklar" id="metrics"></section>
+<div class="workspace">
+<div class="left-column">
+<section class="panel live-panel" aria-labelledby="park-title"><div class="panel-heading"><div><span class="eyebrow">CANLI DURUM</span><h2 id="park-title">Sahada neler oluyor?</h2></div><span class="live-dot" id="live-status">Bölüm bekliyor</span></div><div id="park-scene"></div><div id="situation" class="situation-grid"></div></section>
+<section class="panel timeline-panel" aria-labelledby="timeline-title"><div class="panel-heading"><div><span class="eyebrow">AYNI SAAT, FARKLI BEKLENTİLER</span><h2 id="timeline-title">Zaman tahtası</h2></div><span class="muted">T0 → T12</span></div><div id="timeline"></div></section>
+<section class="panel log-panel" aria-labelledby="log-title"><div class="panel-heading"><div><span class="eyebrow">NE YAPTIK, NE DEĞİŞTİ?</span><h2 id="log-title">Karar akışı</h2></div><button class="text-button" id="export">Kaydı indir</button></div><ol id="event-log" class="event-log"></ol></section>
+</div>
+<aside class="right-column" id="operations" tabindex="-1" aria-label="Rol ve karar masası">
+<section class="panel role-panel"><div class="panel-heading"><div><span class="eyebrow">MASADAKİ ROLÜN</span><h2>Bilgini masaya getir</h2></div></div><label class="select-role">Şu anda kim karar veriyor?<select id="role" aria-label="Etkin rol"></select></label><div id="role-envelope"></div><div class="role-footnote">Rol değişimi bir prova aracıdır. Kimlik doğrulama veya kişiye özel gizlilik sağlamaz.</div></section>
+<section class="panel action-panel"><div class="panel-heading"><div><span class="eyebrow">KARAR MASASI</span><h2 id="actions-title">Bu rolün hamleleri</h2></div></div><div id="actions"></div></section>
+<section class="panel shared-panel"><div class="panel-heading"><div><span class="eyebrow">ORTAK TAHTA</span><h2>Sözler ve sınırlar</h2></div></div><div id="commitments"></div></section>
+</aside>
+</div>
+<section id="debrief" hidden class="debrief panel" aria-labelledby="debrief-title"></section>
+<footer class="footer"><p>Bu kurgusal bölümde hayvan refahı, yetkin bakım ve güvenlik pazarlık konusu değildir. Hiçbir kaynak harcaması bu koşulları satın alamaz.</p><p>Veriler yalnız bu açık sekmenin belleğinde tutulur. Gerçek kişi bilgisi girmeyin. Gerçek çok kullanıcılı oturum, Niles bağlantısı veya insan öğrenme ölçümü değildir.</p></footer>
+</main>
+</div>
+<dialog id="modal" aria-labelledby="modal-title"><div id="modal-content"></div></dialog>
+<script type="module" src="./forty-ui.js"></script>
+</body></html>
